@@ -1,0 +1,9 @@
+language: java
+
+jdk:
+  -openjdk14
+
+script: ./mvnw clean install
+
+notifications:
+  email: glushkov18@gmail.com
