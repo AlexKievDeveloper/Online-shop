@@ -1,9 +1,14 @@
 language: java
 
+sudo: false
+
 jdk:
   -openjdk14
 
 script: ./mvnw clean install
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: glushkov18@gmail.com
