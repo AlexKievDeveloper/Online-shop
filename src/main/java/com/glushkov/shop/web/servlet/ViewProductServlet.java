@@ -11,13 +11,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditProductServlet extends HttpServlet {
+public class ViewProductServlet extends HttpServlet {
     private final ProductService productService;
 
-    public EditProductServlet(ProductService productService) {
+    public ViewProductServlet(ProductService productService) {
         this.productService = productService;
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
         Product product = productService.findById(Integer.parseInt(request.getParameter("id")));
@@ -26,19 +27,7 @@ public class EditProductServlet extends HttpServlet {
         putProductFieldsIntoParameterMap(product, productMap);
 
         response.setContentType("text/html;charset=utf-8");
-        pageGenerator.process("/product", productMap, response.getWriter());
-    }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Product product = new Product();
-        product.setId(Integer.parseInt(request.getParameter("id")));
-        product.setName(request.getParameter("name"));
-        product.setDescription("description");
-        product.setImage(request.getParameter("image"));
-        product.setPrice(Double.parseDouble(request.getParameter("price")));
-
-        productService.update(product);
-        response.sendRedirect("/home");
+        pageGenerator.process("/view", productMap, response.getWriter());
     }
 
     private void putProductFieldsIntoParameterMap(Product product, Map<String, Object> parameters) {

@@ -13,7 +13,7 @@ public class ProductRowMapper {
         product.setName(resultSet.getString("name"));
         product.setPrice(resultSet.getDouble("price"));
         product.setDescription(resultSet.getString("description"));
-        product.setImage(resultSet.getBytes("image"));
+        product.setImage(resultSet.getString("image"));
 
         return product;
     }

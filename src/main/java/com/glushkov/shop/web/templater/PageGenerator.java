@@ -1,34 +1,39 @@
 package com.glushkov.shop.web.templater;
 
-import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.Thymeleaf;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.io.Writer;
 import java.util.Map;
 
 public class PageGenerator {
-
     private static PageGenerator pageGenerator;
+    private final TemplateEngine templateEngine;
 
     public static PageGenerator instance() {
-        if (pageGenerator == null)
+        if (pageGenerator == null) {
             pageGenerator = new PageGenerator();
+        }
         return pageGenerator;
     }
-//Получить шаблон из файла
-//Записать в шаблон те строки которые нам нужны
-//Получить строку с готовой страницей, записать её в response
-    public String getPage(String filename, Map<String, Object> pageVariables) {
 
+    public void process(String template, Map<String, Object> paramsMap, Writer writer) {
+        Context context = new Context();
+        context.setVariables(paramsMap);
 
-
-        return null;//*template.process(pageVariables)*//* templateGenerator.process(filename, pageVariables).getContent();
+        templateEngine.process(template, context, writer);
     }
 
-/*
-   private PageGenerator() {
-        cfg = new Configuration("/templates");
+    public PageGenerator() {
+        templateEngine = new TemplateEngine();
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setPrefix("webapp/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setCacheable(false);
+        templateEngine.setTemplateResolver(templateResolver);
     }
-*/
 }

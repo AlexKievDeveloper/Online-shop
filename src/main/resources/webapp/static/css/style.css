@@ -1,0 +1,363 @@
+/*Specification*/
+
+ul, li {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+/*Header*/
+
+.header {
+    background: url("../img/wheel-2k.jpg");
+    padding-top: 85px;
+    padding-bottom: 85px;
+    color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-bottom-color: white;
+}
+
+.first_container {
+    margin-top: 50px;
+}
+
+.slogan {
+    margin-left: 50px;
+    text-align: center;
+    font-family: Niconne, sans-serif;
+    font-size: 25px;
+}
+
+.search {
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.menu_button {
+    display: block;
+    height: 60px;
+    background: #33cccc;
+    padding: 5px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.menu_button i:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.menu-text {
+    color: white;
+}
+
+.menu {
+    margin-top: 35px;
+}
+
+.menu__item {
+    margin: 0 15px;
+}
+
+.menu__item a {
+    font-size: 22px;
+    font-weight: 700;
+    color: black;
+}
+
+.button {
+    display: block;
+    width: 100px;
+    height: 45px;
+    background: #33cccc;
+    padding: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.button i:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.input-field {
+    width: 300px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    opacity: 0.6;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    height: 45px;
+    padding-left: 10px;
+}
+
+/*Home screen second section(Slider)*/
+.main_section {
+    background: url("../img/beach-last-last.jpg");
+    min-height: 1000px;
+}
+
+.slider-container {
+    padding-top: 20px;
+}
+
+.slider {
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    padding: 40px;
+    height: 1053px;
+}
+
+.slogan-slider {
+    text-align: center;
+    font-family: Niconne, sans-serif;
+    font-size: 50px;
+}
+
+.slider-info {
+    padding: 10px;
+    font-size: 25px;
+    text-align: justify;
+}
+
+.title-bold {
+    font-weight: bold;
+}
+
+.item-text {
+    font-family: 'Libre Baskerville', serif;
+    text-align: center;
+    height: 280px;
+    width: 1050px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.item-image {
+    width: 1050px;
+    height: 682px;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+}
+
+/*Home screen third section (Catalog)*/
+.third-section {
+    margin-top: 20px;
+    padding: 40px;
+}
+
+.catalog {
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+}
+
+.catalog__header {
+    text-align: center;
+    color: white;
+    font-size: 36px;
+}
+
+.catalog__header_h2 {
+    font-size: 46px;
+}
+
+.catalog__item {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.position {
+    margin-top: 10px;
+    margin-left: 33px;
+    margin-bottom: 15px;
+}
+
+.position__name {
+    margin-bottom: 5px;
+    width: 300px;
+    font-size: 30px;
+    font-family: Niconne, sans-serif;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    color: white;
+}
+
+.position__image {
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+.position__description {
+    width: 200px;
+    font-size: 25px;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.position__button {
+    display: block;
+    width: 180px;
+    height: 45px;
+    background-color: rgba(51, 204, 204, 0.7);
+    padding: 5px;
+    margin: 5px 60px 0 60px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    color: ghostwhite;
+    font-weight: bold;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.position__button a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.color-white {
+    color: white;
+}
+
+/*Footer*/
+.footer {
+    background: url("../img/ocean-new.jpg");
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+}
+
+.footer_header {
+    margin-top: 10px;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: white;
+    background-color: rgba(51, 204, 204, 0.7);
+}
+
+.footer-text {
+    text-align: center;
+    color: white;
+    font-size: 23px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: white;
+    background-color: rgba(51, 204, 204, 0.7);
+}
+
+.icons {
+    margin-left: 43%;
+}
+
+.icons__item {
+    margin-right: 30px;
+}
+
+.icons__item a {
+    color: white;
+    font-size: 42px;
+    transition: all 0.3s ease;
+}
+
+.icons__item a:hover {
+    text-decoration: none;
+    color: #03ffff;
+}
+
+.credits {
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+
+
+/*Edit screen*/
+.edit_position {
+    margin-top: 10px;
+    margin-left: 37%;
+}
+
+.edit_name {
+    margin-bottom: 5px;
+    width: 300px;
+    font-size: 30px;
+    font-family: Niconne, sans-serif;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: black;
+}
+
+.edit_price {
+    width: 180px;
+    height: 45px;
+    background-color: ghostwhite;
+    padding: 5px;
+    margin: 5px 60px 0 60px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.edit-item {
+    margin: 0 10px;
+}
+
+.form_edit {
+    display: block;
+}
+
+/*About screen*/
+.text-first-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-family: "URW Chancery L", sans-serif;
+}
+
+
+
+

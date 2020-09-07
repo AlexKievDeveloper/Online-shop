@@ -37,7 +37,7 @@ public class JdbcProductDao implements ProductDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (!resultSet.next()) {
-                    throw new RuntimeException("More than one row found");
+                    throw new RuntimeException("No data found for id: " + id);
                 }
 
                 if (!resultSet.isLast()) {//TODO resultSet.next() изменит резалт сет и появится ошибка: нет данных
@@ -97,7 +97,7 @@ public class JdbcProductDao implements ProductDao {
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
             preparedStatement.setString(3, product.getDescription());
-            preparedStatement.setBytes(4, product.getImage());
+            preparedStatement.setString(4, product.getImage());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Error while saving product to database", e);
@@ -113,7 +113,7 @@ public class JdbcProductDao implements ProductDao {
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
             preparedStatement.setString(3, product.getDescription());
-            preparedStatement.setBytes(4, product.getImage());
+            preparedStatement.setString(4, product.getImage());
             preparedStatement.setInt(5, product.getId());
             preparedStatement.execute();
 
@@ -130,9 +130,9 @@ public class JdbcProductDao implements ProductDao {
 
             preparedStatement.setInt(1, productId);
             preparedStatement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             logger.error("Error while deleting product from database by id: {}", productId);
-            throw new RuntimeException("Error while deleting product from database by id: ".concat(String.valueOf(productId)),  e);
+            throw new RuntimeException("Error while deleting product from database by id: ".concat(String.valueOf(productId)), e);
         }
     }
 }

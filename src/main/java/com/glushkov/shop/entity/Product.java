@@ -1,20 +1,16 @@
 package com.glushkov.shop.entity;
 
-import java.io.InputStream;
-
 public class Product {
-    //Каждый продукт содержит
-    //имя, цену, описание, картинку. Мб что то еще по желанию.
     private int id;
     private String name;
     private double price;
     private String description;
-    private byte[] image;
+    private String image;
 
     public Product() {
     }
 
-    public Product(String name, double price, String description, byte[] image) {
+    public Product(String name, double price, String description, String image) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -51,11 +47,11 @@ public class Product {
         this.description = description;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

@@ -16,10 +16,12 @@ public class DefaultErrorHandler extends ErrorPageErrorHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected void generateAcceptableResponse(Request baseRequest, HttpServletRequest request, HttpServletResponse response, int code, String message, String mimeType)
-            throws IOException {
+    protected void generateAcceptableResponse(Request baseRequest, HttpServletRequest request, HttpServletResponse response,
+                                              int code, String message, String mimeType) throws IOException {
 
         Map<String, Object> parameterMap = new HashMap<>();
+
+        PageGenerator pageGenerator = PageGenerator.instance();
 
         String servletName = (String) request.getAttribute("javax.servlet.error.servlet_name");
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
@@ -33,6 +35,8 @@ public class DefaultErrorHandler extends ErrorPageErrorHandler {
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        response.getWriter().println(PageGenerator.instance().getPage("/error.html", parameterMap));
+
+
+        pageGenerator.process("/error.html", parameterMap, response.getWriter());
     }
 }

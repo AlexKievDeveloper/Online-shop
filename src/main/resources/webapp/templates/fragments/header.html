@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="head(title)">
+    <head>
+        <title th:text="${title}">Stylo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="icon" href="/img/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon"/>
+
+        <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/35950de255.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+
+
+    <body>
+    <header id="header" class="header">
+        <div class="container first_container">
+            <div class="row">
+                <p class="slogan">Write your own history</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 logo_block">
+                    <a href="/home">
+                        <img id="logo" src="/img/aqua-logo.jpg" alt="logo">
+                    </a>
+                </div>
+
+                <div class="col-lg-5 search">
+                    <nav>
+                        <form action="/search" method="GET" class="form-inline">
+                            <ul class="d-flex justify-content-center">
+                                <li>
+                                    <input type="text" placeholder="Find pen" name="enteredName" id="searchInput"
+                                           class="input-field">
+                                </li>
+                                <li>
+                                    <input class="button" type="submit" value="Search">
+                                </li>
+                            </ul>
+                        </form>
+                    </nav>
+                </div>
+
+                <div class="col-lg-3 menu_block">
+                    <nav>
+                        <ul class="menu d-flex justify-content-center">
+                            <li class="menu__item">
+                                <a href="/home" class="menu_button">
+                                    <i class="fas fa-user menu-text"> Profile</i>
+                                </a>
+                            </li>
+                            <li class="menu__item">
+                                <a href="/about" class="menu_button">
+                                    <i class="fas fa-book-open menu-text"> About</i>
+                                </a>
+                            </li>
+                            <li class="menu__item">
+                                <a href="/home" class="menu_button">
+                                    <i class="fas fa-shopping-cart menu-text"> Cart</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+</th:block>
