@@ -28,6 +28,6 @@ public class AllProductsServlet extends HttpServlet {
         map.put("products", productList);
 
         PageGenerator pageGenerator = PageGenerator.instance();
-        pageGenerator.process("/index.html", map, response.getWriter());
+        pageGenerator.process("/index", map, response.getWriter());
     }
 }

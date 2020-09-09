@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/header.html :: head(title='Stylo-Add')}"></div>
+
+<section>
+    <div class="main_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form action="/add" enctype="multipart/form-data" method="POST">
+                    <div class="edit_position text-style">
+                        <p class="text-margin">Write product name:</p>
+                        <input type="text" class="edit_name" name="name" required>
+                    </div>
+                    <div class="edit_position text-style">
+                        <p class="text-margin">Download product photo:</p>
+                        <p><input type="file" name="image" multiple accept="image/*,image/jpeg,image/png" required lang="en">
+                    </div>
+                    <div class="edit_position text-style">
+                        <p class="text-margin">Write product price:</p>
+                        <input type="text" class="edit_price" name="price" required>
+                    </div>
+                    <div class="edit_position">
+                        <button class="menu_button  add_button_style">
+                            <i class="fas fa-plus menu-text"> Add</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<div th:replace="~{/fragments/footer.html :: foot}"></div>
+</body>
+</html>

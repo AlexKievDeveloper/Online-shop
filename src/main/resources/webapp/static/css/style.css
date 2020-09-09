@@ -358,6 +358,22 @@ ul, li {
     font-family: "URW Chancery L", sans-serif;
 }
 
+/*Add screen*/
+.text-style {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.add_button_style {
+    margin: 5px 0 0 17%;
+    text-decoration: none;
+    text-align: center;
+}
+
+.text-margin {
+    margin-left: 5%;
+}
+
 
 
 

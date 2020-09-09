@@ -33,7 +33,7 @@ public class PageGenerator {
         templateResolver.setPrefix("webapp/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setCacheable(false);
+        templateResolver.setCacheable(false);//!!!!!!!!!!!!!
         templateEngine.setTemplateResolver(templateResolver);
     }
 }
