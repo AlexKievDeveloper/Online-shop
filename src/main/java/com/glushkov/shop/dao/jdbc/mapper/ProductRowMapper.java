@@ -8,13 +8,11 @@ import java.sql.SQLException;
 public class ProductRowMapper {
     public Product mapRow(ResultSet resultSet) throws SQLException {
 
-        Product product = new Product();
-        product.setId(resultSet.getInt("id"));
-        product.setName(resultSet.getString("name"));
-        product.setPrice(resultSet.getDouble("price"));
-        product.setDescription(resultSet.getString("description"));
-        product.setImage(resultSet.getString("image"));
-
-        return product;
+        return Product.builder()
+                .id(resultSet.getInt("id"))
+                .name(resultSet.getString("name"))
+                .price(resultSet.getDouble("price"))
+                .description(resultSet.getString("description"))
+                .image(resultSet.getString("image")).build();
     }
 }

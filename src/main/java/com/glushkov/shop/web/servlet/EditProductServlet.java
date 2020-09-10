@@ -3,6 +3,7 @@ package com.glushkov.shop.web.servlet;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
+import lombok.val;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +20,10 @@ public class EditProductServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PageGenerator pageGenerator = PageGenerator.instance();
-        Product product = productService.findById(Integer.parseInt(request.getParameter("id")));
+        val pageGenerator = PageGenerator.instance();
+        val product = productService.findById(Integer.parseInt(request.getParameter("id")));
 
-        Map<String, Object> productMap = new HashMap<>();
+        val productMap = new HashMap<String, Object>();
         putProductFieldsIntoParameterMap(product, productMap);
 
         response.setContentType("text/html;charset=utf-8");
@@ -30,12 +31,14 @@ public class EditProductServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Product product = new Product();
-        product.setId(Integer.parseInt(request.getParameter("id")));
-        product.setName(request.getParameter("name"));
-        product.setDescription("description");
-        product.setImage(request.getParameter("image"));
-        product.setPrice(Double.parseDouble(request.getParameter("price")));
+
+        val product = Product.builder()
+                .id(Integer.parseInt(request.getParameter("id")))
+                .name(request.getParameter("name"))
+                .description("description")
+                .image(request.getParameter("image"))
+                .price(Double.parseDouble(request.getParameter("price")))
+                .build();
 
         productService.update(product);
         response.sendRedirect("/home");

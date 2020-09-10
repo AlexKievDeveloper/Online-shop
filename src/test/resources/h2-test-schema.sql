@@ -4,7 +4,7 @@ create table PRODUCTS
     NAME        VARCHAR(40) not null,
     PRICE       DOUBLE      not null,
     DESCRIPTION VARCHAR(40) not null,
-    IMAGE       BYTEA       not null,
+    IMAGE       VARCHAR(200) not null,
     constraint PRODUCTS_PK
         primary key (ID)
 );
@@ -12,13 +12,13 @@ create table PRODUCTS
 create unique index PRODUCTS_ID_UINDEX
     on PRODUCTS (ID);
 
-INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Oil', 46.40, 'Brent Crude Oil',
-                                                              FILE_READ('classpath:./oil.jpg'));
-INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Oil', 46.40, 'Brent Crude Oil',
-                                                              FILE_READ('classpath:./oil.jpg'));
-INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Oil', 46.40, 'Brent Crude Oil',
-                                                              FILE_READ('classpath:./oil.jpg'));
-INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Oil', 46.40, 'Brent Crude Oil',
-                                                              FILE_READ('classpath:./oil.jpg'));
-INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Oil', 46.40, 'Brent Crude Oil',
-                                                              FILE_READ('classpath:./oil.jpg'));
+INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Victory-1765', 299.99, 'description',
+                                                              'https://i.postimg.cc/J0993gLN/victory-pen-300.jpg');
+INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Victory-1765', 299.99, 'description',
+                                                              'https://i.postimg.cc/J0993gLN/victory-pen-300.jpg');
+INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Victory-1765', 299.99, 'description',
+                                                              'https://i.postimg.cc/J0993gLN/victory-pen-300.jpg');
+INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Victory-1765', 299.99, 'description',
+                                                              'https://i.postimg.cc/J0993gLN/victory-pen-300.jpg');
+INSERT INTO PRODUCTS(NAME, PRICE, DESCRIPTION, IMAGE) VALUES ('Victory-1765', 299.99, 'description',
+                                                              'https://i.postimg.cc/J0993gLN/victory-pen-300.jpg');

@@ -6,11 +6,5 @@ create table products
     name        varchar(40)      not null,
     price       double precision not null,
     description varchar(40)      not null,
-    image       bytea
+    image       varchar(200)     not null
 );
-
-alter table products
-    owner to postgres;
-
-create unique index products_id_uindex
-    on products (id);

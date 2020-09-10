@@ -1,5 +1,7 @@
 package com.glushkov.shop.web.templater;
 
+import com.glushkov.shop.util.PropertyReader;
+import lombok.val;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -20,20 +22,29 @@ public class PageGenerator {
     }
 
     public void process(String template, Map<String, Object> paramsMap, Writer writer) {
-        Context context = new Context();
+        val context = new Context();
         context.setVariables(paramsMap);
 
         templateEngine.process(template, context, writer);
     }
 
+    public void process(String template, Writer writer) {
+        val context = new Context();
+        templateEngine.process(template, context, writer);
+    }
+
     public PageGenerator() {
         templateEngine = new TemplateEngine();
-        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        val templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setPrefix("webapp/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setCacheable(false);//!!!!!!!!!!!!!
+
+        val propertyReader = new PropertyReader();
+        val properties = propertyReader.getProperties();
+        templateResolver.setCacheable(Boolean.parseBoolean(properties.getProperty("thymeleaf.cache")));
+
         templateEngine.setTemplateResolver(templateResolver);
     }
 }

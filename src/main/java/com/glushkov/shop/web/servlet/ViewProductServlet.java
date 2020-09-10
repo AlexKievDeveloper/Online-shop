@@ -3,6 +3,7 @@ package com.glushkov.shop.web.servlet;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
+import lombok.val;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +21,10 @@ public class ViewProductServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PageGenerator pageGenerator = PageGenerator.instance();
-        Product product = productService.findById(Integer.parseInt(request.getParameter("id")));
+        val pageGenerator = PageGenerator.instance();
+        val product = productService.findById(Integer.parseInt(request.getParameter("id")));
 
-        Map<String, Object> productMap = new HashMap<>();
+        val productMap = new HashMap<String, Object>();
         putProductFieldsIntoParameterMap(product, productMap);
 
         response.setContentType("text/html;charset=utf-8");

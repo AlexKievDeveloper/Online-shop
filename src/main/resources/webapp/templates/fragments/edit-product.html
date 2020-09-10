@@ -9,8 +9,12 @@
             <div class="edit_position">
                 <img class="position__image" th:src="${img}" alt="No photo"/>
             </div>
+            <div class="edit_position text-style">
+                <p >Link to new product photo:</p>
+                <input class="image_input" type="text" name="image" th:value="${img}">
+            </div>
             <div class="edit_position">
-                <input class="edit_price" name="price" th:value="${price}" required>
+                <input type="number" step=".01" min="0" class="edit_price" name="price" th:value="${price}" required>
             </div>
             <div class="edit_block">
                 <ul class="menu d-flex justify-content-center">

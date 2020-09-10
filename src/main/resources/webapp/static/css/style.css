@@ -1,5 +1,4 @@
 /*Specification*/
-
 ul, li {
     display: block;
     padding: 0;
@@ -7,7 +6,6 @@ ul, li {
 }
 
 /*Header*/
-
 .header {
     background: url("../img/wheel-2k.jpg");
     padding-top: 85px;
@@ -24,6 +22,7 @@ ul, li {
 
 .slogan {
     margin-left: 50px;
+    margin-bottom: 20px;
     text-align: center;
     font-family: Niconne, sans-serif;
     font-size: 25px;
@@ -95,6 +94,11 @@ ul, li {
     color: black;
 }
 
+.button input:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .input-field {
     width: 300px;
     font-weight: 300;
@@ -142,6 +146,8 @@ ul, li {
 
 .title-bold {
     font-weight: bold;
+    font-size: 30px;
+    margin-top: 5px;
 }
 
 .item-text {
@@ -207,6 +213,7 @@ ul, li {
     border-width: 1px;
     border-color: white;
     color: white;
+    padding: 3px;
 }
 
 .position__image {
@@ -259,7 +266,12 @@ ul, li {
     border-width: 5px;
 }
 
+.footer-row-margin {
+    margin-bottom: 15px;
+}
+
 .footer_header {
+    padding: 5px;
     margin-top: 10px;
     text-align: center;
     color: white;
@@ -272,6 +284,7 @@ ul, li {
 }
 
 .footer-text {
+    padding: 5px;
     text-align: center;
     color: white;
     font-size: 23px;
@@ -350,12 +363,30 @@ ul, li {
     display: block;
 }
 
+.image_input {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
 /*About screen*/
 .text-first-section {
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 30px;
     font-family: "URW Chancery L", sans-serif;
+}
+
+.about_border {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 0;
+}
+
+.about-padding {
+    padding-right: 0;
+    padding-left: 5px;
 }
 
 /*Add screen*/

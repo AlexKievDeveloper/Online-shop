@@ -1,28 +1,24 @@
-/*
 package com.glushkov.shop.dao.jdbc;
 
-import com.glushkov.shop.reader.PropertyReader;
 import com.glushkov.shop.entity.Product;
+import com.glushkov.shop.util.PropertyReader;
 import org.h2.jdbcx.JdbcDataSource;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JdbcProductDaoITest {
-
     private final JdbcDataSource dataSource;
     private final JdbcProductDao jdbcProductDao;
 
+
     JdbcProductDaoITest() throws SQLException {
+
         PropertyReader propertyReader = new PropertyReader("/application-test.properties");
         Properties properties = propertyReader.getProperties();
 
@@ -37,30 +33,26 @@ class JdbcProductDaoITest {
         jdbcProductDao = new JdbcProductDao(dataSource);
     }
 
+
     @Test
     @DisplayName("Returns product from database by id")
-    void findByIdTest() throws IOException {
-        //prepare
-        byte[] image = getClass().getResourceAsStream("/oil.jpg").readAllBytes();
-
+    void findByIdTest() {
         //when
         Product actualProduct = jdbcProductDao.findById(1);
 
         //then
         assertEquals(1, actualProduct.getId());
-        assertEquals("Oil", actualProduct.getName());
-        assertEquals(46.40, actualProduct.getPrice());
-        assertEquals("Brent Crude Oil", actualProduct.getDescription());
-        for (int i = 0; i < image.length; i++) {
-            assertEquals(image[i], actualProduct.getImage()[i]);
-        }
+        assertEquals("Victory-1765", actualProduct.getName());
+        assertEquals(299.99, actualProduct.getPrice());
+        assertEquals("description", actualProduct.getDescription());
+        assertEquals("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg", actualProduct.getImage());
     }
 
     @Test
     @DisplayName("Returns product from database by name")
     void findByNameTest() {
         //when
-        List<Product> actualList = jdbcProductDao.findByName("Oil");
+        List<Product> actualList = jdbcProductDao.findByName("Victory-1765");
 
         //then
         assertFalse(actualList.isEmpty());
@@ -94,15 +86,14 @@ class JdbcProductDaoITest {
 
     @Test
     @DisplayName("Saving product to database")
-    void saveTest() throws IOException {
+    void saveTest() {
         //prepare
-        byte[] image = getClass().getResourceAsStream("/oil.jpg").readAllBytes();
         assertEquals(5, jdbcProductDao.findAll().size());
-        Product product = new Product();
-        product.setName("Oil");
-        product.setPrice(46.40);
-        product.setDescription("Brent Crude Oil");
-        product.setImage(image);
+        Product product = Product.builder()
+                .name("Victory-1765")
+                .price(299.99)
+                .description("description")
+                .image("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg").build();
 
         //when
         jdbcProductDao.save(product);
@@ -111,25 +102,23 @@ class JdbcProductDaoITest {
         //then
         assertFalse(jdbcProductDao.findAll().isEmpty());
         assertEquals(1, expectedList.get(0).getId());
-        assertEquals("Oil", expectedList.get(0).getName());
-        assertEquals(46.40, expectedList.get(0).getPrice());
-        assertEquals("Brent Crude Oil", expectedList.get(0).getDescription());
-        for (int i = 0; i < image.length; i++) {
-            assertEquals(image[i], expectedList.get(0).getImage()[i]);
-        }
+        assertEquals("Victory-1765", expectedList.get(0).getName());
+        assertEquals(299.99, expectedList.get(0).getPrice());
+        assertEquals("description", expectedList.get(0).getDescription());
+        assertEquals("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg", product.getImage());
     }
-    
+
+
     @Test
     @DisplayName("Updating product in database")
-    void updateTest() throws IOException {
+    void updateTest() {
         //prepare
-        byte[] image = getClass().getResourceAsStream("/oil.jpg").readAllBytes();
-        Product product = new Product();
-        product.setId(5);
-        product.setName("Gas");
-        product.setPrice(2.57);
-        product.setDescription("Blue fuel");
-        product.setImage(image);
+        Product product = Product.builder()
+                .id(5)
+                .name("Gettysburg-1863")
+                .price(129.99)
+                .description("description")
+                .image("https://i.postimg.cc/y6t4zJZD/carolina-300.jpg").build();
 
         //when
         jdbcProductDao.update(product);
@@ -137,13 +126,10 @@ class JdbcProductDaoITest {
 
         //then
         assertEquals(5, actualProduct.getId());
-        assertEquals("Gas", actualProduct.getName());
-        assertEquals(2.57, actualProduct.getPrice());
-        assertEquals("Blue fuel", actualProduct.getDescription());
-
-        for (int i = 0; i < image.length; i++) {
-            assertEquals(image[i], actualProduct.getImage()[i]);
-        }
+        assertEquals("Gettysburg-1863", actualProduct.getName());
+        assertEquals(129.99, actualProduct.getPrice());
+        assertEquals("description", actualProduct.getDescription());
+        assertEquals("https://i.postimg.cc/y6t4zJZD/carolina-300.jpg", product.getImage());
     }
 
     @Test
@@ -155,17 +141,7 @@ class JdbcProductDaoITest {
         //when
         jdbcProductDao.delete(5);
 
-        // then
+        //then
         assertEquals(4, jdbcProductDao.findAll().size());
     }
-
-    @AfterEach
-    void cleanUp() throws SQLException {
-        String dropTable = "DROP TABLE products";
-
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.execute(dropTable);
-        }
-    }
-}*/
+}

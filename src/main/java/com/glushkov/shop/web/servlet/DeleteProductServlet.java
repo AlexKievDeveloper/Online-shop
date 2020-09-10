@@ -1,6 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.service.ProductService;
+import lombok.val;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public class DeleteProductServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        val id = Integer.parseInt(request.getParameter("id"));
         productService.delete(id);
         response.sendRedirect("/home");
     }

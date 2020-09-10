@@ -1,75 +1,63 @@
 package com.glushkov.shop;
 
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
-import com.glushkov.shop.reader.PropertyReader;
 import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.util.PropertyReader;
 import com.glushkov.shop.web.handler.DefaultErrorHandler;
 import com.glushkov.shop.web.servlet.*;
+import lombok.val;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.JarFileResource;
-import org.eclipse.jetty.util.resource.Resource;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
-import javax.servlet.MultipartConfigElement;
-import java.util.Properties;
-
 public class Starter {
     public static void main(String[] args) throws Exception {
+        val propertyReader = new PropertyReader();
+        val properties = propertyReader.getProperties();
 
-        PropertyReader propertyReader = new PropertyReader();
-        Properties properties = propertyReader.getProperties();
-
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        val dataSource = new PGSimpleDataSource();
 
         dataSource.setURL(properties.getProperty("db.url"));
         dataSource.setUser(properties.getProperty("db.user"));
         dataSource.setPassword(properties.getProperty("db.password"));
 
-        Flyway flyway = Flyway.configure().dataSource(properties.getProperty("db.url"),
+        val flyway = Flyway.configure().dataSource(properties.getProperty("db.url"),
                 properties.getProperty("db.user"), properties.getProperty("db.password")).load();
 
         flyway.migrate();
 
-        JdbcProductDao jdbcUserDao = new JdbcProductDao(dataSource);
-        ProductService productService = new ProductService(jdbcUserDao);
+        val jdbcUserDao = new JdbcProductDao(dataSource);
+        val productService = new ProductService(jdbcUserDao);
 
-        AllProductsServlet allProductsServlet = new AllProductsServlet(productService);
-        SearchProductServlet searchProductServlet = new SearchProductServlet(productService);
-        ViewProductServlet viewProductServlet = new ViewProductServlet(productService);
-        EditProductServlet editProductServlet = new EditProductServlet(productService);
-        DeleteProductServlet deleteProductServlet = new DeleteProductServlet(productService);
-        AddProductServlet addProductServlet = new AddProductServlet(productService);
-        AboutServlet aboutServlet = new AboutServlet();
+        val allProductsServlet = new AllProductsServlet(productService);
+        val searchProductServlet = new SearchProductServlet(productService);
+        val viewProductServlet = new ViewProductServlet(productService);
+        val editProductServlet = new EditProductServlet(productService);
+        val deleteProductServlet = new DeleteProductServlet(productService);
+        val addProductServlet = new AddProductServlet(productService);
 
-        ServletHolder servletHolder = new ServletHolder(addProductServlet);
-        servletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement("src/main/resources/webapp/static/img",
-                1048576, 1048576, 262144));
-
-        ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        val servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.setErrorHandler(new DefaultErrorHandler());
 
         servletContextHandler.addServlet(new ServletHolder(allProductsServlet), "/home");
         servletContextHandler.addServlet(new ServletHolder(allProductsServlet), "");
-        servletContextHandler.addServlet(new ServletHolder(aboutServlet), "/about");
         servletContextHandler.addServlet(new ServletHolder(searchProductServlet), "/search");
         servletContextHandler.addServlet(new ServletHolder(viewProductServlet), "/view");
         servletContextHandler.addServlet(new ServletHolder(editProductServlet), "/edit");
         servletContextHandler.addServlet(new ServletHolder(deleteProductServlet), "/delete");
-        servletContextHandler.addServlet(servletHolder, "/add");
+        servletContextHandler.addServlet(new ServletHolder(addProductServlet), "/add");
 
-        Resource resource = JarFileResource.newClassPathResource("webapp/static");
+        val resource = JarFileResource.newClassPathResource("webapp/static");
         servletContextHandler.setBaseResource(resource);
         servletContextHandler.addServlet(DefaultServlet.class, "/*");
 
-        Server server = new Server(Integer.parseInt(properties.getProperty("port")));
+        val server = new Server(Integer.parseInt(properties.getProperty("port")));
         server.setHandler(servletContextHandler);
         server.start();
-
-
     }
 }
 
