@@ -74,7 +74,7 @@
                             <transformers>
                                 <transformer
                                   implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                  <mainClass>com.glushkov.Starter</mainClass>
+                                  <mainClass>com.glushkov.shop.Starter</mainClass>
                                 </transformer>
                             </transformers>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
