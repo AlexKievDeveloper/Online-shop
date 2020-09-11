@@ -6,6 +6,8 @@ import lombok.SneakyThrows;
 import lombok.val;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 public class PropertyReader {
@@ -21,7 +23,7 @@ public class PropertyReader {
         this.devProperties = devProperties;
     }
 
-    public Properties getProperties() {
+    public Properties getProperties() throws URISyntaxException {
         val applicationProperties = readApplicationProperties();
 
         if (("PROD").equals(System.getenv("env"))) {
@@ -41,12 +43,15 @@ public class PropertyReader {
         return properties;
     }
 
-    Properties readProdProperties() {
+    Properties readProdProperties() throws URISyntaxException {
         val prodProperties = new Properties();
-        prodProperties.setProperty("db.url", System.getenv("DB.URL"));
-        prodProperties.setProperty("db.user", System.getenv("DB.USER"));
-        prodProperties.setProperty("db.password", System.getenv("DB.PASSWORD"));
-        prodProperties.setProperty("port", System.getenv("PORT"));
+        val dbUri = new URI(System.getenv("DATABASE_URL"));
+
+        prodProperties.setProperty("db.user", dbUri.getUserInfo().split(":")[0]);
+        prodProperties.setProperty("db.password", dbUri.getUserInfo().split(":")[1]);
+        prodProperties.setProperty("db.url", "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort()
+                + dbUri.getPath() + "?sslmode=require");
+
         return prodProperties;
     }
 
