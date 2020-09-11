@@ -51,6 +51,7 @@ public class PropertyReader {
         prodProperties.setProperty("db.password", dbUri.getUserInfo().split(":")[1]);
         prodProperties.setProperty("db.url", "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort()
                 + dbUri.getPath() + "?sslmode=require");
+        prodProperties.setProperty("port", System.getenv("PORT"));
 
         return prodProperties;
     }
