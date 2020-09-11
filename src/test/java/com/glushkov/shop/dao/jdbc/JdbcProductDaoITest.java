@@ -6,6 +6,7 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -17,7 +18,7 @@ class JdbcProductDaoITest {
     private final JdbcProductDao jdbcProductDao;
 
 
-    JdbcProductDaoITest() throws SQLException {
+    JdbcProductDaoITest() throws SQLException, URISyntaxException {
 
         PropertyReader propertyReader = new PropertyReader("/application-test.properties");
         Properties properties = propertyReader.getProperties();

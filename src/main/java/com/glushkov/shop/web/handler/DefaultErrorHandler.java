@@ -1,6 +1,7 @@
 package com.glushkov.shop.web.handler;
 
 import com.glushkov.shop.web.templater.PageGenerator;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.eclipse.jetty.server.Request;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 @Slf4j
 public class DefaultErrorHandler extends ErrorPageErrorHandler {
 
+    @SneakyThrows
     protected void generateAcceptableResponse(Request baseRequest, HttpServletRequest request,
                                               HttpServletResponse response, int code, String message, String mimeType)
             throws IOException {

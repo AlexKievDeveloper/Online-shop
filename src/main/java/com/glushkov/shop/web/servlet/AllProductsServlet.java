@@ -3,6 +3,7 @@ package com.glushkov.shop.web.servlet;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
+import lombok.SneakyThrows;
 import lombok.val;
 
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ public class AllProductsServlet extends HttpServlet {
         this.productService = productService;
     }
 
+    @SneakyThrows
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

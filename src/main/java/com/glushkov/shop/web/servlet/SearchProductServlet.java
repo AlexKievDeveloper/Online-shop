@@ -2,6 +2,7 @@ package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
+import lombok.SneakyThrows;
 import lombok.val;
 
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,7 @@ public class SearchProductServlet extends HttpServlet {
         this.productService = productService;
     }
 
+    @SneakyThrows
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         val pageGenerator = PageGenerator.instance();
