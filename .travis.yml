@@ -7,9 +7,7 @@ deploy:
   provider: heroku
   strategy: api
   edge: true
-  api_key:
-    secure: qIvGowC3LXgBNtO0kvzi5MToAUxm0YkNvo2H2zMzkMra6OjclgXLr3sQNu7egNjmn85qE5sN4gB92onNbZZSYL3s2u4dXnIUhMeuO/r3kNwo2BGkIM0sWAj0i7vMZ7fkxwQiwMx000DY5IXOt7lMWHcEP3GNWZ4tbWRJj4G6kiBaYmPQPBDGpoLFKUW2Z6gnJButWhoVARwIU2pjrGStpOEMrbneO2evUbn+21icoRfQMWLMO08KRHExC695AnOXBdi/zLib8IlDr17LUckqtAmiNXsc7fg4C0JxtWpo+kuEMlP6HJBnPSbtZ8lVJO3oiIpngCyYdKTH6+kXb2AulSX14ZW1B0YfLt09jpimNzp+gcTP92aBkCa2gShzAwLaEWMGyPlqzfZL3Vl0eKuTbzLTOEN/xY8hJxRt0Bd/D9MeK9G6g5JFlBo2GWXMYC6q6qceHtgWuQpOikIrmhKmj7JYrpkRn6oqPisbBoCWdBUd8f1BNZGK4QjugKMhc4sV/7I35ow65gybzLOUijjx13DKiP6E9lr35y/T4TGmwPSe07zFryW1i8Jn5P6lRvhi2zqAeipBOeyldk+485G2vP2lR5DuT4c0VUDSExlQG5B+V4Evm6703bOu4C+zftbvpNZGVxTvnlmjoscDVa26e6tABqo9XBVb7qh63JS+59M=
-  skip_cleanup: true
+  api_key: 075f7565-7313-4fc5-93d9-5035a832aee6
   app: stylo-shop
   on:
     branch: master
