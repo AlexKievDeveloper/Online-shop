@@ -10,6 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--<java.version>14</java.version>-->
     </properties>
 
     <build>
@@ -20,6 +21,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
+                   <!-- <release>14</release>-->
                     <source>14</source>
                     <target>14</target>
                 </configuration>
@@ -81,6 +83,19 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <version>3.0.4</version>
+                <configuration>
+                    <appName>stylo-shop</appName>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* com.glushkov.shop.Starter</web>
+                        <mainClass>com.glushkov.shop.Starter</mainClass>
+                    </processTypes>
+                </configuration>
             </plugin>
 
         </plugins>
