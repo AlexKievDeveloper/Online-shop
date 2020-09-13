@@ -26,7 +26,6 @@ class AddProductServletTest {
         addProductServlet = new AddProductServlet(productService);
     }
 
-
     @Test
     @DisplayName("Processes the request and sends a response page with a added form")
     void doGetTest() throws IOException {

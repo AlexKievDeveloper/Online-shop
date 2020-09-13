@@ -7,22 +7,19 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JdbcProductDaoITest {
-    private final JdbcDataSource dataSource;
     private final JdbcProductDao jdbcProductDao;
 
-
-    JdbcProductDaoITest() throws SQLException, URISyntaxException {
+    JdbcProductDaoITest() throws SQLException {
 
         val propertyReader = new PropertyReader("/application-test.properties");
         val properties = propertyReader.getProperties();
 
-        dataSource = new JdbcDataSource();
+        JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL(properties.getProperty("jdbc.host"));
         dataSource.setUser(properties.getProperty("jdbc.user"));
         dataSource.setPassword(properties.getProperty("jdbc.password"));
@@ -32,7 +29,6 @@ class JdbcProductDaoITest {
 
         jdbcProductDao = new JdbcProductDao(dataSource);
     }
-
 
     @Test
     @DisplayName("Returns product from database by id")
@@ -107,7 +103,6 @@ class JdbcProductDaoITest {
         assertEquals("description", expectedList.get(0).getDescription());
         assertEquals("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg", product.getImage());
     }
-
 
     @Test
     @DisplayName("Updating product in database")

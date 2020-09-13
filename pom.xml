@@ -10,7 +10,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--<java.version>14</java.version>-->
     </properties>
 
     <build>
@@ -21,7 +20,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                   <!-- <release>14</release>-->
                     <source>14</source>
                     <target>14</target>
                 </configuration>
@@ -75,8 +73,8 @@
                         <configuration>
                             <transformers>
                                 <transformer
-                                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                  <mainClass>com.glushkov.shop.Starter</mainClass>
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.glushkov.shop.Starter</mainClass>
                                 </transformer>
                             </transformers>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -86,9 +84,9 @@
             </plugin>
 
             <plugin>
-                    <groupId>com.heroku.sdk</groupId>
-                    <artifactId>heroku-maven-plugin</artifactId>
-                    <version>3.0.4</version>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.4</version>
                 <configuration>
                     <appName>stylo-shop</appName>
                     <processTypes>
@@ -102,7 +100,7 @@
     </build>
 
     <dependencies>
-
+        <!--DataBase-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -120,13 +118,13 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
-
+        <!--Logging-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
-
+        <!--Jetty Server-->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -138,14 +136,14 @@
             <artifactId>jetty-webapp</artifactId>
             <version>9.4.31.v20200723</version>
         </dependency>
-
+        <!--Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
-
+        <!--Thymeleaf-->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>

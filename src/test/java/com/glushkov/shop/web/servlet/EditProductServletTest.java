@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -27,7 +26,7 @@ class EditProductServletTest {
         editProductServlet = new EditProductServlet(productService);
     }
 
-    //TODO как написать тест? Product.getID() возвращает null
+    //TODO как написать тест? Product.getID() возвращает null. Product локальная переменная метода(нельзя замокать).
 /*    @Test
     @DisplayName("Processes the request and sends a page with product request form")
     void doGetTest() throws IOException {
