@@ -1,5 +1,6 @@
 package com.glushkov.shop.web.handler;
 
+import lombok.val;
 import org.eclipse.jetty.server.Request;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,14 +20,14 @@ class DefaultErrorHandlerTest {
     @DisplayName("Generates a response to the client if an error occurs during request processing")
     void generateAcceptableResponseTest() throws IOException {
         //prepare
-        DefaultErrorHandler defaultErrorHandler = new DefaultErrorHandler();
+        val defaultErrorHandler = new DefaultErrorHandler();
 
-        Request mockBaseRequest = mock(Request.class);
+        val mockBaseRequest = mock(Request.class);
 
-        HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        HttpServletResponse mockResponse = mock(HttpServletResponse.class);
+        val mockRequest = mock(HttpServletRequest.class);
+        val mockResponse = mock(HttpServletResponse.class);
 
-        StringWriter stringWriter = new StringWriter();
+        val stringWriter = new StringWriter();
         when(mockResponse.getWriter()).thenReturn(new PrintWriter(stringWriter));
 
         when(mockRequest.getAttribute("javax.servlet.error.servlet_name")).
@@ -35,8 +36,8 @@ class DefaultErrorHandlerTest {
                 thenReturn(new SQLException());
 
         int code = 500;
-        String message = "SQLException";
-        String mimeType = "text/html";
+        val message = "SQLException";
+        val mimeType = "text/html";
 
         //when
         defaultErrorHandler.generateAcceptableResponse(mockBaseRequest, mockRequest, mockResponse, code, message, mimeType);

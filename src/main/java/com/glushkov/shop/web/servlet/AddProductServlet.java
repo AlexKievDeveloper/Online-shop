@@ -9,7 +9,6 @@ import lombok.val;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class AddProductServlet extends HttpServlet {
 
@@ -21,13 +20,15 @@ public class AddProductServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
         val pageGenerator = PageGenerator.instance();
+        response.setContentType("text/html;charset=utf-8");
         pageGenerator.process("/add-product", response.getWriter());
     }
 
+    @SneakyThrows
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         val product = Product.builder()
                 .name(request.getParameter("name"))

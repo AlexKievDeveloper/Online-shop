@@ -8,7 +8,6 @@ import lombok.val;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class SearchProductServlet extends HttpServlet {
@@ -20,7 +19,8 @@ public class SearchProductServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         val pageGenerator = PageGenerator.instance();
         val enteredName = request.getParameter("enteredName");
@@ -34,7 +34,6 @@ public class SearchProductServlet extends HttpServlet {
         }
 
         response.setContentType("text/html;charset=utf-8");
-
         pageGenerator.process("/search", productsMap, response.getWriter());
     }
 }

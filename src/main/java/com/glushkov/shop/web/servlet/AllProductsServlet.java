@@ -9,7 +9,6 @@ import lombok.val;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,13 +22,14 @@ public class AllProductsServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         val map = new HashMap<String, Object>();
         List<Product> productList = productService.findAll();
         map.put("products", productList);
 
         val pageGenerator = PageGenerator.instance();
+        response.setContentType("text/html;charset=utf-8");
         pageGenerator.process("/index", map, response.getWriter());
     }
 }

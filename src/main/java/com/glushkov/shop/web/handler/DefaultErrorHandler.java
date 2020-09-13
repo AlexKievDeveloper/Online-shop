@@ -9,7 +9,6 @@ import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 
 @Slf4j
@@ -17,8 +16,7 @@ public class DefaultErrorHandler extends ErrorPageErrorHandler {
 
     @SneakyThrows
     protected void generateAcceptableResponse(Request baseRequest, HttpServletRequest request,
-                                              HttpServletResponse response, int code, String message, String mimeType)
-            throws IOException {
+                                              HttpServletResponse response, int code, String message, String mimeType) {
 
         val parameterMap = new HashMap<String, Object>();
 

@@ -1,12 +1,11 @@
-/*
 package com.glushkov.shop.util;
 
+import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.withEnvironmentVariable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +31,7 @@ class PropertyReaderITest {
         propertiesMap.put("thymeleaf.cache", "false");
 
         //when
-        Properties properties = propertyReader.getProperties();
+        val properties = propertyReader.getProperties();
 
         //then
         assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
@@ -47,20 +46,20 @@ class PropertyReaderITest {
     void getPropertiesProdEnvironmentTest() throws Exception {
         //prepare
         withEnvironmentVariable("env", "PROD")
-                .and("DB.URL", "jdbc:postgresql://localhost:5432/online-shop")
-                .and("DB.USER", "postgres")
-                .and("DB.PASSWORD", "23061993")
+                .and("DATABASE_URL", "postgres://fxycdcgratlvtp:20c788b34de130ce61094c1d00816cbc421949ab1bf" +
+                        "37260b599a01104067ca2@ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7njj3vpo8n")
                 .and("PORT", "3030")
                 .execute(() -> {
 
-                    propertiesMap.put("db.url", "jdbc:postgresql://localhost:5432/online-shop");
-                    propertiesMap.put("db.user", "postgres");
-                    propertiesMap.put("db.password", "23061993");
+                    propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
+                            "jj3vpo8n?sslmode=require");
+                    propertiesMap.put("db.user", "fxycdcgratlvtp");
+                    propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
                     propertiesMap.put("port", "3030");
                     propertiesMap.put("thymeleaf.cache", "false");
 
                     //when
-                    Properties properties = propertyReader.getProperties();
+                    val properties = propertyReader.getProperties();
 
                     //then
                     assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
@@ -82,7 +81,7 @@ class PropertyReaderITest {
         propertiesMap.put("thymeleaf.cache", "false");
 
         //when
-        Properties properties = propertyReader.readApplicationProperties();
+        val properties = propertyReader.readApplicationProperties();
 
         //then
         assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
@@ -97,19 +96,19 @@ class PropertyReaderITest {
     void readProdPropertiesTest() throws Exception {
         //prepare
         withEnvironmentVariable("env", "PROD")
-                .and("DB.URL", "jdbc:postgresql://localhost:5432/online-shop")
-                .and("DB.USER", "postgres")
-                .and("DB.PASSWORD", "00000000")
+                .and("DATABASE_URL", "postgres://fxycdcgratlvtp:20c788b34de130ce61094c1d00816cbc421949ab1bf" +
+                        "37260b599a01104067ca2@ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7njj3vpo8n")
                 .and("PORT", "3030")
                 .execute(() -> {
 
-                    propertiesMap.put("db.url", "jdbc:postgresql://localhost:5432/online-shop");
-                    propertiesMap.put("db.user", "postgres");
-                    propertiesMap.put("db.password", "00000000");
+                    propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
+                            "jj3vpo8n?sslmode=require");
+                    propertiesMap.put("db.user", "fxycdcgratlvtp");
+                    propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
                     propertiesMap.put("port", "3030");
 
                     //when
-                    Properties prodProperties = propertyReader.readProdProperties();
+                    val prodProperties = propertyReader.readProdProperties();
 
                     //then
                     assertEquals(propertiesMap.get("db.url"), prodProperties.getProperty("db.url"));
@@ -124,23 +123,23 @@ class PropertyReaderITest {
     void mergeTest() throws Exception {
         //prepare
         withEnvironmentVariable("env", "PROD")
-                .and("DB.URL", "jdbc:postgresql://localhost:5432/online-shop")
-                .and("DB.USER", "postgres")
-                .and("DB.PASSWORD", "00000000")
+                .and("DATABASE_URL", "postgres://fxycdcgratlvtp:20c788b34de130ce61094c1d00816cbc421949ab1bf" +
+                        "37260b599a01104067ca2@ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7njj3vpo8n")
                 .and("PORT", "3030")
                 .execute(() -> {
 
-                    propertiesMap.put("db.url", "jdbc:postgresql://localhost:5432/online-shop");
-                    propertiesMap.put("db.user", "postgres");
-                    propertiesMap.put("db.password", "00000000");
+                    propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
+                            "jj3vpo8n?sslmode=require");
+                    propertiesMap.put("db.user", "fxycdcgratlvtp");
+                    propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
                     propertiesMap.put("port", "3030");
                     propertiesMap.put("thymeleaf.cache", "false");
 
-                    Properties applicationProperties = propertyReader.readApplicationProperties();
-                    Properties prodProperties = propertyReader.readProdProperties();
+                    val applicationProperties = propertyReader.readApplicationProperties();
+                    val prodProperties = propertyReader.readProdProperties();
 
                     //when
-                    Properties properties = propertyReader.merge(applicationProperties, prodProperties);
+                    val properties = propertyReader.merge(applicationProperties, prodProperties);
 
                     //then
                     assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
@@ -152,4 +151,4 @@ class PropertyReaderITest {
     }
 }
 
-*/
+

@@ -9,7 +9,6 @@ import lombok.val;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public class ViewProductServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
         val pageGenerator = PageGenerator.instance();
         val product = productService.findById(Integer.parseInt(request.getParameter("id")));
 

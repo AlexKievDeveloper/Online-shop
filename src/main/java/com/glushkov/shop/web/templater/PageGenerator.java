@@ -8,14 +8,13 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.io.Writer;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 public class PageGenerator {
     private static PageGenerator pageGenerator;
     private final TemplateEngine templateEngine;
 
-    public static PageGenerator instance() throws URISyntaxException {
+    public static PageGenerator instance() {
         if (pageGenerator == null) {
             pageGenerator = new PageGenerator();
         }
@@ -34,7 +33,7 @@ public class PageGenerator {
         templateEngine.process(template, context, writer);
     }
 
-    public PageGenerator() throws URISyntaxException {
+    public PageGenerator() {
         templateEngine = new TemplateEngine();
         val templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode(TemplateMode.HTML);

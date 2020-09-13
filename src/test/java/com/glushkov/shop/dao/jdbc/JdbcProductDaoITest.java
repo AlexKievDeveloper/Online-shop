@@ -2,14 +2,13 @@ package com.glushkov.shop.dao.jdbc;
 
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.util.PropertyReader;
+import lombok.val;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,8 +19,8 @@ class JdbcProductDaoITest {
 
     JdbcProductDaoITest() throws SQLException, URISyntaxException {
 
-        PropertyReader propertyReader = new PropertyReader("/application-test.properties");
-        Properties properties = propertyReader.getProperties();
+        val propertyReader = new PropertyReader("/application-test.properties");
+        val properties = propertyReader.getProperties();
 
         dataSource = new JdbcDataSource();
         dataSource.setURL(properties.getProperty("jdbc.host"));
@@ -39,7 +38,7 @@ class JdbcProductDaoITest {
     @DisplayName("Returns product from database by id")
     void findByIdTest() {
         //when
-        Product actualProduct = jdbcProductDao.findById(1);
+        val actualProduct = jdbcProductDao.findById(1);
 
         //then
         assertEquals(1, actualProduct.getId());
@@ -53,7 +52,7 @@ class JdbcProductDaoITest {
     @DisplayName("Returns product from database by name")
     void findByNameTest() {
         //when
-        List<Product> actualList = jdbcProductDao.findByName("Victory-1765");
+        val actualList = jdbcProductDao.findByName("Victory-1765");
 
         //then
         assertFalse(actualList.isEmpty());
@@ -71,7 +70,7 @@ class JdbcProductDaoITest {
     @DisplayName("Returns all products from database")
     void findAllTest() {
         //when
-        List<Product> actualList = jdbcProductDao.findAll();
+        val actualList = jdbcProductDao.findAll();
 
         //then
         assertFalse(actualList.isEmpty());
@@ -90,7 +89,7 @@ class JdbcProductDaoITest {
     void saveTest() {
         //prepare
         assertEquals(5, jdbcProductDao.findAll().size());
-        Product product = Product.builder()
+        val product = Product.builder()
                 .name("Victory-1765")
                 .price(299.99)
                 .description("description")
@@ -98,7 +97,7 @@ class JdbcProductDaoITest {
 
         //when
         jdbcProductDao.save(product);
-        List<Product> expectedList = jdbcProductDao.findAll();
+        val expectedList = jdbcProductDao.findAll();
 
         //then
         assertFalse(jdbcProductDao.findAll().isEmpty());
@@ -114,7 +113,7 @@ class JdbcProductDaoITest {
     @DisplayName("Updating product in database")
     void updateTest() {
         //prepare
-        Product product = Product.builder()
+        val product = Product.builder()
                 .id(5)
                 .name("Gettysburg-1863")
                 .price(129.99)
@@ -123,7 +122,7 @@ class JdbcProductDaoITest {
 
         //when
         jdbcProductDao.update(product);
-        Product actualProduct = jdbcProductDao.findById(5);
+        val actualProduct = jdbcProductDao.findById(5);
 
         //then
         assertEquals(5, actualProduct.getId());

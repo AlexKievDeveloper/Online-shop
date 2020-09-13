@@ -7,7 +7,6 @@ import lombok.val;
 
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Properties;
 
 public class PropertyReader {
@@ -23,7 +22,7 @@ public class PropertyReader {
         this.devProperties = devProperties;
     }
 
-    public Properties getProperties() throws URISyntaxException {
+    public Properties getProperties() {
         val applicationProperties = readApplicationProperties();
 
         if (("PROD").equals(System.getenv("env"))) {
@@ -43,7 +42,8 @@ public class PropertyReader {
         return properties;
     }
 
-    Properties readProdProperties() throws URISyntaxException {
+    @SneakyThrows
+    Properties readProdProperties() {
         val prodProperties = new Properties();
         val dbUri = new URI(System.getenv("DATABASE_URL"));
 
@@ -56,11 +56,15 @@ public class PropertyReader {
         return prodProperties;
     }
 
-    Properties merge(Properties applicationProperties, Properties prodProperties) {
-        applicationProperties.setProperty("db.url", prodProperties.getProperty("db.url"));
-        applicationProperties.setProperty("db.user", prodProperties.getProperty("db.user"));
-        applicationProperties.setProperty("db.password", prodProperties.getProperty("db.password"));
-        applicationProperties.setProperty("port", prodProperties.getProperty("port"));
-        return applicationProperties;
+    Properties merge(Properties... properties) {
+        val mergedProperties = new Properties();
+        for (Properties property : properties) {
+            val propertyNames = property.stringPropertyNames();
+            for (String name : propertyNames) {
+                val propertyValue = property.getProperty(name);
+                mergedProperties.setProperty(name, propertyValue);
+            }
+        }
+        return mergedProperties;
     }
 }

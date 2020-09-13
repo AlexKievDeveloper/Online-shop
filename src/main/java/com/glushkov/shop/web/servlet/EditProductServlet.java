@@ -9,7 +9,6 @@ import lombok.val;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,8 @@ public class EditProductServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
         val pageGenerator = PageGenerator.instance();
         val product = productService.findById(Integer.parseInt(request.getParameter("id")));
 
@@ -32,7 +32,9 @@ public class EditProductServlet extends HttpServlet {
         pageGenerator.process("/product", productMap, response.getWriter());
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @SneakyThrows
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         val product = Product.builder()
                 .id(Integer.parseInt(request.getParameter("id")))
@@ -46,7 +48,7 @@ public class EditProductServlet extends HttpServlet {
         response.sendRedirect("/home");
     }
 
-    private void putProductFieldsIntoParameterMap(Product product, Map<String, Object> parameters) {
+    void putProductFieldsIntoParameterMap(Product product, Map<String, Object> parameters) {
         parameters.put("id", product.getId());
         parameters.put("name", product.getName());
         parameters.put("image", product.getImage());
