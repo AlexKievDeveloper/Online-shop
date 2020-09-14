@@ -113,11 +113,6 @@
             <version>42.2.14</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-        </dependency>
         <!--Logging-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -156,6 +151,12 @@
             <version>2.4.1</version>
         </dependency>
         <!--Tests-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+        </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
