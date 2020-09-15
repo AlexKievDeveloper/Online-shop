@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -26,22 +27,22 @@ class EditProductServletTest {
         editProductServlet = new EditProductServlet(productService);
     }
 
-    //TODO как написать тест? Product.getID() возвращает null. Product локальная переменная метода(нельзя замокать).
-/*    @Test
+    @Test
     @DisplayName("Processes the request and sends a page with product request form")
     void doGetTest() throws IOException {
         //prepare
         val writer = mock(PrintWriter.class);
+        val product = mock(Product.class);
         when(response.getWriter()).thenReturn(writer);
         when(request.getParameter("id")).thenReturn("1");
+        when(productService.findById(1)).thenReturn(product);
         //when
         editProductServlet.doGet(request, response);
         //then
         verify(request).getParameter("id");
         verify(response).setContentType("text/html;charset=utf-8");
-        verify(response).sendRedirect("/product");
         verify(response).getWriter();
-    }*/
+    }
 
     @Test
     @DisplayName("Process the request and updating product in data base")

@@ -11,24 +11,17 @@ import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.JarFileResource;
-import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class Starter {
     public static void main(String[] args) throws Exception {
         val propertyReader = new PropertyReader();
         val properties = propertyReader.getProperties();
-
         val dataSource = new PGSimpleDataSource();
 
         dataSource.setURL(properties.getProperty("db.url"));
         dataSource.setUser(properties.getProperty("db.user"));
         dataSource.setPassword(properties.getProperty("db.password"));
-
-        val flyway = Flyway.configure().dataSource(properties.getProperty("db.url"),
-                properties.getProperty("db.user"), properties.getProperty("db.password")).load();
-
-        flyway.migrate();
 
         val jdbcUserDao = new JdbcProductDao(dataSource);
         val productService = new ProductService(jdbcUserDao);

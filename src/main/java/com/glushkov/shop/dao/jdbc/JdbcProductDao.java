@@ -30,7 +30,6 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @SneakyThrows
     public Product findById(int id) {
-
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val preparedStatement = connection.prepareStatement(FIND_BY_ID);
         preparedStatement.setInt(1, id);
@@ -50,10 +49,10 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @SneakyThrows
     public List<Product> findByName(String name) {
-
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val preparedStatement = connection.prepareStatement(FIND_BY_NAME);
         preparedStatement.setString(1, "%" + name + "%");
+        preparedStatement.setString(1, name);
         @Cleanup val resultSet = preparedStatement.executeQuery();
         val productList = new ArrayList<Product>();
 
@@ -67,7 +66,6 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @SneakyThrows
     public List<Product> findAll() {
-
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val statement = connection.createStatement();
         @Cleanup val resultSet = statement.executeQuery(FIND_ALL);
@@ -81,7 +79,6 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @SneakyThrows
     public void save(Product product) {
-
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val preparedStatement = connection.prepareStatement(SAVE);
         preparedStatement.setString(1, product.getName());
@@ -94,7 +91,6 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @SneakyThrows
     public void update(Product product) {
-
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val preparedStatement = connection.prepareStatement(UPDATE);
         preparedStatement.setString(1, product.getName());
@@ -108,7 +104,6 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @SneakyThrows
     public void delete(int productId) {
-
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val preparedStatement = connection.prepareStatement(DELETE);
         preparedStatement.setInt(1, productId);

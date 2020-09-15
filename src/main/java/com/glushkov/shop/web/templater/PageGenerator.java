@@ -33,7 +33,7 @@ public class PageGenerator {
         templateEngine.process(template, context, writer);
     }
 
-    public PageGenerator() {
+    private PageGenerator() {
         templateEngine = new TemplateEngine();
         val templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode(TemplateMode.HTML);

@@ -31,6 +31,11 @@
                 <version>6.5.5</version>
                 <configuration>
                     <baselineOnMigrate>true</baselineOnMigrate>
+<!--                    <user>postgres</user>
+                    <password>23061993</password>
+                    <url>jdbc:postgresql://localhost:5432/online-shop</url>-->
+                    <!--suppress UnresolvedMavenProperty -->
+                   <url>${env.DATABASE_URL}</url>
                 </configuration>
             </plugin>
 
@@ -87,13 +92,13 @@
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>3.0.4</version>
-                <configuration>
+<!--                <configuration>
                     <appName>stylo-shop</appName>
                     <processTypes>
                         <web>java $JAVA_OPTS -cp target/classes:target/dependency/* com.glushkov.shop.Starter</web>
                         <mainClass>com.glushkov.shop.Starter</mainClass>
                     </processTypes>
-                </configuration>
+                </configuration>-->
             </plugin>
 
         </plugins>
@@ -101,12 +106,6 @@
 
     <dependencies>
         <!--DataBase-->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>6.5.5</version>
-        </dependency>
-
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -155,6 +154,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
