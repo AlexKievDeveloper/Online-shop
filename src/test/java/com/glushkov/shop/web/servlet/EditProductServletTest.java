@@ -5,6 +5,9 @@ import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,15 +17,16 @@ import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class EditProductServletTest {
-    private final HttpServletRequest request;
-    private final HttpServletResponse response;
     private final ProductService productService;
     private final EditProductServlet editProductServlet;
+    @Mock
+    private HttpServletRequest request;
+    @Mock
+    private HttpServletResponse response;
 
     EditProductServletTest() {
-        request = mock(HttpServletRequest.class);
-        response = mock(HttpServletResponse.class);
         productService = mock(ProductService.class);
         editProductServlet = new EditProductServlet(productService);
     }

@@ -4,6 +4,9 @@ import lombok.val;
 import org.eclipse.jetty.server.Request;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,20 +15,23 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class DefaultErrorHandlerTest {
+    @Mock
+    private Request mockBaseRequest;
+    @Mock
+    private HttpServletRequest mockRequest;
+    @Mock
+    private HttpServletResponse mockResponse;
 
     @Test
     @DisplayName("Generates a response to the client if an error occurs during request processing")
     void generateAcceptableResponseTest() throws IOException {
         //prepare
         val defaultErrorHandler = new DefaultErrorHandler();
-
-        val mockBaseRequest = mock(Request.class);
-
-        val mockRequest = mock(HttpServletRequest.class);
-        val mockResponse = mock(HttpServletResponse.class);
 
         val stringWriter = new StringWriter();
         when(mockResponse.getWriter()).thenReturn(new PrintWriter(stringWriter));

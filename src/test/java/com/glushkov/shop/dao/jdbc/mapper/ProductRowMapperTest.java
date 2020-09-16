@@ -3,21 +3,27 @@ package com.glushkov.shop.dao.jdbc.mapper;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class ProductRowMapperTest {
+@ExtendWith(MockitoExtension.class)
+public class ProductRowMapperTest {
+    @Mock
+    private ResultSet mockResultSet;
+
     @Test
     @DisplayName("Returns an object of class User from result set")
     void productRowMapperTest() throws SQLException {
         //prepare
-        val mockResultSet = mock(ResultSet.class);
+        /*val mockResultSet = mock(ResultSet.class);*/
         when(mockResultSet.getInt("id")).thenReturn(1);
         when(mockResultSet.getString("name")).thenReturn("Victory-1765");
         when(mockResultSet.getDouble("price")).thenReturn(299.99);

@@ -5,6 +5,9 @@ import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,20 +15,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import static org.mockito.Mockito.*;
-
+@ExtendWith({MockitoExtension.class})
 class AddProductServletTest {
-    private final HttpServletRequest request;
-    private final HttpServletResponse response;
-    private final ProductService productService;
     private final AddProductServlet addProductServlet;
+    private final ProductService productService;
+    @Mock
+    private HttpServletRequest request;
+    @Mock
+    private HttpServletResponse response;
 
     AddProductServletTest() {
-        request = mock(HttpServletRequest.class);
-        response = mock(HttpServletResponse.class);
         productService = mock(ProductService.class);
         addProductServlet = new AddProductServlet(productService);
     }
-
     @Test
     @DisplayName("Processes the request and sends a response page with a added form")
     void doGetTest() throws IOException {

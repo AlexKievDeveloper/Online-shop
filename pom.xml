@@ -30,12 +30,8 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.5.5</version>
                 <configuration>
-                    <baselineOnMigrate>true</baselineOnMigrate>
-<!--                    <user>postgres</user>
-                    <password>23061993</password>
-                    <url>jdbc:postgresql://localhost:5432/online-shop</url>-->
                     <!--suppress UnresolvedMavenProperty -->
-                   <url>${env.JDBC_DATABASE_URL}</url>
+                    <url>${env.JDBC_DATABASE_URL}</url>
                 </configuration>
             </plugin>
 
@@ -92,13 +88,6 @@
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>3.0.4</version>
-<!--                <configuration>
-                    <appName>stylo-shop</appName>
-                    <processTypes>
-                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* com.glushkov.shop.Starter</web>
-                        <mainClass>com.glushkov.shop.Starter</mainClass>
-                    </processTypes>
-                </configuration>-->
             </plugin>
 
         </plugins>
@@ -159,8 +148,15 @@
 
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.5.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.5.10</version>
             <scope>test</scope>
         </dependency>
 

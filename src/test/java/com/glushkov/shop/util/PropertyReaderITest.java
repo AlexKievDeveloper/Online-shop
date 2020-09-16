@@ -49,25 +49,26 @@ class PropertyReaderITest {
                 .and("DATABASE_URL", "postgres://fxycdcgratlvtp:20c788b34de130ce61094c1d00816cbc421949ab1bf" +
                         "37260b599a01104067ca2@ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7njj3vpo8n")
                 .and("PORT", "3030")
-                .execute(() -> {
+                .execute(this::testProdProperties);
+    }
 
-                    propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
-                            "jj3vpo8n?sslmode=require");
-                    propertiesMap.put("db.user", "fxycdcgratlvtp");
-                    propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
-                    propertiesMap.put("port", "3030");
-                    propertiesMap.put("thymeleaf.cache", "false");
+    void testProdProperties(){
+        propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
+                "jj3vpo8n?sslmode=require");
+        propertiesMap.put("db.user", "fxycdcgratlvtp");
+        propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
+        propertiesMap.put("port", "3030");
+        propertiesMap.put("thymeleaf.cache", "false");
 
-                    //when
-                    val properties = propertyReader.getProperties();
+        //when
+        val properties = propertyReader.getProperties();
 
-                    //then
-                    assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
-                    assertEquals(propertiesMap.get("db.user"), properties.getProperty("db.user"));
-                    assertEquals(propertiesMap.get("db.password"), properties.getProperty("db.password"));
-                    assertEquals(propertiesMap.get("port"), properties.getProperty("port"));
-                    assertEquals(propertiesMap.get("thymeleaf.cache"), properties.getProperty("thymeleaf.cache"));
-                });
+        //then
+        assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
+        assertEquals(propertiesMap.get("db.user"), properties.getProperty("db.user"));
+        assertEquals(propertiesMap.get("db.password"), properties.getProperty("db.password"));
+        assertEquals(propertiesMap.get("port"), properties.getProperty("port"));
+        assertEquals(propertiesMap.get("thymeleaf.cache"), properties.getProperty("thymeleaf.cache"));
     }
 
     @Test
@@ -99,23 +100,24 @@ class PropertyReaderITest {
                 .and("DATABASE_URL", "postgres://fxycdcgratlvtp:20c788b34de130ce61094c1d00816cbc421949ab1bf" +
                         "37260b599a01104067ca2@ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7njj3vpo8n")
                 .and("PORT", "3030")
-                .execute(() -> {
+                .execute(this::testReadingProdProperties);
+    }
 
-                    propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
-                            "jj3vpo8n?sslmode=require");
-                    propertiesMap.put("db.user", "fxycdcgratlvtp");
-                    propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
-                    propertiesMap.put("port", "3030");
+    void testReadingProdProperties(){
+        propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
+                "jj3vpo8n?sslmode=require");
+        propertiesMap.put("db.user", "fxycdcgratlvtp");
+        propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
+        propertiesMap.put("port", "3030");
 
-                    //when
-                    val prodProperties = propertyReader.readProdProperties();
+        //when
+        val prodProperties = propertyReader.readProdProperties();
 
-                    //then
-                    assertEquals(propertiesMap.get("db.url"), prodProperties.getProperty("db.url"));
-                    assertEquals(propertiesMap.get("db.user"), prodProperties.getProperty("db.user"));
-                    assertEquals(propertiesMap.get("db.password"), prodProperties.getProperty("db.password"));
-                    assertEquals(propertiesMap.get("port"), prodProperties.getProperty("port"));
-                });
+        //then
+        assertEquals(propertiesMap.get("db.url"), prodProperties.getProperty("db.url"));
+        assertEquals(propertiesMap.get("db.user"), prodProperties.getProperty("db.user"));
+        assertEquals(propertiesMap.get("db.password"), prodProperties.getProperty("db.password"));
+        assertEquals(propertiesMap.get("port"), prodProperties.getProperty("port"));
     }
 
     @Test
@@ -126,28 +128,29 @@ class PropertyReaderITest {
                 .and("DATABASE_URL", "postgres://fxycdcgratlvtp:20c788b34de130ce61094c1d00816cbc421949ab1bf" +
                         "37260b599a01104067ca2@ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7njj3vpo8n")
                 .and("PORT", "3030")
-                .execute(() -> {
+                .execute(this::testMergeProperties);
+    }
 
-                    propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
-                            "jj3vpo8n?sslmode=require");
-                    propertiesMap.put("db.user", "fxycdcgratlvtp");
-                    propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
-                    propertiesMap.put("port", "3030");
-                    propertiesMap.put("thymeleaf.cache", "false");
+    void testMergeProperties(){
+        propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
+                "jj3vpo8n?sslmode=require");
+        propertiesMap.put("db.user", "fxycdcgratlvtp");
+        propertiesMap.put("db.password", "20c788b34de130ce61094c1d00816cbc421949ab1bf37260b599a01104067ca2");
+        propertiesMap.put("port", "3030");
+        propertiesMap.put("thymeleaf.cache", "false");
 
-                    val applicationProperties = propertyReader.readApplicationProperties();
-                    val prodProperties = propertyReader.readProdProperties();
+        val applicationProperties = propertyReader.readApplicationProperties();
+        val prodProperties = propertyReader.readProdProperties();
 
-                    //when
-                    val properties = propertyReader.merge(applicationProperties, prodProperties);
+        //when
+        val properties = propertyReader.merge(applicationProperties, prodProperties);
 
-                    //then
-                    assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
-                    assertEquals(propertiesMap.get("db.user"), properties.getProperty("db.user"));
-                    assertEquals(propertiesMap.get("db.password"), properties.getProperty("db.password"));
-                    assertEquals(propertiesMap.get("port"), properties.getProperty("port"));
-                    assertEquals(propertiesMap.get("thymeleaf.cache"), properties.getProperty("thymeleaf.cache"));
-                });
+        //then
+        assertEquals(propertiesMap.get("db.url"), properties.getProperty("db.url"));
+        assertEquals(propertiesMap.get("db.user"), properties.getProperty("db.user"));
+        assertEquals(propertiesMap.get("db.password"), properties.getProperty("db.password"));
+        assertEquals(propertiesMap.get("port"), properties.getProperty("port"));
+        assertEquals(propertiesMap.get("thymeleaf.cache"), properties.getProperty("thymeleaf.cache"));
     }
 }
 
