@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/header.html :: head(title='Stylo-Search')}"></div>
-<div class="main_section">
-    <div class="container">
-        <div class="row">
+<div class="search-body">
+    <div class="section">
+        <div class="search-form">
             <div th:unless="${products == null}" th:each="product, state : ${products}">
                 <div th:replace="~{/fragments/position.html :: position(${product.id}, ${product.name},
                  ${product.image}, ${product.price})}"></div>
             </div>
-            <h1 th:unless="${message == null}" th:text="${message}">
+            <h1 class="search-form__message" th:unless="${message == null}" th:text="${message}">
             </h1>
         </div>
     </div>

@@ -24,7 +24,6 @@ public class ViewProductServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         val pageGenerator = PageGenerator.instance();
         val product = productService.findById(Integer.parseInt(request.getParameter("id")));
-
         val productMap = new HashMap<String, Object>();
         putProductFieldsIntoParameterMap(product, productMap);
 

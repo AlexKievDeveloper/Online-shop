@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/header.html :: head(title='Stylo-Edit')}"></div>
-<div class="main_section">
-    <div class="container">
-        <div class="row ">
-            <div th:replace="~{/fragments/edit-product.html :: edit-product(${id}, ${name}, ${image}, ${price})}">
-            </div>
+<div class="edit-block">
+    <div class="section">
+        <div th:replace="~{/fragments/edit-product.html :: edit-product(${id}, ${name}, ${image}, ${price})}">
         </div>
     </div>
 </div>

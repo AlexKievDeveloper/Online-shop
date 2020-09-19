@@ -1,39 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="edit-product(id, name, img, price)">
-    <div class="col-lg-12">
+    <div class="edit-form">
         <form action="/edit" method="POST">
-            <div class="edit_position">
-                <input class="edit_name" name="name" th:value="${name}" required>
+            <div class="edit-form__name name">
+                <input class="name__input" name="name" th:value="${name}" required>
             </div>
-            <div class="edit_position">
+            <div class="edit-form__image">
                 <img class="position__image" th:src="${img}" alt="No photo"/>
             </div>
-            <div class="edit_position text-style">
+            <div class="edit-form__link link">
                 <p>Link to new product photo:</p>
-                <input class="image_input" type="text" name="image" th:value="${img}">
+                <input class="link__input" type="text" name="image" th:value="${img}">
             </div>
-            <div class="edit_position">
-                <input type="number" step=".01" min="0" class="edit_price" name="price" th:value="${price}" required>
+            <div class="edit-form__price price">
+                <input class="price__input" type="number" step=".01" min="0" name="price" th:value="${price}" required>
             </div>
-            <div class="edit_block">
-                <ul class="menu d-flex justify-content-center">
-                    <li class="edit-item">
-                        <button class="menu_button">
-                            <input type="hidden" name="id" th:value="${id}">
-                            <i class="fas fa-edit menu-text"> Edit</i>
-                        </button>
-                    </li>
-                    <li class="edit_item">
-                        <form action="/delete" method="POST">
-                            <button class="menu_button">
-                                <input type="hidden" name="id" th:value="${id}">
-                                <input type="hidden" name="image" th:value="${img}">
-                                <i class="fas fa-trash menu-text"> Delete</i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
+            <div class="edit-form__button">
+                <button class="position__button">
+                    <input type="hidden" name="id" th:value="${id}">
+                    <i class="fas fa-edit menu-text"> Edit</i>
+                </button>
             </div>
         </form>
     </div>

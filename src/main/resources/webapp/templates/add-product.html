@@ -3,34 +3,38 @@
 <div th:replace="~{/fragments/header.html :: head(title='Stylo-Add')}"></div>
 
 <section>
-    <div class="main_section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <form action="/add" method="POST">
-                        <div class="edit_position text-style">
-                            <p class="text-margin">Write product name:</p>
-                            <input type="text" class="edit_name" name="name" required>
-                        </div>
-                        <div class="edit_position text-style">
-                            <p class="text-margin">Link to product photo:</p>
-                            <input type="text" name="image" required>
-                        </div>
-                        <div class="edit_position text-style">
-                            <p class="text-margin">Write product price:</p>
-                            <input type="number" step=".01" min="0" class="edit_price" name="price" required>
-                        </div>
-                        <div class="edit_position">
-                            <button class="menu_button  add_button_style">
-                                <i class="fas fa-plus menu-text"> Add</i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="add-body">
+        <div class="section">
+                <form class="add-form" action="/add" method="POST">
+
+                    <div class="add-form__name name">
+                        <p class="name__title">Write product name:</p>
+                        <input type="text" class="name__input-add" name="name" required>
+                    </div>
+
+                    <div class="add-form__link link">
+                        <p class="link__title">Link to product photo:</p>
+                        <input class="link__input" type="text" name="image" required>
+                    </div>
+
+                    <div class="add-form__price price">
+                        <p class="price__title">Write product price:</p>
+                        <input type="number" step=".01" min="0" class="price__input" name="price" required>
+                    </div>
+
+                    <div class="add-form__button button">
+                        <button class="position__button">
+                            <i class="fas fa-plus menu-text"> Add</i>
+                        </button>
+                    </div>
+
+                </form>
         </div>
 </section>
-</div>
+
+
+
 <div th:replace="~{/fragments/footer.html :: foot}"></div>
+</div>
 </body>
 </html>

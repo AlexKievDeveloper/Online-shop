@@ -14,7 +14,7 @@ import java.util.List;
 public class JdbcProductDao implements ProductDao {
 
     private static final String FIND_BY_ID = "SELECT id, name, price, description, image FROM products WHERE id = ?";
-    private static final String FIND_BY_NAME = "SELECT id, name, price, description, image FROM products WHERE name ILIKE ?;";
+    private static final String FIND_BY_NAME = "SELECT id, name, price, description, image FROM products WHERE name ILIKE '%'||?||'%';";
     private static final String FIND_ALL = "SELECT id, name, price, description, image FROM products;";
     private static final String SAVE = "INSERT INTO products(name, price, description, image) VALUES (?, ?, ?, ?);";
     private static final String UPDATE = "UPDATE products SET name = ?, price = ?, description = ? , image = ? WHERE id = ?;";
@@ -51,7 +51,6 @@ public class JdbcProductDao implements ProductDao {
     public List<Product> findByName(String name) {
         @Cleanup val connection = dataSource.getConnection();
         @Cleanup val preparedStatement = connection.prepareStatement(FIND_BY_NAME);
-        preparedStatement.setString(1, "%" + name + "%");
         preparedStatement.setString(1, name);
         @Cleanup val resultSet = preparedStatement.executeQuery();
         val productList = new ArrayList<Product>();

@@ -1,208 +1,192 @@
-/*Specification*/
-ul, li {
-    display: block;
-    padding: 0;
-    margin: 0;
+a {
+    color: white;
 }
 
-/*Header*/
+.wrapper {
+    min-height: 100%;
+}
+
+/*HEADER*/
 .header {
     background: url("../img/wheel-2k.jpg");
-    padding-top: 85px;
-    padding-bottom: 85px;
-    color: black;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-color: white;
+    border-bottom: 5px solid white;
 }
 
-.first_container {
-    margin-top: 50px;
-}
-
-.slogan {
-    margin-left: 50px;
-    margin-bottom: 20px;
+.section {
+    max-width: 1180px;
+    min-height: 350px;
+    margin: 0 auto;
     text-align: center;
+}
+
+.header-block {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 120px 0 0 0;
+}
+
+.header-block__slogan {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 5px 0 5px 50px;
     font-family: Niconne, sans-serif;
     font-size: 25px;
 }
 
-.search {
-    margin-top: 35px;
-    margin-left: 10px;
+.header-block__menu {
+    display: inline-flex;
+    align-items: center;
 }
 
-.menu_button {
-    display: block;
-    height: 60px;
-    background: #33cccc;
-    padding: 5px;
-    text-decoration: none;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    border-color: white;
-    border-width: 1px;
-    border-style: solid;
+.menu__logo {
+    padding: 10px;
+    flex: 1 1 auto;
 }
 
-.menu_button i:hover {
-    text-decoration: none;
-    color: black;
+.menu__search {
+    padding-left: 15px;
 }
 
-.menu-text {
-    color: white;
-}
-
-.menu {
-    margin-top: 35px;
-}
-
-.menu__item {
-    margin: 0 15px;
-}
-
-.menu__item a {
-    font-size: 22px;
-    font-weight: 700;
-    color: black;
-}
-
-.button {
-    display: block;
-    width: 100px;
-    height: 45px;
-    background: #33cccc;
-    padding: 5px;
-    margin-left: 10px;
-    text-decoration: none;
-    text-align: center;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    border-color: white;
-    border-width: 1px;
-    border-style: solid;
-}
-
-.button i:hover {
-    text-decoration: none;
-    color: black;
-}
-
-.button input:hover {
-    text-decoration: none;
-    color: black;
-}
-
-.input-field {
-    width: 300px;
+.search__input {
+    padding-left: 10px;
     font-weight: 300;
     font-size: 20px;
     line-height: 24px;
     opacity: 0.6;
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 10px;
-    display: flex;
     align-items: center;
     flex: 1 1 auto;
     height: 45px;
+    width: 300px;
+}
+
+.search__button {
+    height: 50px;
+    background: #33cccc;
+    padding: 13px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.search input:hover {
+    color: black;
+}
+
+.menu__items {
+    display: flex;
+    padding: 0 10px 0 80px;
+}
+
+.items__item {
     padding-left: 10px;
 }
 
-/*Home screen second section(Slider)*/
-.main_section {
+.items__item a:hover {
+    color: black;
+}
+
+.header-button {
+    width: 120px;
+    height: 45px;
+    background: #33cccc;
+    padding: 13px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+/*HOME-BODY*/
+.center {
     background: url("../img/beach-last-last.jpg");
     min-height: 1000px;
 }
 
-.slider-container {
+.center__rows {
+    display: flex;
+    flex-direction: column;
     padding-top: 20px;
 }
 
-.slider {
-    border-style: solid;
-    border-color: white;
-    border-width: 5px;
+/*Slider*/
+.center__slider {
+    border: 5px solid white;
     padding: 40px;
     height: 1053px;
 }
 
-.slogan-slider {
+.slider__slogan {
     text-align: center;
     font-family: Niconne, sans-serif;
     font-size: 50px;
 }
 
-.slider-info {
-    padding: 10px;
-    font-size: 25px;
-    text-align: justify;
-}
-
-.title-bold {
-    font-weight: bold;
-    font-size: 30px;
-    margin-top: 5px;
-}
-
-.item-text {
+.slider__block {
     font-family: 'Libre Baskerville', serif;
     text-align: center;
     height: 280px;
     width: 1050px;
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.7);
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
+    border: 2px solid white;
 }
 
-.item-image {
+.block__title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+.block__text {
+    padding: 10px;
+    font-size: 25px;
+    text-align: justify;
+}
+
+.slider__image {
     width: 1050px;
     height: 682px;
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
+    border: 2px solid white;
 }
 
-/*Home screen third section (Catalog)*/
-.third-section {
-    margin-top: 20px;
+/*Catalog*/
+.center__catalog {
+    border: 5px solid white;
+    margin: 20px 0 10px 0;
     padding: 40px;
-}
-
-.catalog {
-    border-style: solid;
-    border-width: 5px;
-    border-color: white;
+    text-align: center;
 }
 
 .catalog__header {
     text-align: center;
     color: white;
-    font-size: 36px;
     margin-top: 5px;
     margin-bottom: 10px;
-}
-
-.catalog__header_h2 {
     font-size: 46px;
 }
 
 .catalog__item {
-    margin-top: 20px;
-    margin-bottom: 40px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 25px;
 }
 
+/*Catalog-position*/
 .position {
-    margin-top: 10px;
-    margin-left: 33px;
-    margin-bottom: 15px;
+    margin: 10px 0 15px 33px;
 }
 
 .position__name {
@@ -211,36 +195,23 @@ ul, li {
     font-size: 35px;
     font-family: Niconne, sans-serif;
     text-align: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
+    border: 1px solid white;
     color: white;
     padding: 5px;
 }
 
 .position__image {
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
-}
-
-.position-img-form {
     width: 100%;
     text-align: center;
 }
 
-.position-img-form img {
+.position__image img {
     max-width: 300px;
     height: 300px;
 }
 
-.position__description {
-    width: 200px;
-    font-size: 25px;
-    text-align: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
+.position__image_border {
+    border: 1px solid white;
 }
 
 .position__button {
@@ -248,7 +219,7 @@ ul, li {
     width: 180px;
     height: 50px;
     background-color: rgba(51, 204, 204, 0.7);
-    padding: 0px;
+    padding: 13px;
     margin: 5px 60px 0 60px;
     text-decoration: none;
     text-align: center;
@@ -256,9 +227,7 @@ ul, li {
     color: ghostwhite;
     font-weight: bold;
     border-radius: 10px;
-    border-color: black;
-    border-width: 1px;
-    border-style: solid;
+    border: 1px solid black;
 }
 
 .position__button a:hover {
@@ -266,53 +235,55 @@ ul, li {
     color: black;
 }
 
-.color-white {
-    color: white;
+.position__button i:hover {
+    text-decoration: none;
+    color: black;
 }
 
-/*Footer*/
+/*FOOTER*/
 .footer {
+    border: 5px solid white;
     background: url("../img/ocean-new.jpg");
-    border-style: solid;
-    border-color: white;
-    border-width: 5px;
 }
 
-.footer-row-margin {
-    margin-bottom: 15px;
+.footer-block {
+    display: inline-flex;
+    flex-direction: column;
 }
 
-.footer_header {
+.first-row__header {
     padding: 5px;
     margin-top: 10px;
     text-align: center;
     color: white;
     font-size: 40px;
-    border-style: solid;
-    border-width: 2px;
+    border: 2px solid white;
     border-radius: 10px;
-    border-color: white;
     background-color: rgba(51, 204, 204, 0.7);
 }
 
-.footer-text {
+.first-row__text {
     padding: 5px;
     text-align: center;
     color: white;
     font-size: 23px;
-    border-style: solid;
-    border-width: 2px;
+    border: 2px solid white;
     border-radius: 10px;
-    border-color: white;
     background-color: rgba(51, 204, 204, 0.7);
 }
 
-.icons {
-    margin-left: 43%;
+.footer-block__second-row {
+    margin: 10px 0 10px 0;
+    padding-top: 5px;
+}
+
+.second-row__icons {
+    display: flex;
+    justify-content: center;
 }
 
 .icons__item {
-    margin-right: 30px;
+    padding: 0 20px 5px 20px;
 }
 
 .icons__item a {
@@ -326,36 +297,120 @@ ul, li {
     color: #03ffff;
 }
 
-.credits {
+.third-row__credits {
     text-align: center;
     color: white;
     font-size: 30px;
 }
 
-.credits_margin {
+.credits__item {
     margin-bottom: 5px;
 }
 
-
-/*Edit screen*/
-.edit_position {
-    margin-top: 10px;
-    margin-left: 37%;
+/*View, View position*/
+.view-body {
+    background: url("../img/beach-last-last.jpg");
+    text-align: center;
 }
 
-.edit_name {
+.view-block {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.view-block__name {
+    align-self: center;
+    margin: 5px;
+}
+
+.view-block__button {
+    align-self: center;
+    margin: 5px;
+}
+
+.view-block__button a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.view-block__image {
+}
+
+.view-block__buttons {
+    display: flex;
+    margin: 5px;
+}
+
+.view-block__buttons a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.position__button-view {
+    display: block;
+    width: 180px;
+    height: 50px;
+    background-color: rgba(51, 204, 204, 0.7);
+    margin: 1px;
+    padding: 13px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    color: ghostwhite;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.position__button-view a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.position__button-view i:hover {
+    color: red;
+}
+
+/*Edit-product*/
+.edit-block {
+    background: url("../img/beach-last-last.jpg");
+    text-align: center;
+}
+
+.edit-form {
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.name__input {
     margin-bottom: 5px;
     width: 300px;
     font-size: 30px;
     font-family: Niconne, sans-serif;
     text-align: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
+    border: 1px solid black;
     color: black;
 }
 
-.edit_price {
+.edit-form__image {
+    margin-top: 10px;
+}
+
+.edit-form__link {
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+.link__input {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    height: 40px;
+}
+
+.price__input {
     width: 180px;
     height: 45px;
     background-color: ghostwhite;
@@ -366,60 +421,93 @@ ul, li {
     font-size: 20px;
     font-weight: bold;
     border-radius: 10px;
-    border-color: black;
-    border-width: 1px;
-    border-style: solid;
+    border: 1px solid black;
 }
 
-.edit-item {
-    margin: 0 10px;
+.edit-form__button {
+    margin-bottom: 10px;
 }
 
-.form_edit {
-    display: block;
-}
-
-.image_input {
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-}
-
-/*About screen*/
-.text-first-section {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 30px;
-    font-family: 'Petrona', serif;
-}
-
-.about_border {
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    padding: 0;
-}
-
-.about-padding {
-    padding-right: 0;
-    padding-left: 5px;
-}
-
-/*Add screen*/
-.text-style {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.add_button_style {
-    margin: 5px 0 0 17%;
-    text-decoration: none;
+/*Add product*/
+.add-body {
+    background: url("../img/beach-last-last.jpg");
     text-align: center;
 }
 
-.text-margin {
-    margin-left: 5%;
+.add-form {
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 10px;
+    background-color: rgba(51, 204, 204, 0.7);
+    align-items: center;
+    text-align: center;
 }
+
+.add-form__name, .add-form__link, .add-form__price {
+    font-size: 25px;
+    /*    font-weight: bold;*/
+    padding: 10px;
+
+}
+
+.link__title, .name__title, .price__title {
+    margin-bottom: 5px;
+}
+
+.name__input-add {
+    width: 300px;
+    font-size: 30px;
+    font-family: Niconne, sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid black;
+    color: black;
+}
+
+.button {
+    align-self: center;
+}
+
+/*Search*/
+.search-body {
+    background: url("../img/beach-last-last.jpg");
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+}
+
+.search-form__message {
+    font-size: 40px;
+    background-color: rgba(51, 204, 204, 0.7);
+}
+
+/*Error*/
+.error-body {
+    background: url("../img/beach-last-last.jpg");
+}
+
+.error-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.error-form__text {
+    font-size: 40px;
+    background-color: rgba(51, 204, 204, 0.7);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

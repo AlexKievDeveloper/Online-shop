@@ -15,6 +15,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 public class Starter {
     public static void main(String[] args) throws Exception {
+
         val propertyReader = new PropertyReader();
         val properties = propertyReader.getProperties();
         val dataSource = new PGSimpleDataSource();
@@ -39,8 +40,8 @@ public class Starter {
         servletContextHandler.addServlet(new ServletHolder(allProductsServlet), "/home");
         servletContextHandler.addServlet(new ServletHolder(allProductsServlet), "");
         servletContextHandler.addServlet(new ServletHolder(searchProductServlet), "/search");
-        servletContextHandler.addServlet(new ServletHolder(viewProductServlet), "/view");
-        servletContextHandler.addServlet(new ServletHolder(editProductServlet), "/edit");
+        servletContextHandler.addServlet(new ServletHolder(viewProductServlet), "/view/*");
+        servletContextHandler.addServlet(new ServletHolder(editProductServlet), "/edit/*");
         servletContextHandler.addServlet(new ServletHolder(deleteProductServlet), "/delete");
         servletContextHandler.addServlet(new ServletHolder(addProductServlet), "/add");
 

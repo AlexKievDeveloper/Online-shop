@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/header.html :: head(title='Stylo-Error')}"></div>
-<div class="container-flex">
-    <div class="row">
-        <div class="col-12">
+<div class="error-body">
+    <div class="section">
+        <div class="error-form">
             <div>
-                <h1 th:text="${message}">Message</h1>
+                <h1 class="error-form__text" th:text="${message}">Message</h1>
             </div>
             <div>
-                <h2 th:text="${code}">Code</h2>
+                <h2 class="error-form__text" th:text="${code}">Code</h2>
             </div>
         </div>
     </div>

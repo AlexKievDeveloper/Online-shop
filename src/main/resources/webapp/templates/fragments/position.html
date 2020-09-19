@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+<body>
 <th:block xmlns:th="http://www.thymeleaf.org" th:fragment="position(id, name, img, price)">
-    <div class="position col-lg-4">
+    <div class="position">
         <div class="position__name">
             <p th:text="${name}">Name</p>
         </div>
-        <div class="position-img-form">
-            <img class="position__image" th:src="${img}" alt="No photo"/>
+        <div class="position__image">
+            <img class="position__image_border" th:src="${img}" alt="No photo"/>
         </div>
-        <div>
-            <form action="/view" method="GET">
-                <button class="position__button">
-                    <input type="hidden" name="id" th:value="${id}">
-                    <i href="#" class="color-white" th:text="${'Buy for ' + price + '$'}">Price</i>
-                </button>
-            </form>
+        <div class="position__button">
+            <a th:href="${'/view/?id=' + id}" th:text="${'Buy for ' + price + '$'}">Price</a>
         </div>
     </div>
 </th:block>
-
-
-
+</body>
+</html>
