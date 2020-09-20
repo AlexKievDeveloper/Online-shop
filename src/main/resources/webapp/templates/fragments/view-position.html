@@ -9,14 +9,16 @@
             <img class="position__image" th:src="${img}" alt="No photo"/>
         </div>
         <div class="view-block__button">
-            <a class="position__button-view" th:href="${'/view/?id=' + id}"
+            <a class="position__button-view" th:href="@{${id}}"
                th:text="${'Buy for ' + price + '$'}">Price</a>
         </div>
         <div class="view-block__buttons">
-            <a class="position__button-view" th:href="${'/edit/?id=' + id}"> Edit</a>
-            <form class="position__button-view" action="/delete" method="POST">
+            <a class="position__button-view" th:href="${'/edit/'+id}"> Edit</a>
+            <form action="/delete" method="POST">
                 <input type="hidden" name="id" th:value="${id}">
-                <i class="fas fa-trash "> Delete</i>
+                <button class="position__button-view">
+                    <i class="fas fa-trash "> Delete</i>
+                </button>
             </form>
         </div>
     </div>

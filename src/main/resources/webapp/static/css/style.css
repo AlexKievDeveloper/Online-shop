@@ -113,7 +113,7 @@ a {
     min-height: 1000px;
 }
 
-.center__rows {
+.center__form {
     display: flex;
     flex-direction: column;
     padding-top: 20px;
@@ -163,7 +163,7 @@ a {
 /*Catalog*/
 .center__catalog {
     border: 5px solid white;
-    margin: 20px 0 10px 0;
+    margin: 20px 0 20px 0;
     padding: 40px;
     text-align: center;
 }
@@ -210,7 +210,7 @@ a {
     height: 300px;
 }
 
-.position__image_border {
+.position__image--border {
     border: 1px solid white;
 }
 
@@ -230,12 +230,7 @@ a {
     border: 1px solid black;
 }
 
-.position__button a:hover {
-    text-decoration: none;
-    color: black;
-}
-
-.position__button i:hover {
+.position__button a:hover, .position__button i:hover {
     text-decoration: none;
     color: black;
 }
@@ -318,12 +313,7 @@ a {
     flex-direction: column;
 }
 
-.view-block__name {
-    align-self: center;
-    margin: 5px;
-}
-
-.view-block__button {
+.view-block__name, .view-block__button {
     align-self: center;
     margin: 5px;
 }
@@ -333,15 +323,12 @@ a {
     color: black;
 }
 
-.view-block__image {
-}
-
 .view-block__buttons {
     display: flex;
     margin: 5px;
 }
 
-.view-block__buttons a:hover {
+.view-block__buttons a:hover, .position__button-view a:hover {
     text-decoration: none;
     color: black;
 }
@@ -360,11 +347,6 @@ a {
     font-weight: bold;
     border-radius: 10px;
     border: 1px solid black;
-}
-
-.position__button-view a:hover {
-    text-decoration: none;
-    color: black;
 }
 
 .position__button-view i:hover {
@@ -445,7 +427,6 @@ a {
 
 .add-form__name, .add-form__link, .add-form__price {
     font-size: 25px;
-    /*    font-weight: bold;*/
     padding: 10px;
 
 }
@@ -499,16 +480,30 @@ a {
     background-color: rgba(51, 204, 204, 0.7);
 }
 
+/*About*/
+.about-form {
+    display: inline-flex;
+    flex-direction: column;
+}
 
+.about-form__text {
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-family: 'Petrona', serif;
+    border: 1px solid black;
+    text-align: justify;
+    background-color: rgba(51, 204, 204, 0.7);
+}
 
+.about-form__image {
+    border: 1px solid black;
+    padding: 25px 0 25px 0;
+}
 
-
-
-
-
-
-
-
-
-
-
+.text__title {
+    margin: 5px;
+    text-align: center;
+    font-weight: bold;
+}

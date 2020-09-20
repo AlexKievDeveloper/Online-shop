@@ -11,7 +11,7 @@
             </div>
             <div class="edit-form__link link">
                 <p>Link to new product photo:</p>
-                <input class="link__input" type="text" name="image" th:value="${img}">
+                <input class="link__input" type="url" name="image" th:value="${img}">
             </div>
             <div class="edit-form__price price">
                 <input class="price__input" type="number" step=".01" min="0" name="price" th:value="${price}" required>

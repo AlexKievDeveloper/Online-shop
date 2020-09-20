@@ -23,7 +23,7 @@ public class ViewProductServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         val pageGenerator = PageGenerator.instance();
-        val product = productService.findById(Integer.parseInt(request.getParameter("id")));
+        val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(1)));
         val productMap = new HashMap<String, Object>();
         putProductFieldsIntoParameterMap(product, productMap);
 

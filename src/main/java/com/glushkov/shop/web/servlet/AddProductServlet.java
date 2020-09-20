@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddProductServlet extends HttpServlet {
-
     private final ProductService productService;
 
     public AddProductServlet(ProductService productService) {
