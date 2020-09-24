@@ -7,6 +7,7 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JdbcProductDaoITest {
     private final JdbcProductDao jdbcProductDao;
 
-    JdbcProductDaoITest() throws SQLException {
+    JdbcProductDaoITest() throws SQLException, IOException {
 
         val propertyReader = new PropertyReader("/application-test.properties");
         val properties = propertyReader.getProperties();

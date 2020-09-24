@@ -3,12 +3,12 @@ package com.glushkov.shop.web.servlet;
 import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
-import lombok.SneakyThrows;
 import lombok.val;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class SearchProductServlet extends HttpServlet {
@@ -19,11 +19,8 @@ public class SearchProductServlet extends HttpServlet {
         this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
-    @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
-        val pageGenerator = PageGenerator.instance();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         val enteredName = request.getParameter("enteredName");
         val usersList = productService.findByName(enteredName);
         val productsMap = new HashMap<String, Object>();
@@ -35,6 +32,6 @@ public class SearchProductServlet extends HttpServlet {
         }
 
         response.setContentType("text/html;charset=utf-8");
-        pageGenerator.process("/search", productsMap, response.getWriter());
+        PageGenerator.process("/search", productsMap, response.getWriter());
     }
 }

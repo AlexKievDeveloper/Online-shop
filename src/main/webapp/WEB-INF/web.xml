@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <web-app>
+    <listener>
+        <listener-class>com.glushkov.shop.web.listener.ThymeleafInitializerListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>AddProductServlet</servlet-name>
         <servlet-class>com.glushkov.shop.web.servlet.AddProductServlet</servlet-class>
@@ -30,11 +34,6 @@
         <servlet-name>ViewProductServlet</servlet-name>
         <servlet-class>com.glushkov.shop.web.servlet.ViewProductServlet</servlet-class>
     </servlet>
-
-<!--     <servlet>
-        <servlet-name>DefaultServlet</servlet-name>
-        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
-    </servlet>-->
 
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>

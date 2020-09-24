@@ -4,12 +4,12 @@ import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
-import lombok.SneakyThrows;
 import lombok.val;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,16 +21,13 @@ public class AllProductsServlet extends HttpServlet {
         this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
-    @SneakyThrows
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         val map = new HashMap<String, Object>();
         List<Product> productList = productService.findAll();
         map.put("products", productList);
 
-        val pageGenerator = PageGenerator.instance();
         response.setContentType("text/html;charset=utf-8");
-        pageGenerator.process("/home", map, response.getWriter());
+        PageGenerator.process("/home", map, response.getWriter());
     }
 }

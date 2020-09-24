@@ -4,12 +4,12 @@ import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
-import lombok.SneakyThrows;
 import lombok.val;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class AddProductServlet extends HttpServlet {
     private final ProductService productService;
@@ -18,18 +18,14 @@ public class AddProductServlet extends HttpServlet {
         this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
-    @SneakyThrows
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        val pageGenerator = PageGenerator.instance();
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
-        pageGenerator.process("/add-product", response.getWriter());
+        PageGenerator.process("/add-product", response.getWriter());
     }
 
-    @SneakyThrows
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
-
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         val product = Product.builder()
                 .name(request.getParameter("name"))
                 .description("description")

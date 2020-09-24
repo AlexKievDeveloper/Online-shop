@@ -1,22 +1,24 @@
 package com.glushkov.shop.dao.jdbc;
 
 import com.glushkov.shop.util.PropertyReader;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
-
+@Slf4j
 public class ConnectionManager implements DataSource {
     private final String url;
     private final String user;
     private final String password;
 
-    public ConnectionManager() {
+    public ConnectionManager() throws IOException {
         val propertyReader = new PropertyReader();
         val properties = propertyReader.getProperties();
         url = properties.getProperty("db.url");
@@ -25,8 +27,13 @@ public class ConnectionManager implements DataSource {
     }
 
     @Override
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException e){
+            log.error("Error while getting connection", e);
+            throw new RuntimeException("Error while getting connection", e);
+        }
     }
 
     @Override

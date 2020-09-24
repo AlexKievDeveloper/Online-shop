@@ -1,7 +1,6 @@
 /*
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,17 +23,13 @@ class AllProductsServletTest {
     @Mock
     private HttpServletResponse response;
     @Mock
-    private ProductService productService;
-    @Mock
     private PrintWriter writer;
 
     @Test
     @DisplayName("Processes the request and sends a response with home page and all products there")
     void doGetTest() throws IOException {
         //prepare
-        val allProductServlet = new AllProductsServlet(*/
-/*productService*//*
-);
+        val allProductServlet = new AllProductsServlet();
         //val writer = mock(PrintWriter.class);
         when(response.getWriter()).thenReturn(writer);
         //when
@@ -42,4 +37,5 @@ class AllProductsServletTest {
         //then
         verify(response).getWriter();
     }
-}*/
+}
+*/

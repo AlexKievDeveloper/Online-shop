@@ -23,7 +23,6 @@ public class ProductRowMapperTest {
     @DisplayName("Returns an object of class User from result set")
     void productRowMapperTest() throws SQLException {
         //prepare
-        /*val mockResultSet = mock(ResultSet.class);*/
         when(mockResultSet.getInt("id")).thenReturn(1);
         when(mockResultSet.getString("name")).thenReturn("Victory-1765");
         when(mockResultSet.getDouble("price")).thenReturn(299.99);

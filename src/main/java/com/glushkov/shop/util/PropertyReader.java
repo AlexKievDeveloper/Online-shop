@@ -1,18 +1,16 @@
 package com.glushkov.shop.util;
 
-//import com.glushkov.shop.Starter;
-import lombok.Cleanup;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
-import java.io.InputStream;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
+@Slf4j
 public class PropertyReader {
-
     private final static String DEFAULT_DEV_PROPERTIES_PATH = "/application.properties";
-
     private final String devProperties;
 
     public PropertyReader() {
@@ -23,7 +21,7 @@ public class PropertyReader {
         this.devProperties = devProperties;
     }
 
-    public Properties getProperties() {
+    public Properties getProperties() throws IOException {
         val applicationProperties = readApplicationProperties();
 
         if (("PROD").equals(System.getenv("env"))) {
@@ -34,27 +32,31 @@ public class PropertyReader {
         return applicationProperties;
     }
 
-    @SneakyThrows
-    Properties readApplicationProperties() {
+    Properties readApplicationProperties() throws IOException {
         val properties = new Properties();
 
-        @Cleanup InputStream inputStream = getClass().getResourceAsStream(devProperties);
-        properties.load(inputStream);
-        return properties;
+        try (val inputStream = getClass().getResourceAsStream(devProperties)) {
+            properties.load(inputStream);
+            return properties;
+        }
     }
 
-    @SneakyThrows
     Properties readProdProperties() {
-        val prodProperties = new Properties();
-        val dbUri = new URI(System.getenv("DATABASE_URL"));
+        try {
+            val prodProperties = new Properties();
+            val dbUri = new URI(System.getenv("DATABASE_URL"));
 
-        prodProperties.setProperty("db.user", dbUri.getUserInfo().split(":")[0]);
-        prodProperties.setProperty("db.password", dbUri.getUserInfo().split(":")[1]);
-        prodProperties.setProperty("db.url", "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort()
-                + dbUri.getPath() + "?sslmode=require");
-        prodProperties.setProperty("port", System.getenv("PORT"));
+            prodProperties.setProperty("db.user", dbUri.getUserInfo().split(":")[0]);
+            prodProperties.setProperty("db.password", dbUri.getUserInfo().split(":")[1]);
+            prodProperties.setProperty("db.url", "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort()
+                    + dbUri.getPath() + "?sslmode=require");
+            prodProperties.setProperty("port", System.getenv("PORT"));
 
-        return prodProperties;
+            return prodProperties;
+        } catch (URISyntaxException e) {
+            log.error("URISyntaxException while reading prod properties", e);
+            throw new RuntimeException("URISyntaxException while reading prod properties", e);
+        }
     }
 
     Properties merge(Properties... properties) {

@@ -1,8 +1,6 @@
-/*
-package com.glushkov.shop.web.servlet;
+/*package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
-import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +18,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EditProductServletTest {
-    private final ProductService productService;
     private final EditProductServlet editProductServlet;
     @Mock
     private HttpServletRequest request;
@@ -28,34 +25,23 @@ class EditProductServletTest {
     private HttpServletResponse response;
 
     EditProductServletTest() {
-        productService = mock(ProductService.class);
-        editProductServlet = new EditProductServlet(*/
-/*productService*//*
-);
+        editProductServlet = new EditProductServlet();
     }
 
-*/
-/*    @Test
+    @Test
     @DisplayName("Processes the request and sends a page with product request form")
     void doGetTest() throws IOException {
         //prepare
         val writer = mock(PrintWriter.class);
-        val product = mock(Product.class);
         when(response.getWriter()).thenReturn(writer);
         when(request.getPathInfo()).thenReturn("/1");
-        *//*
-*/
-/*when(productService.findById(1)).thenReturn(product);*//*
-*/
-/*
-
         //when
         editProductServlet.doGet(request, response);
         //then
         verify(request).getPathInfo();
         verify(response).setContentType("text/html;charset=utf-8");
         verify(response).getWriter();
-    }*//*
+    }
 
 
     @Test
@@ -82,9 +68,6 @@ class EditProductServletTest {
         verify(request).getParameter("name");
         verify(request).getParameter("price");
         verify(request).getParameter("image");
-       */
-/* verify(productService).update(product);*//*
-
         verify(response).sendRedirect("/home");
     }
 
@@ -111,4 +94,5 @@ class EditProductServletTest {
         verify(parameters).put("price", product.getPrice());
         verify(parameters).put("image", product.getImage());
     }
-}*/
+}
+*/

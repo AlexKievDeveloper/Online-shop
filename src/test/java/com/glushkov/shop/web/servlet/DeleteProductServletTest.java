@@ -1,7 +1,6 @@
 /*
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,17 +21,12 @@ class DeleteProductServletTest {
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
-    @Mock
-    private ProductService productService;
 
     @Test
     @DisplayName("Deleting product by id and redirect to /home")
     void doPostTest() throws IOException {
         //prepare
-        val deleteProductServlet = new DeleteProductServlet(*/
-/*productService*//*
-);
-
+        val deleteProductServlet = new DeleteProductServlet();
         when(request.getParameter("id")).thenReturn("1");
         //when
         deleteProductServlet.doPost(request, response);
@@ -40,4 +34,5 @@ class DeleteProductServletTest {
         verify(request).getParameter("id");
         verify(response).sendRedirect("/home");
     }
-}*/
+}
+*/

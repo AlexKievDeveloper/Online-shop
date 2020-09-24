@@ -1,50 +1,51 @@
 package com.glushkov.shop.web.templater;
 
 import com.glushkov.shop.util.PropertyReader;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import javax.servlet.ServletContext;
+import java.io.IOException;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
+@Slf4j
 public class PageGenerator {
-    private static PageGenerator pageGenerator;
-    private final TemplateEngine templateEngine;
+    private static final TemplateEngine TEMPLATE_ENGINE = new TemplateEngine();
+    private static boolean isConfigured;
 
-    public static PageGenerator instance() {
-        if (pageGenerator == null) {
-            pageGenerator = new PageGenerator();
+    public synchronized static void configTemplate(ServletContext servletContext) {
+        if (isConfigured) {
+            return;
         }
-        return pageGenerator;
-    }
-
-    public void process(String template, Map<String, Object> paramsMap, Writer writer) {
-        val context = new Context();
-        context.setVariables(paramsMap);
-
-        templateEngine.process(template, context, writer);
-    }
-
-    public void process(String template, Writer writer) {
-        val context = new Context();
-        templateEngine.process(template, context, writer);
-    }
-
-    private PageGenerator() {
-        templateEngine = new TemplateEngine();
-        val templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        templateResolver.setPrefix("templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCharacterEncoding("UTF-8");
-
+        isConfigured = true;
+        val templateResolver = new ServletContextTemplateResolver(servletContext);
         val propertyReader = new PropertyReader();
-        val properties = propertyReader.getProperties();
-        templateResolver.setCacheable(Boolean.parseBoolean(properties.getProperty("thymeleaf.cache")));
+        try {
+            Properties properties = propertyReader.getProperties();
+            templateResolver.setPrefix("/WEB-INF/templates");
+            templateResolver.setSuffix(".html");
+            templateResolver.setTemplateMode("HTML");
+            templateResolver.setCharacterEncoding("UTF-8");
+            templateResolver.setCacheable(Boolean.parseBoolean(properties.getProperty("thymeleaf.cache")));
+            TEMPLATE_ENGINE.setTemplateResolver(templateResolver);
+        } catch (IOException e) {
+            log.error("Error while getting properties", e);
+        }
+    }
 
-        templateEngine.setTemplateResolver(templateResolver);
+    public static void process(String template, Map<String, Object> productMap, Writer writer) {
+        val context = new Context(Locale.getDefault(), productMap);
+        TEMPLATE_ENGINE.process(template, context, writer);
+    }
+
+    public static void process(String template, Writer writer) {
+        process(template, Collections.emptyMap(), writer);
     }
 }
