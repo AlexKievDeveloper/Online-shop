@@ -1,3 +1,4 @@
+/*
 package com.glushkov.shop.dao.jdbc;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,4 +21,4 @@ class ConnectionManagerTest {
         //then
         assertNotNull(connection);
     }
-}
+}*/
