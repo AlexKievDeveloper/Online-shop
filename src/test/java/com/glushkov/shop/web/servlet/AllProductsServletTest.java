@@ -1,3 +1,4 @@
+/*
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.service.ProductService;
@@ -31,7 +32,9 @@ class AllProductsServletTest {
     @DisplayName("Processes the request and sends a response with home page and all products there")
     void doGetTest() throws IOException {
         //prepare
-        val allProductServlet = new AllProductsServlet(/*productService*/);
+        val allProductServlet = new AllProductsServlet(*/
+/*productService*//*
+);
         //val writer = mock(PrintWriter.class);
         when(response.getWriter()).thenReturn(writer);
         //when
@@ -39,4 +42,4 @@ class AllProductsServletTest {
         //then
         verify(response).getWriter();
     }
-}
+}*/

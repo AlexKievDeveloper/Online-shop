@@ -3,6 +3,7 @@ package com.glushkov.shop;
 import com.glushkov.shop.dao.jdbc.ConnectionManager;
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
 import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.util.PropertyReader;
 
 import java.util.HashMap;
 import java.util.Map;
