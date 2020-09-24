@@ -8,7 +8,7 @@ a {
 
 /*HEADER*/
 .header {
-    background: url("../img/wheel-2k.jpg");
+    background: url("/static/img/wheel-2k.jpg");
     border-bottom: 5px solid white;
 }
 
@@ -82,7 +82,7 @@ a {
 
 .menu__items {
     display: flex;
-    padding: 0 10px 0 80px;
+    padding: 0 10px 0 50px;
 }
 
 .items__item {
@@ -109,7 +109,7 @@ a {
 
 /*HOME-BODY*/
 .center {
-    background: url("../img/beach-last-last.jpg");
+    background: url("/static/img/beach-last-last.jpg");
     min-height: 1000px;
 }
 
@@ -216,14 +216,13 @@ a {
 
 .position__button {
     display: block;
-    width: 180px;
     height: 50px;
     background-color: rgba(51, 204, 204, 0.7);
-    padding: 13px;
-    margin: 5px 60px 0 60px;
+    padding-top: 15px;
+    margin: 5px 60px 5px 60px;
     text-decoration: none;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     color: ghostwhite;
     font-weight: bold;
     border-radius: 10px;
@@ -238,7 +237,7 @@ a {
 /*FOOTER*/
 .footer {
     border: 5px solid white;
-    background: url("../img/ocean-new.jpg");
+    background: url("/static/img/ocean-new.jpg");
 }
 
 .footer-block {
@@ -304,7 +303,7 @@ a {
 
 /*View, View position*/
 .view-body {
-    background: url("../img/beach-last-last.jpg");
+    background: url("/static/img/beach-last-last.jpg");
     text-align: center;
 }
 
@@ -336,7 +335,6 @@ a {
 .position__button-view {
     display: block;
     width: 180px;
-    height: 50px;
     background-color: rgba(51, 204, 204, 0.7);
     margin: 1px;
     padding: 13px;
@@ -355,7 +353,7 @@ a {
 
 /*Edit-product*/
 .edit-block {
-    background: url("../img/beach-last-last.jpg");
+    background: url("/static/img/beach-last-last.jpg");
     text-align: center;
 }
 
@@ -407,12 +405,28 @@ a {
 }
 
 .edit-form__button {
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
+}
+.position__edit-button {
+    display: block;
+    height: 50px;
+    background-color: rgba(51, 204, 204, 0.7);
+    padding: 15px;
+    margin: 5px 0 5px 0;
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    color: ghostwhite;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
 /*Add product*/
 .add-body {
-    background: url("../img/beach-last-last.jpg");
+    background: url("/static/img/beach-last-last.jpg");
     text-align: center;
 }
 
@@ -449,9 +463,13 @@ a {
     align-self: center;
 }
 
+.position__button--padding{
+    padding-bottom: 10px;
+}
+
 /*Search*/
 .search-body {
-    background: url("../img/beach-last-last.jpg");
+    background: url("/static/img/beach-last-last.jpg");
 }
 
 .search-form {
@@ -466,7 +484,7 @@ a {
 
 /*Error*/
 .error-body {
-    background: url("../img/beach-last-last.jpg");
+    background: url("/static/img/beach-last-last.jpg");
 }
 
 .error-form {

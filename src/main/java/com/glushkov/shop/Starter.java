@@ -1,5 +1,6 @@
-package com.glushkov.shop;
-
+//package com.glushkov.shop;
+/*
+import com.glushkov.shop.dao.jdbc.ConnectionManager;
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.util.PropertyReader;
@@ -11,28 +12,35 @@ import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.JarFileResource;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.postgresql.ds.PGSimpleDataSource;
 
+import javax.sql.DataSource;
+
+import java.io.File;
+
 public class Starter {
-    public static void main(String[] args) throws Exception {
+   public static void main(String[] args) throws Exception {
+         val dataSource = new PGSimpleDataSource();
 
-        val propertyReader = new PropertyReader();
-        val properties = propertyReader.getProperties();
-        val dataSource = new PGSimpleDataSource();
-
-        dataSource.setURL(properties.getProperty("db.url"));
+       dataSource.setURL(properties.getProperty("db.url"));
         dataSource.setUser(properties.getProperty("db.user"));
         dataSource.setPassword(properties.getProperty("db.password"));
+
+        DataSource dataSource = new ConnectionManager();
 
         val jdbcUserDao = new JdbcProductDao(dataSource);
         val productService = new ProductService(jdbcUserDao);
 
-        val allProductsServlet = new AllProductsServlet(productService);
-        val searchProductServlet = new SearchProductServlet(productService);
-        val viewProductServlet = new ViewProductServlet(productService);
-        val editProductServlet = new EditProductServlet(productService);
-        val deleteProductServlet = new DeleteProductServlet(productService);
-        val addProductServlet = new AddProductServlet(productService);
+        ServiceLocator.getService("productService");
+
+        val allProductsServlet = new AllProductsServlet((ProductService) ServiceLocator.getService("productService"));
+        val searchProductServlet = new SearchProductServlet((ProductService) ServiceLocator.getService("productService"));
+        val viewProductServlet = new ViewProductServlet((ProductService) ServiceLocator.getService("productService"));
+        val editProductServlet = new EditProductServlet((ProductService) ServiceLocator.getService("productService"));
+        val deleteProductServlet = new DeleteProductServlet((ProductService) ServiceLocator.getService("productService"));
+        val addProductServlet = new AddProductServlet((ProductService) ServiceLocator.getService("productService"));
 
         val servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.setErrorHandler(new DefaultErrorHandler());
@@ -45,14 +53,31 @@ public class Starter {
         servletContextHandler.addServlet(new ServletHolder(deleteProductServlet), "/delete");
         servletContextHandler.addServlet(new ServletHolder(addProductServlet), "/add");
 
-        val resource = JarFileResource.newClassPathResource("webapp/static");
+
+        val resource = JarFileResource.newClassPathResource("static");
         servletContextHandler.setBaseResource(resource);
         servletContextHandler.addServlet(DefaultServlet.class, "/*");
+
+        val propertyReader = new PropertyReader();
+        val properties = propertyReader.getProperties();
 
         val server = new Server(Integer.parseInt(properties.getProperty("port")));
         server.setHandler(servletContextHandler);
         server.start();
+        server.join();
+
+
+       Server server = new Server(8080);
+       setWebAppServlet(server);
+       server.start();
+       server.join();
+    }
+
+    private static void setWebAppServlet(Server server){
+        WebAppContext webAppContext = new WebAppContext();
+        webAppContext.setWar(new File("target/online-shop-1.0-SNAPSHOT.war").getAbsolutePath());
+        server.setHandler(webAppContext);
     }
 }
-
+*/
 

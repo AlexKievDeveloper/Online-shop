@@ -1,5 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
+import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
@@ -15,8 +16,8 @@ import java.util.Map;
 public class ViewProductServlet extends HttpServlet {
     private final ProductService productService;
 
-    public ViewProductServlet(ProductService productService) {
-        this.productService = productService;
+    public ViewProductServlet(/*ProductService productService*/) {
+        this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
     @SneakyThrows

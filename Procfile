@@ -1,2 +1,2 @@
-web: java -Dserver.port=$PORT -jar target/online-shop-1.0-SNAPSHOT.jar --host=0.0.0.0
+web: java $JAVA_OPTS -jar target/dependency/jetty-runner.jar --port $PORT target/*.war
 release: ./mvnw flyway:migrate

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/header.html :: head(title='Stylo-Error')}"></div>
+<div class="error-body">
+    <div class="section">
+        <div class="error-form">
+            <div>
+                <h1 class="error-form__text" th:text="${message}">Message: Sorry some shit is going on</h1>
+            </div>
+            <div>
+                <h2 class="error-form__text" th:text="${code}">Code: 100500</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/footer.html :: foot}"></div>
+</body>
+</html>

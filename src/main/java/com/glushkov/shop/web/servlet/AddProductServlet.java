@@ -1,5 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
+import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
@@ -13,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AddProductServlet extends HttpServlet {
     private final ProductService productService;
 
-    public AddProductServlet(ProductService productService) {
-        this.productService = productService;
+    public AddProductServlet() {
+        this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
     @SneakyThrows

@@ -1,5 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
+import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
@@ -16,8 +17,8 @@ public class AllProductsServlet extends HttpServlet {
 
     private final ProductService productService;
 
-    public AllProductsServlet(ProductService productService) {
-        this.productService = productService;
+    public AllProductsServlet() {
+        this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
     @SneakyThrows
@@ -30,6 +31,6 @@ public class AllProductsServlet extends HttpServlet {
 
         val pageGenerator = PageGenerator.instance();
         response.setContentType("text/html;charset=utf-8");
-        pageGenerator.process("/index", map, response.getWriter());
+        pageGenerator.process("/home", map, response.getWriter());
     }
 }

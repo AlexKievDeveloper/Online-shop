@@ -1,5 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
+import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
@@ -15,8 +16,8 @@ import java.util.Map;
 public class EditProductServlet extends HttpServlet {
     private final ProductService productService;
 
-    public EditProductServlet(ProductService productService) {
-        this.productService = productService;
+    public EditProductServlet() {
+        this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
     @SneakyThrows
@@ -29,7 +30,7 @@ public class EditProductServlet extends HttpServlet {
         putProductFieldsIntoParameterMap(product, productMap);
 
         response.setContentType("text/html;charset=utf-8");
-        pageGenerator.process("/product", productMap, response.getWriter());
+        pageGenerator.process("/edit", productMap, response.getWriter());
     }
 
     @SneakyThrows

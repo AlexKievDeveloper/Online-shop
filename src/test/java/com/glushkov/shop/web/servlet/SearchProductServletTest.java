@@ -31,7 +31,7 @@ class SearchProductServletTest {
     @DisplayName("Processed the request and and send response page with message or products")
     void doGetTest() throws IOException {
         //prepare
-        val searchProductServlet = new SearchProductServlet(productService);
+        val searchProductServlet = new SearchProductServlet(/*productService*/);
         when(response.getWriter()).thenReturn(writer);
         //when
         searchProductServlet.doGet(request, response);

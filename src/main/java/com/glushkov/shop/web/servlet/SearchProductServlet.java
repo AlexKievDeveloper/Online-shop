@@ -1,5 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
+import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
 import lombok.SneakyThrows;
@@ -14,8 +15,8 @@ public class SearchProductServlet extends HttpServlet {
 
     private final ProductService productService;
 
-    public SearchProductServlet(ProductService productService) {
-        this.productService = productService;
+    public SearchProductServlet() {
+        this.productService = (ProductService) ServiceLocator.getService("productService");
     }
 
     @SneakyThrows

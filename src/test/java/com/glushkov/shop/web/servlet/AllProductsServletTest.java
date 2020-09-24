@@ -31,7 +31,7 @@ class AllProductsServletTest {
     @DisplayName("Processes the request and sends a response with home page and all products there")
     void doGetTest() throws IOException {
         //prepare
-        val allProductServlet = new AllProductsServlet(productService);
+        val allProductServlet = new AllProductsServlet(/*productService*/);
         //val writer = mock(PrintWriter.class);
         when(response.getWriter()).thenReturn(writer);
         //when

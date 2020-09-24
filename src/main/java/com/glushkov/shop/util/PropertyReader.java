@@ -1,6 +1,6 @@
 package com.glushkov.shop.util;
 
-import com.glushkov.shop.Starter;
+//import com.glushkov.shop.Starter;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.Properties;
 
 public class PropertyReader {
+
     private final static String DEFAULT_DEV_PROPERTIES_PATH = "/application.properties";
 
     private final String devProperties;
@@ -37,7 +38,7 @@ public class PropertyReader {
     Properties readApplicationProperties() {
         val properties = new Properties();
 
-        @Cleanup InputStream inputStream = Starter.class.getResourceAsStream(devProperties);
+        @Cleanup InputStream inputStream = getClass().getResourceAsStream(devProperties);
         properties.load(inputStream);
         return properties;
     }
