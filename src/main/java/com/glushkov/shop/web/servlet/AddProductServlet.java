@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddProductServlet extends HttpServlet {
-    private final ProductService productService;
+    private ProductService productService;
 
     public AddProductServlet() {
         this.productService = (ProductService) ServiceLocator.getService("productService");
@@ -21,7 +21,7 @@ public class AddProductServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
-        PageGenerator.process("/add-product", response.getWriter());
+        PageGenerator.process("add-product", response.getWriter());
     }
 
     @Override
@@ -34,6 +34,6 @@ public class AddProductServlet extends HttpServlet {
                 .build();
 
         productService.save(product);
-        response.sendRedirect("/home");
+        response.sendRedirect("home");
     }
 }

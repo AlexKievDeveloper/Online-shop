@@ -1,18 +1,134 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="~{/fragments/header.html :: head(title='Stylo-Error')}"></div>
-<div class="error-body">
-    <div class="section">
-        <div class="error-form">
-            <div>
-                <h1 class="error-form__text" th:text="${message}">Message: Sorry some shit is going on</h1>
-            </div>
-            <div>
-                <h2 class="error-form__text" th:text="${code}">Code: 100500</h2>
+<html lang="en">
+<head>
+    <title>Stylo-Error</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/35950de255.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/nanoreset/nanoreset.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="section">
+            <div class="header-block">
+                <div class="header-block__slogan">
+                    <p class="slogan">Write your own history</p>
+                </div>
+                <div class="header-block__menu menu">
+                    <div class="menu__logo">
+                        <a href="/home">
+                            <img id="logo" src="/static/img/aqua-logo.jpg" alt="logo">
+                        </a>
+                    </div>
+                    <form class="menu__search search" action="/search" method="GET">
+                        <input type="text" placeholder="Find pen" name="enteredName" id="searchInput"
+                               class="search__input">
+                        <input class="search__button" type="submit" value="Search">
+                    </form>
+                    <div class="menu__items items">
+                        <div class="items__item">
+                            <a href="/add" class="items__header-button header-button">
+                                <i class="fas fa-user"> Profile</i>
+                            </a>
+                        </div>
+                        <div class="items__item">
+                            <a href="/static/about.html" class="items__header-button header-button">
+                                <i class="fas fa-book-open"> About</i>
+                            </a>
+                        </div>
+                        <div class="items__item">
+                            <a href="/home" class="items__header-button header-button">
+                                <i class="fas fa-shopping-cart"> Cart</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="error-body">
+        <div class="section">
+            <div class="error-form">
+                <div>
+                    <h1 class="error-form__text">Message: Sorry, some shit is going on</h1>
+                </div>
+                <div>
+                    <h2 class="error-form__text">Code: 100500</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="section">
+            <div class="footer-block">
+                <div class="footer-block__first-row first-row">
+                    <h2 class="first-row__header">
+                        Keep in touch with us
+                    </h2>
+                    <p class="first-row__text">
+                        Friends, we are always glad to receive feedback!
+                        Leave your comments, feedback, wishes and suggestions and we will definitely listen and
+                        take them into account. We work and grow stronger together.
+                    </p>
+                </div>
+                <div class="footer-block__second-row second-row">
+                    <div class="second-row__icons icons">
+                        <div class="icons__item">
+                            <a href="https://www.facebook.com/stylomusic1/">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </div>
+                        <div class="icons__item">
+                            <a href="https://www.instagram.com/stylopk/">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </div>
+                        <div class="icons__item">
+                            <a href="https://twitter.com/official_stylo?lang=ru">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-block__third-row third-row">
+                    <div class="third-row__credits credits">
+                        <p class="credits__item">STYLO LTD</p>
+                        <p class="credits__item">28, Khreschatik Str</p>
+                        <p class="credits__item">Kyiv, Ukraine</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
-<div th:replace="~{/fragments/footer.html :: foot}"></div>
 </body>
 </html>

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditProductServlet extends HttpServlet {
-    private final ProductService productService;
+    private ProductService productService;
 
     public EditProductServlet() {
         this.productService = (ProductService) ServiceLocator.getService("productService");
@@ -28,7 +28,7 @@ public class EditProductServlet extends HttpServlet {
         putProductFieldsIntoParameterMap(product, productMap);
 
         response.setContentType("text/html;charset=utf-8");
-        PageGenerator.process("/edit", productMap, response.getWriter());
+        PageGenerator.process("edit", productMap, response.getWriter());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class EditProductServlet extends HttpServlet {
                 .build();
 
         productService.update(product);
-        response.sendRedirect("/home");
+        response.sendRedirect("home");
     }
 
     void putProductFieldsIntoParameterMap(Product product, Map<String, Object> parameters) {

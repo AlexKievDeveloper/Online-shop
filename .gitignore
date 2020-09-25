@@ -2,7 +2,5 @@
 Dockerfile
 mvnw.cmd
 target
-handler
-src/main/java/com/glushkov/shop/Starter.java
 *.iml
 

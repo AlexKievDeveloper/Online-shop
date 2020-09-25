@@ -29,8 +29,8 @@ public class PageGenerator {
         val propertyReader = new PropertyReader();
         try {
             Properties properties = propertyReader.getProperties();
-            templateResolver.setPrefix("/WEB-INF/templates");
-            templateResolver.setSuffix(".html");
+            templateResolver.setPrefix(properties.getProperty("thymeleaf.prefix"));
+            templateResolver.setSuffix(properties.getProperty("thymeleaf.suffix"));
             templateResolver.setTemplateMode("HTML");
             templateResolver.setCharacterEncoding("UTF-8");
             templateResolver.setCacheable(Boolean.parseBoolean(properties.getProperty("thymeleaf.cache")));

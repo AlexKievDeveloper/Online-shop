@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DeleteProductServlet extends HttpServlet {
-    private final ProductService productService;
+    private ProductService productService;
 
     public DeleteProductServlet() {
         this.productService = (ProductService) ServiceLocator.getService("productService");
@@ -20,6 +20,6 @@ public class DeleteProductServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         val id = Integer.parseInt(request.getParameter("id"));
         productService.delete(id);
-        response.sendRedirect("/home");
+        response.sendRedirect("home");
     }
 }

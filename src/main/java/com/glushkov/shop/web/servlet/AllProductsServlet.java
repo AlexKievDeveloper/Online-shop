@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AllProductsServlet extends HttpServlet {
-
-    private final ProductService productService;
+    private ProductService productService;
 
     public AllProductsServlet() {
         this.productService = (ProductService) ServiceLocator.getService("productService");
@@ -28,6 +27,6 @@ public class AllProductsServlet extends HttpServlet {
         map.put("products", productList);
 
         response.setContentType("text/html;charset=utf-8");
-        PageGenerator.process("/home", map, response.getWriter());
+        PageGenerator.process("home", map, response.getWriter());
     }
 }

@@ -17,7 +17,7 @@ public class ThymeleafInitializerListener implements ServletContextListener {
     }
 
     @Override //TODO как спрятать?
-    public void contextDestroyed(ServletContextEvent sce) {
+    public void contextDestroyed(ServletContextEvent event) {
 
     }
 }

@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class SearchProductServlet extends HttpServlet {
-
-    private final ProductService productService;
+    private ProductService productService;
 
     public SearchProductServlet() {
         this.productService = (ProductService) ServiceLocator.getService("productService");
@@ -32,6 +31,6 @@ public class SearchProductServlet extends HttpServlet {
         }
 
         response.setContentType("text/html;charset=utf-8");
-        PageGenerator.process("/search", productsMap, response.getWriter());
+        PageGenerator.process("search", productsMap, response.getWriter());
     }
 }

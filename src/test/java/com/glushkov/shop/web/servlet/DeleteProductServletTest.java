@@ -1,10 +1,10 @@
-/*
 package com.glushkov.shop.web.servlet;
 
-import lombok.val;
+import com.glushkov.shop.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -18,6 +18,10 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class DeleteProductServletTest {
     @Mock
+    private ProductService productService;
+    @InjectMocks
+    private DeleteProductServlet deleteProductServlet;
+    @Mock
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
@@ -26,13 +30,11 @@ class DeleteProductServletTest {
     @DisplayName("Deleting product by id and redirect to /home")
     void doPostTest() throws IOException {
         //prepare
-        val deleteProductServlet = new DeleteProductServlet();
         when(request.getParameter("id")).thenReturn("1");
         //when
         deleteProductServlet.doPost(request, response);
         //then
         verify(request).getParameter("id");
-        verify(response).sendRedirect("/home");
+        verify(response).sendRedirect("home");
     }
 }
-*/

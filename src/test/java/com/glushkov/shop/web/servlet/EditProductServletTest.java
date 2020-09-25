@@ -1,10 +1,12 @@
-/*package com.glushkov.shop.web.servlet;
+package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
+import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -18,15 +20,16 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EditProductServletTest {
-    private final EditProductServlet editProductServlet;
+    @Mock
+    private ProductService productService;
+    @InjectMocks
+    private EditProductServlet editProductServlet;
     @Mock
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
-
-    EditProductServletTest() {
-        editProductServlet = new EditProductServlet();
-    }
+    @Mock
+    private Product product;
 
     @Test
     @DisplayName("Processes the request and sends a page with product request form")
@@ -35,6 +38,7 @@ class EditProductServletTest {
         val writer = mock(PrintWriter.class);
         when(response.getWriter()).thenReturn(writer);
         when(request.getPathInfo()).thenReturn("/1");
+        when(productService.findById(anyInt())).thenReturn(product);
         //when
         editProductServlet.doGet(request, response);
         //then
@@ -43,24 +47,14 @@ class EditProductServletTest {
         verify(response).getWriter();
     }
 
-
     @Test
     @DisplayName("Process the request and updating product in data base")
     void doPostTest() throws IOException {
         //prepare
-        val product = Product.builder()
-                .id(1)
-                .name("product")
-                .description("description")
-                .image("image")
-                .price(299.01)
-                .build();
-
         when(request.getParameter("id")).thenReturn("1");
         when(request.getParameter("name")).thenReturn("product");
         when(request.getParameter("price")).thenReturn("299.01");
         when(request.getParameter("image")).thenReturn("image");
-
         //when
         editProductServlet.doPost(request, response);
         //then
@@ -68,7 +62,7 @@ class EditProductServletTest {
         verify(request).getParameter("name");
         verify(request).getParameter("price");
         verify(request).getParameter("image");
-        verify(response).sendRedirect("/home");
+        verify(response).sendRedirect("home");
     }
 
     @Test
@@ -81,7 +75,6 @@ class EditProductServletTest {
         when(product.getName()).thenReturn("product");
         when(product.getPrice()).thenReturn(299.01);
         when(product.getImage()).thenReturn("image");
-
         //when
         editProductServlet.putProductFieldsIntoParameterMap(product, parameters);
         //then
@@ -95,4 +88,3 @@ class EditProductServletTest {
         verify(parameters).put("image", product.getImage());
     }
 }
-*/

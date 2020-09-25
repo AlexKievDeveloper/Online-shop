@@ -1,10 +1,10 @@
-/*
 package com.glushkov.shop.web.servlet;
 
-import lombok.val;
+import com.glushkov.shop.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,6 +19,10 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class AllProductsServletTest {
     @Mock
+    private ProductService productService;
+    @InjectMocks
+    private AllProductsServlet allProductsServlet;
+    @Mock
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
@@ -29,13 +33,10 @@ class AllProductsServletTest {
     @DisplayName("Processes the request and sends a response with home page and all products there")
     void doGetTest() throws IOException {
         //prepare
-        val allProductServlet = new AllProductsServlet();
-        //val writer = mock(PrintWriter.class);
         when(response.getWriter()).thenReturn(writer);
         //when
-        allProductServlet.doGet(request, response);
+        allProductsServlet.doGet(request, response);
         //then
         verify(response).getWriter();
     }
 }
-*/

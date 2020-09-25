@@ -325,6 +325,7 @@ a {
 .view-block__buttons {
     display: flex;
     margin: 5px;
+    align-self: center;
 }
 
 .view-block__buttons a:hover, .position__button-view a:hover {
