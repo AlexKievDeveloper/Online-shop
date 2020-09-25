@@ -45,7 +45,7 @@ public class JdbcProductDao implements ProductDao {
             }
         } catch (SQLException e) {
             log.error("Error while connection to DB, method findByID() id: {}", id, e);
-            throw new RuntimeException("Error while connection to DB, method findByID() id: {}"
+            throw new RuntimeException("Error while connection to DB, method findByID() id: "
                     .concat(String.valueOf(id)), e);
         }
     }

@@ -1,4 +1,4 @@
-create table if not exists products
+create table products
 (
     id          serial           not null
         constraint products_pk

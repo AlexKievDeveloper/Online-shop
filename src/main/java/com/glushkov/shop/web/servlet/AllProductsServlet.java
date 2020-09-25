@@ -17,7 +17,7 @@ public class AllProductsServlet extends HttpServlet {
     private ProductService productService;
 
     public AllProductsServlet() {
-        this.productService = (ProductService) ServiceLocator.getService("productService");
+        this.productService = ServiceLocator.getService("productService");
     }
 
     @Override

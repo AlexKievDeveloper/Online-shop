@@ -30,7 +30,7 @@ public class ServiceLocator {
         SERVICES.put(serviceName, service);
     }
 
-    public static Object getService(String serviceName) {
-        return SERVICES.get(serviceName);
+    public static <T> T getService(String serviceName) {
+        return (T)SERVICES.get(serviceName);
     }
 }
