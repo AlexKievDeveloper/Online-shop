@@ -21,15 +21,19 @@ public class PropertyReader {
         this.devProperties = devProperties;
     }
 
-    public Properties getProperties() throws IOException {
+    public Properties getProperties() {
+        try {
         val applicationProperties = readApplicationProperties();
 
         if (("PROD").equals(System.getenv("env"))) {
             val prodProperties = readProdProperties();
             return merge(applicationProperties, prodProperties);
         }
-
         return applicationProperties;
+        } catch (IOException e){
+            log.error("Error while reading properties", e);
+            throw new RuntimeException("Error while reading properties", e);
+        }
     }
 
     Properties readApplicationProperties() throws IOException {
