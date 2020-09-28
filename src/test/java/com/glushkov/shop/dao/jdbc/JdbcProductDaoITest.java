@@ -3,32 +3,38 @@ package com.glushkov.shop.dao.jdbc;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.util.PropertyReader;
 import lombok.val;
+import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JdbcProductDaoITest {
     private final JdbcProductDao jdbcProductDao;
+    private final Flyway flyway;
 
-    JdbcProductDaoITest() throws SQLException, IOException {
-
+    JdbcProductDaoITest() {
         val propertyReader = new PropertyReader("/application-test.properties");
         val properties = propertyReader.getProperties();
 
         JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setURL(properties.getProperty("jdbc.host"));
-        dataSource.setUser(properties.getProperty("jdbc.user"));
-        dataSource.setPassword(properties.getProperty("jdbc.password"));
-        dataSource.getConnection();
+        dataSource.setUrl(properties.getProperty("jdbc.default-url"));
 
-        dataSource.setURL(properties.getProperty("jdbc.url"));
-
+        flyway = Flyway.configure().dataSource(dataSource).locations("db/migration/products").load();
         jdbcProductDao = new JdbcProductDao(dataSource);
+    }
+
+    @BeforeEach
+    void init() {
+        flyway.migrate();
+    }
+
+    @AfterEach
+    void afterAll() {
+        flyway.clean();
     }
 
     @Test

@@ -50,7 +50,7 @@ fi
 cygwin=false;
 darwin=false;
 mingw=false
-case "`uname`" in
+case "`login`" in
   CYGWIN*) cygwin=true ;;
   MINGW*) mingw=true;;
   Darwin*) darwin=true

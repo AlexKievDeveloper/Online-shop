@@ -32,14 +32,18 @@ public class JdbcProductDao implements ProductDao {
     public Product findById(int id) {
         try (val connection = dataSource.getConnection();
              val preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+
             preparedStatement.setInt(1, id);
+
             try (val resultSet = preparedStatement.executeQuery()) {
                 if (!resultSet.next()) {
-                    throw new RuntimeException("No data found for id: " + id);
+                    throw new RuntimeException("No data found for id: ".concat(String.valueOf(id)));
                 }
+
                 val product = PRODUCT_ROW_MAPPER.mapRow(resultSet);
+
                 if (resultSet.next()) {
-                    throw new RuntimeException("More than one row found for id: " + id);
+                    throw new RuntimeException("More than one row found for id: ".concat(String.valueOf(id)));
                 }
                 return product;
             }

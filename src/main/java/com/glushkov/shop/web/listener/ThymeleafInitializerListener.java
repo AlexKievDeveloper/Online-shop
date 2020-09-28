@@ -13,10 +13,10 @@ public class ThymeleafInitializerListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         log.info("Initializing thymeleaf processor");
         ServletContext servletContext = event.getServletContext();
-        PageGenerator.configTemplate(servletContext);
+        PageGenerator.instance().configTemplate(servletContext);
     }
 
-    @Override //TODO как спрятать?
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
 
     }

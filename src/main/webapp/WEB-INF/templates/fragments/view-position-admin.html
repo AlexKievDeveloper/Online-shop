@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="view-position-admin(id, name, img, price)">
+    <div class="view-block">
+        <div class="view-block__name position__name">
+            <p th:text="${name}">Name</p>
+        </div>
+        <div class="view-block__image">
+            <img class="position__image" th:src="${img}" alt="No photo"/>
+        </div>
+        <div class="view-block__button">
+            <a class="position__button-view" th:href="@{${id}}"
+               th:text="${'Buy for ' + price + '$'}">Price</a>
+        </div>
+        <div class="view-block__buttons">
+            <a class="far fa-edit position__button-view" th:href="${'/edit/'+id}"> Edit</a>
+            <form action="/delete" method="POST">
+                <input type="hidden" name="id" th:value="${id}">
+                <button class="position__button-view">
+                    <i class="fas fa-trash "> Delete</i>
+                </button>
+            </form>
+            <a class="far fa-plus-square position__button-view" href="/add"> Add</a>
+        </div>
+    </div>
+</th:block>
+
+<i class="far fa-edit"></i>

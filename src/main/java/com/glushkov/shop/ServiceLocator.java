@@ -1,8 +1,11 @@
 package com.glushkov.shop;
 
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
+import com.glushkov.shop.dao.jdbc.JdbcUserDao;
 import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.UserService;
 import com.glushkov.shop.util.PropertyReader;
+import com.glushkov.shop.service.AuthenticationService;
 import lombok.val;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -23,7 +26,13 @@ public class ServiceLocator {
 
         val jdbcProductDao = new JdbcProductDao(pgSimpleDataSource);
         val productService = new ProductService(jdbcProductDao);
+        val jdbcUserDao = new JdbcUserDao(pgSimpleDataSource);
+        val userService = new UserService(jdbcUserDao);
+        val authenticationService = new AuthenticationService();
+
         register("productService", productService);
+        register("userService", userService);
+        register("authenticationService", authenticationService);
     }
 
     public static void register(String serviceName, Object service) {
@@ -31,6 +40,6 @@ public class ServiceLocator {
     }
 
     public static <T> T getService(String serviceName) {
-        return (T)SERVICES.get(serviceName);
+        return (T) SERVICES.get(serviceName);
     }
 }

@@ -14,10 +14,21 @@ import java.util.Map;
 import java.util.Properties;
 
 public class PageGenerator {
-    private static final TemplateEngine TEMPLATE_ENGINE = new TemplateEngine();
-    private static boolean isConfigured;
+    private static PageGenerator pageGenerator;
+    private final TemplateEngine TEMPLATE_ENGINE = new TemplateEngine();
+    private boolean isConfigured;
 
-    public synchronized static void configTemplate(ServletContext servletContext) {
+    public static PageGenerator instance() {
+        if (pageGenerator == null) {
+            pageGenerator = new PageGenerator();
+        }
+        return pageGenerator;
+    }
+
+    private PageGenerator() {
+    }
+
+    public synchronized void configTemplate(ServletContext servletContext) {
         if (isConfigured) {
             return;
         }
@@ -34,12 +45,12 @@ public class PageGenerator {
         TEMPLATE_ENGINE.setTemplateResolver(templateResolver);
     }
 
-    public static void process(String template, Map<String, Object> productMap, Writer writer) {
+    public void process(String template, Map<String, Object> productMap, Writer writer) {
         val context = new Context(Locale.getDefault(), productMap);
         TEMPLATE_ENGINE.process(template, context, writer);
     }
 
-    public static void process(String template, Writer writer) {
+    public void process(String template, Writer writer) {
         process(template, Collections.emptyMap(), writer);
     }
 }

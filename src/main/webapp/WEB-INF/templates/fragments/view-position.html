@@ -12,14 +12,7 @@
             <a class="position__button-view" th:href="@{${id}}"
                th:text="${'Buy for ' + price + '$'}">Price</a>
         </div>
-        <div class="view-block__buttons">
-            <a class="position__button-view" th:href="${'/edit/'+id}"> Edit</a>
-            <form action="/delete" method="POST">
-                <input type="hidden" name="id" th:value="${id}">
-                <button class="position__button-view">
-                    <i class="fas fa-trash "> Delete</i>
-                </button>
-            </form>
-        </div>
     </div>
 </th:block>
+
+<i class="far fa-edit"></i>

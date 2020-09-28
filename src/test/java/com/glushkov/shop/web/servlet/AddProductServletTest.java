@@ -1,6 +1,5 @@
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
@@ -44,8 +43,6 @@ class AddProductServletTest {
     @DisplayName("Processes the request and saving user to database")
     void doPostTest() throws IOException {
         //prepare
-        ServiceLocator.register("productService", productService);
-        AddProductServlet addProductServlet = new AddProductServlet();
         when(request.getParameter("name")).thenReturn("product");
         when(request.getParameter("image")).thenReturn("http://images.com/img.png");
         when(request.getParameter("price")).thenReturn("299.01");

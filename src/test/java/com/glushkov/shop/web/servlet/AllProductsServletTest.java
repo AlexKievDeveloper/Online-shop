@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,11 +33,12 @@ class AllProductsServletTest {
     @Test
     @DisplayName("Processes the request and sends a response with home page and all products there")
     void doGetTest() throws IOException {
-        //prepare
         when(response.getWriter()).thenReturn(writer);
         //when
         allProductsServlet.doGet(request, response);
         //then
+        verify(response).setContentType("text/html;charset=utf-8");
+        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();
     }
 }

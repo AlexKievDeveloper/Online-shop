@@ -35,6 +35,11 @@
         <servlet-class>com.glushkov.shop.web.servlet.ViewProductServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.glushkov.shop.web.servlet.LoginServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/add</url-pattern>
@@ -64,6 +69,11 @@
     <servlet-mapping>
         <servlet-name>ViewProductServlet</servlet-name>
         <url-pattern>/view/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
     <error-page>
