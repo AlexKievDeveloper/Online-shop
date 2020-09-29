@@ -17,26 +17,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ViewProductServlet extends HttpServlet {
-    private final String CONTENT_TYPE = "text/html;charset=utf-8";
+    private final String contentType = "text/html;charset=utf-8";
     private ProductService productService = ServiceLocator.getService("productService");
     private AuthenticationService authenticationService = ServiceLocator.getService("authenticationService");
+    private Map<String, Role> tokensRoleMap = AuthenticationService.getTokensRoleMap();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cookie[] cookies = request.getCookies();
-        response.setContentType(CONTENT_TYPE);
+        response.setContentType(contentType);
 
         boolean isAuth = authenticationService.isUserOrAdmin(cookies);
 
-        if (isAuth){
+        if (isAuth) {
             val validCookie = authenticationService.getValidCookie(cookies);
             val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(1)));
             val productMap = new HashMap<String, Object>();
             putProductFieldsIntoParameterMap(product, productMap);
 
-            if (AuthenticationService.getTokensRoleMap().get(validCookie.getValue()).equals(Role.ADMIN)) {
+            if (tokensRoleMap.get(validCookie.getValue()).equals(Role.ADMIN)) {
                 PageGenerator.instance().process("admin-view", productMap, response.getWriter());
-            } else if (AuthenticationService.getTokensRoleMap().get(validCookie.getValue()).equals(Role.USER)) {
+            } else if (tokensRoleMap.get(validCookie.getValue()).equals(Role.USER)) {
                 PageGenerator.instance().process("view", productMap, response.getWriter());
             }
         } else {
@@ -47,7 +48,7 @@ public class ViewProductServlet extends HttpServlet {
         }
     }
 
-    private void putProductFieldsIntoParameterMap(Product product, Map<String, Object> parameters) {
+    void putProductFieldsIntoParameterMap(Product product, Map<String, Object> parameters) {
         parameters.put("id", product.getId());
         parameters.put("name", product.getName());
         parameters.put("image", product.getImage());

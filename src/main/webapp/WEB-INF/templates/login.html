@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/header.html :: head(title='Stylo-Login')}"></div>
-
 <div class="login-body">
     <div class="section">
         <div class="login-form__message">
@@ -11,14 +10,16 @@
 
             <div class="login-form__credentials">
                 <label for="login"><b>Username</b></label>
-                <input class="login-form__input" id="login" type="text" placeholder="Enter Username" name="login" required>
+                <input class="login-form__input" id="login" type="text" placeholder="Enter Username" name="login"
+                       required>
 
                 <label for="password"><b>Password</b></label>
 
-                <input class="login-form__input" id="password" type="password" placeholder="Enter Password" name="password" required>
+                <input class="login-form__input" id="password" type="password" placeholder="Enter Password"
+                       name="password" required>
 
                 <label class="login-form__checkbox">
-                    <input  type="checkbox" checked="checked" name="remember"> Remember me
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
                 </label>
 
                 <button class="login-form__button" type="submit">Login</button>
@@ -26,8 +27,6 @@
         </form>
     </div>
 </div>
-
-
 <div th:replace="~{/fragments/footer.html :: foot}"></div>
 </body>
 </html>

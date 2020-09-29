@@ -1,6 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
+import com.glushkov.shop.service.AuthenticationService;
 import com.glushkov.shop.service.ProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class EditProductServletTest {
     @Mock
+    private AuthenticationService authenticationService;
+    @Mock
     private ProductService productService;
     @InjectMocks
     private EditProductServlet editProductServlet;
@@ -30,20 +33,39 @@ class EditProductServletTest {
     private HttpServletResponse response;
     @Mock
     private Product product;
+    @Mock
+    private PrintWriter printWriter;
 
     @Test
-    @DisplayName("Processes the request and sends a page with product request form")
+    @DisplayName("Processes the request and sends a page with product request form (user authorized)")
     void doGetTest() throws IOException {
         //prepare
-        val writer = mock(PrintWriter.class);
-        when(response.getWriter()).thenReturn(writer);
-/*        when(request.getPathInfo()).thenReturn("/1");
-        when(productService.findById(1)).thenReturn(product);*/
+        when(authenticationService.isAdmin(any())).thenReturn(true);
+        when(response.getWriter()).thenReturn(printWriter);
+        when(request.getPathInfo()).thenReturn("/1");
+        when(productService.findById(1)).thenReturn(product);
         //when
         editProductServlet.doGet(request, response);
         //then
-       /* verify(request).getPathInfo();*/
         verify(response).setContentType("text/html;charset=utf-8");
+        verify(request).getPathInfo();
+        verify(authenticationService).isAdmin(any());
+        verify(productService).findById(1);
+        verify(response).getWriter();
+    }
+
+    @Test
+    @DisplayName("Processes the request and sends a page with login form (user unauthorized)")
+    void doGetIfUserAuthorizedTest() throws IOException {
+        //prepare
+        when(authenticationService.isAdmin(any())).thenReturn(false);
+        when(response.getWriter()).thenReturn(printWriter);
+        //when
+        editProductServlet.doGet(request, response);
+        //then
+        verify(authenticationService).isAdmin(any());
+        verify(response).setContentType("text/html;charset=utf-8");
+        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();
     }
 
@@ -62,7 +84,8 @@ class EditProductServletTest {
         verify(request).getParameter("name");
         verify(request).getParameter("price");
         verify(request).getParameter("image");
-        verify(response).sendRedirect("home");
+        verify(productService).update(any());
+        verify(response).sendRedirect("/");
     }
 
     @Test

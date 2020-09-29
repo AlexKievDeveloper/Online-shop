@@ -1,7 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
+import com.glushkov.shop.service.AuthenticationService;
 import com.glushkov.shop.service.ProductService;
-import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,22 +20,43 @@ import static org.mockito.Mockito.*;
 class AddProductServletTest {
     @Mock
     private ProductService productService;
+    @Mock
+    private AuthenticationService authenticationService;
     @InjectMocks
     private AddProductServlet addProductServlet;
     @Mock
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
+    @Mock
+    private PrintWriter printWriter;
 
     @Test
-    @DisplayName("Processes the request and sends a response page with a added form")
+    @DisplayName("Processes the request and sends a response page with added form")
     void doGetTest() throws IOException {
         //prepare
-        val writer = mock(PrintWriter.class);
-        when(response.getWriter()).thenReturn(writer);
+        when(authenticationService.isAdmin(any())).thenReturn(true);
+        when(response.getWriter()).thenReturn(printWriter);
         //when
         addProductServlet.doGet(request, response);
         //then
+        verify(response).setContentType("text/html;charset=utf-8");
+        verify(authenticationService).isAdmin(any());
+        verify(response).getWriter();
+    }
+
+    @Test
+    @DisplayName("Processes the request and sends a response page with a login form")
+    void doGetIfUserNotAuthorizedTest() throws IOException {
+        //prepare
+        when(authenticationService.isAdmin(any())).thenReturn(false);
+        when(response.getWriter()).thenReturn(printWriter);
+        //when
+        addProductServlet.doGet(request, response);
+        //then
+        verify(authenticationService).isAdmin(any());
+        verify(response).setContentType("text/html;charset=utf-8");
+        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();
     }
 
@@ -52,6 +73,7 @@ class AddProductServletTest {
         verify(request).getParameter("name");
         verify(request).getParameter("image");
         verify(request).getParameter("price");
-        verify(response).sendRedirect("home");
+        verify(productService).save(any());
+        verify(response).sendRedirect("/");
     }
 }

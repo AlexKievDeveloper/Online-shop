@@ -34,7 +34,8 @@ class DeleteProductServletTest {
         //when
         deleteProductServlet.doPost(request, response);
         //then
+        verify(productService).delete(1);
         verify(request).getParameter("id");
-        verify(response).sendRedirect("home");
+        verify(response).sendRedirect("/");
     }
 }

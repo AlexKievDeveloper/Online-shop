@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditProductServlet extends HttpServlet {
-    private final String CONTENT_TYPE = "text/html;charset=utf-8";
+    private final String contentType = "text/html;charset=utf-8";
     private ProductService productService = ServiceLocator.getService("productService");
     private AuthenticationService authenticationService = ServiceLocator.getService("authenticationService");
 
@@ -24,7 +24,7 @@ public class EditProductServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cookie[] cookies = request.getCookies();
         boolean isAuth = authenticationService.isAdmin(cookies);
-        response.setContentType(CONTENT_TYPE);
+        response.setContentType(contentType);
 
         if (isAuth) {
             val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(1)));
@@ -61,6 +61,5 @@ public class EditProductServlet extends HttpServlet {
         parameters.put("image", product.getImage());
         parameters.put("price", product.getPrice());
     }
-
 }
 

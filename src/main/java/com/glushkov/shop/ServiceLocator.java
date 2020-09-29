@@ -2,10 +2,10 @@ package com.glushkov.shop;
 
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
 import com.glushkov.shop.dao.jdbc.JdbcUserDao;
+import com.glushkov.shop.service.AuthenticationService;
 import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.service.UserService;
 import com.glushkov.shop.util.PropertyReader;
-import com.glushkov.shop.service.AuthenticationService;
 import lombok.val;
 import org.postgresql.ds.PGSimpleDataSource;
 

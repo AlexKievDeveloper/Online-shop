@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class AllProductsServlet extends HttpServlet {
-    private final String CONTENT_TYPE = "text/html;charset=utf-8";
+    private final String contentType = "text/html;charset=utf-8";
     private ProductService productService = ServiceLocator.getService("productService");
     private AuthenticationService authenticationService = ServiceLocator.getService("authenticationService");
 
@@ -22,7 +22,7 @@ public class AllProductsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cookie[] cookies = request.getCookies();
         boolean isAuth = authenticationService.isUserOrAdmin(cookies);
-        response.setContentType(CONTENT_TYPE);
+        response.setContentType(contentType);
 
         if (isAuth) {
             val map = new HashMap<String, Object>();

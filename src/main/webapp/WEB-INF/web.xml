@@ -48,7 +48,7 @@
     <servlet-mapping>
         <servlet-name>AllProductsServlet</servlet-name>
         <url-pattern>/home</url-pattern>
-        <url-pattern> </url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

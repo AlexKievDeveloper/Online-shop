@@ -20,7 +20,7 @@ public class ProductRowMapperTest {
     private ResultSet mockResultSet;
 
     @Test
-    @DisplayName("Returns an object of class User from result set")
+    @DisplayName("Returns an object of class Product from result set")
     void productRowMapperTest() throws SQLException {
         //prepare
         when(mockResultSet.getInt("id")).thenReturn(1);
