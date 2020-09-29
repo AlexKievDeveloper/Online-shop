@@ -1,3 +1,4 @@
+create type role as enum ('GUEST', 'USER', 'ADMIN');
 create table users
 (
     id       serial       not null
