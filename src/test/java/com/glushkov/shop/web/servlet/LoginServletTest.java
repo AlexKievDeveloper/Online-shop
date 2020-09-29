@@ -2,7 +2,7 @@ package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Role;
 import com.glushkov.shop.entity.User;
-import com.glushkov.shop.service.UserService;
+import com.glushkov.shop.service.impl.DefaultUserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith({MockitoExtension.class})
 class LoginServletTest {
     @Mock
-    private UserService userService;
+    private DefaultUserService defaultUserService;
     @InjectMocks
     private LoginServlet loginServlet;
     @Mock
@@ -51,14 +50,14 @@ class LoginServletTest {
         User user = User.builder().id(1).login("Alex").password("1111111").role(Role.ADMIN).build();
         when(request.getParameter("login")).thenReturn("Alex");
         when(request.getParameter("password")).thenReturn("1111111");
-        when(userService.findUser("Alex", "1111111")).thenReturn(user);
+        when(defaultUserService.findUser("Alex", "1111111")).thenReturn(user);
         //when
         loginServlet.doPost(request, response);
         //then
         verify(request).getParameter("login");
         verify(request).getParameter("password");
         verify(response).addCookie(any());
-        verify(userService).findUser(anyString(), anyString());
+        verify(defaultUserService).findUser(anyString(), anyString());
         verify(response).sendRedirect("/");
     }
 
@@ -68,7 +67,7 @@ class LoginServletTest {
         //prepare
         when(request.getParameter("login")).thenReturn("Alex");
         when(request.getParameter("password")).thenReturn("1111");
-        when(userService.findUser(anyString(), anyString())).thenReturn(null);
+        when(defaultUserService.findUser(anyString(), anyString())).thenReturn(null);
         when(response.getWriter()).thenReturn(printWriter);
         //when
         loginServlet.doPost(request, response);
@@ -76,7 +75,7 @@ class LoginServletTest {
         verify(request).getParameter("login");
         verify(request).getParameter("password");
         verify(response).addCookie(any());
-        verify(userService).findUser(anyString(), anyString());
+        verify(defaultUserService).findUser(anyString(), anyString());
         verify(response).setContentType("text/html;charset=utf-8");
         verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();

@@ -5,6 +5,7 @@ import com.glushkov.shop.entity.Product;
 import java.util.List;
 
 public interface ProductDao {
+
     Product findById(int id);
 
     List<Product> findByName(String name);

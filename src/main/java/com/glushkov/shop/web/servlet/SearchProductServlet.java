@@ -1,8 +1,8 @@
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.ServiceLocator;
-import com.glushkov.shop.service.AuthenticationService;
-import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.service.impl.DefaultProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
 import lombok.val;
 
@@ -15,13 +15,13 @@ import java.util.HashMap;
 
 public class SearchProductServlet extends HttpServlet {
     private final String contentType = "text/html;charset=utf-8";
-    private ProductService productService = ServiceLocator.getService("productService");
-    private AuthenticationService authenticationService = ServiceLocator.getService("authenticationService");
+    private DefaultProductService productService = ServiceLocator.getService("productService");
+    private DefaultAuthenticationService defaultAuthenticationService = ServiceLocator.getService("authenticationService");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cookie[] cookies = request.getCookies();
-        boolean isAuth = authenticationService.isUserOrAdmin(cookies);
+        boolean isAuth = defaultAuthenticationService.isUserOrAdmin(cookies);
         response.setContentType(contentType);
 
         if (isAuth) {

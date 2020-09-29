@@ -23,7 +23,7 @@ class PropertyReaderITest {
 
     @Test
     @DisplayName("Returns properties from file")
-    void getPropertiesTest() throws IOException {
+    void getPropertiesTest() {
         //prepare
         propertiesMap.put("db.url", "jdbc:postgresql://localhost:5432/online-shop");
         propertiesMap.put("db.user", "postgres");
@@ -53,7 +53,7 @@ class PropertyReaderITest {
                 .execute(this::testProdProperties);
     }
 
-    void testProdProperties() throws IOException {
+    void testProdProperties() {
         propertiesMap.put("db.url", "jdbc:postgresql://ec2-52-87-22-151.compute-1.amazonaws.com:5432/d79t7n" +
                 "jj3vpo8n?sslmode=require");
         propertiesMap.put("db.user", "fxycdcgratlvtp");

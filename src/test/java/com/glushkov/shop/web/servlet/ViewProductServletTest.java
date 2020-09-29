@@ -2,8 +2,8 @@ package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.entity.Role;
-import com.glushkov.shop.service.AuthenticationService;
-import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.service.impl.DefaultProductService;
 import lombok.val;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,9 +26,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ViewProductServletTest {
     @Mock
-    private AuthenticationService authenticationService;
+    private DefaultAuthenticationService defaultAuthenticationService;
     @Mock
-    private ProductService productService;
+    private DefaultProductService productService;
     @InjectMocks
     private ViewProductServlet viewProductServlet;
     @Mock
@@ -42,12 +42,12 @@ class ViewProductServletTest {
 
     @BeforeEach
     void init() {
-        AuthenticationService.getTokensRoleMap().put("a2102", Role.ADMIN);
+        DefaultAuthenticationService.getTokensRoleMap().put("a2102", Role.ADMIN);
     }
 
     @AfterEach
     void afterAll() {
-        AuthenticationService.getTokensRoleMap().remove("a2102");
+        DefaultAuthenticationService.getTokensRoleMap().remove("a2102");
     }
 
     @Test
@@ -55,16 +55,16 @@ class ViewProductServletTest {
     void doGetTest() throws IOException {
         //prepare
         Cookie cookie = new Cookie("user-token", "a2102");
-        when(authenticationService.isUserOrAdmin(any())).thenReturn(true);
-        when(authenticationService.getValidCookie(any())).thenReturn(cookie);
+        when(defaultAuthenticationService.isUserOrAdmin(any())).thenReturn(true);
+        when(defaultAuthenticationService.getValidCookie(any())).thenReturn(cookie);
         when(response.getWriter()).thenReturn(writer);
         when(request.getPathInfo()).thenReturn("/1");
         when(productService.findById(1)).thenReturn(product);
         //when
         viewProductServlet.doGet(request, response);
         //then
-        verify(authenticationService).isUserOrAdmin(any());
-        verify(authenticationService).getValidCookie(any());
+        verify(defaultAuthenticationService).isUserOrAdmin(any());
+        verify(defaultAuthenticationService).getValidCookie(any());
         verify(productService).findById(1);
         verify(request).getPathInfo();
         verify(response).setContentType("text/html;charset=utf-8");
@@ -75,14 +75,13 @@ class ViewProductServletTest {
     @DisplayName("Processed the request and send response with login page (user unauthorized)")
     void doGetIfUserUnauthorizedTest() throws IOException {
         //prepare
-        when(authenticationService.isUserOrAdmin(any())).thenReturn(false);
+        when(defaultAuthenticationService.isUserOrAdmin(any())).thenReturn(false);
         when(response.getWriter()).thenReturn(writer);
-        ;
         //when
         viewProductServlet.doGet(request, response);
         //then
         verify(response).setContentType("text/html;charset=utf-8");
-        verify(authenticationService).isUserOrAdmin(any());
+        verify(defaultAuthenticationService).isUserOrAdmin(any());
         verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();
     }

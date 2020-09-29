@@ -1,8 +1,8 @@
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
-import com.glushkov.shop.service.AuthenticationService;
-import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.service.impl.DefaultProductService;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,9 +22,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class EditProductServletTest {
     @Mock
-    private AuthenticationService authenticationService;
+    private DefaultAuthenticationService defaultAuthenticationService;
     @Mock
-    private ProductService productService;
+    private DefaultProductService productService;
     @InjectMocks
     private EditProductServlet editProductServlet;
     @Mock
@@ -40,7 +40,7 @@ class EditProductServletTest {
     @DisplayName("Processes the request and sends a page with product request form (user authorized)")
     void doGetTest() throws IOException {
         //prepare
-        when(authenticationService.isAdmin(any())).thenReturn(true);
+        when(defaultAuthenticationService.isAdmin(any())).thenReturn(true);
         when(response.getWriter()).thenReturn(printWriter);
         when(request.getPathInfo()).thenReturn("/1");
         when(productService.findById(1)).thenReturn(product);
@@ -49,7 +49,7 @@ class EditProductServletTest {
         //then
         verify(response).setContentType("text/html;charset=utf-8");
         verify(request).getPathInfo();
-        verify(authenticationService).isAdmin(any());
+        verify(defaultAuthenticationService).isAdmin(any());
         verify(productService).findById(1);
         verify(response).getWriter();
     }
@@ -58,12 +58,12 @@ class EditProductServletTest {
     @DisplayName("Processes the request and sends a page with login form (user unauthorized)")
     void doGetIfUserAuthorizedTest() throws IOException {
         //prepare
-        when(authenticationService.isAdmin(any())).thenReturn(false);
+        when(defaultAuthenticationService.isAdmin(any())).thenReturn(false);
         when(response.getWriter()).thenReturn(printWriter);
         //when
         editProductServlet.doGet(request, response);
         //then
-        verify(authenticationService).isAdmin(any());
+        verify(defaultAuthenticationService).isAdmin(any());
         verify(response).setContentType("text/html;charset=utf-8");
         verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();

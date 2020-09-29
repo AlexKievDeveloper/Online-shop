@@ -2,9 +2,9 @@ package com.glushkov.shop;
 
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
 import com.glushkov.shop.dao.jdbc.JdbcUserDao;
-import com.glushkov.shop.service.AuthenticationService;
-import com.glushkov.shop.service.ProductService;
-import com.glushkov.shop.service.UserService;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.service.impl.DefaultProductService;
+import com.glushkov.shop.service.impl.DefaultUserService;
 import com.glushkov.shop.util.PropertyReader;
 import lombok.val;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -25,10 +25,10 @@ public class ServiceLocator {
         pgSimpleDataSource.setPassword(properties.getProperty("db.password"));
 
         val jdbcProductDao = new JdbcProductDao(pgSimpleDataSource);
-        val productService = new ProductService(jdbcProductDao);
+        val productService = new DefaultProductService(jdbcProductDao);
         val jdbcUserDao = new JdbcUserDao(pgSimpleDataSource);
-        val userService = new UserService(jdbcUserDao);
-        val authenticationService = new AuthenticationService();
+        val userService = new DefaultUserService(jdbcUserDao);
+        val authenticationService = new DefaultAuthenticationService();
 
         register("productService", productService);
         register("userService", userService);

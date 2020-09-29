@@ -1,6 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.impl.DefaultProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class DeleteProductServletTest {
     @Mock
-    private ProductService productService;
+    private DefaultProductService productService;
     @InjectMocks
     private DeleteProductServlet deleteProductServlet;
     @Mock

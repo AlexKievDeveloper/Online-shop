@@ -2,8 +2,8 @@ package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Role;
-import com.glushkov.shop.service.AuthenticationService;
-import com.glushkov.shop.service.UserService;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.service.impl.DefaultUserService;
 import com.glushkov.shop.web.templater.PageGenerator;
 import lombok.val;
 
@@ -18,8 +18,8 @@ import java.util.UUID;
 
 public class LoginServlet extends HttpServlet {
     private final String contentType = "text/html;charset=utf-8";
-    private UserService userService = ServiceLocator.getService("userService");
-    private Map<String, Role> tokensRoleMap = AuthenticationService.getTokensRoleMap();
+    private DefaultUserService defaultUserService = ServiceLocator.getService("userService");
+    private Map<String, Role> tokensRoleMap = DefaultAuthenticationService.getTokensRoleMap();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         val cookie = new Cookie("user-token", userToken);
         response.addCookie(cookie);
 
-        val user = userService.findUser(login, password);
+        val user = defaultUserService.findUser(login, password);
 
         if (user != null) {
             tokensRoleMap.put(cookie.getValue(), user.getRole());

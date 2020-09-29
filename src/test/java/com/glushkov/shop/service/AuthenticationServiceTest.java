@@ -1,6 +1,7 @@
 package com.glushkov.shop.service;
 
 import com.glushkov.shop.entity.Role;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,26 +11,24 @@ import javax.servlet.http.Cookie;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticationServiceTest {
-    private final AuthenticationService authenticationService = new AuthenticationService();
+    private final DefaultAuthenticationService defaultAuthenticationService = new DefaultAuthenticationService();
     private final Cookie[] cookies;
 
     public AuthenticationServiceTest() {
-        cookies = new Cookie[1];
-        Cookie cookie = new Cookie("user-token", "a2102");
-        cookies[0] = cookie;
-        AuthenticationService.getTokensRoleMap().put("a2102", Role.ADMIN);
+        cookies = new Cookie[]{new Cookie("user-token", "a2102")};
+        DefaultAuthenticationService.getTokensRoleMap().put("a2102", Role.ADMIN);
     }
 
     @AfterEach
     void afterAll() {
-        AuthenticationService.getTokensRoleMap().remove("a2102");
+        DefaultAuthenticationService.getTokensRoleMap().remove("a2102");
     }
 
     @Test
     @DisplayName("Return true if user role is admin")
     void isAdmin() {
         //when
-        boolean actual = authenticationService.isAdmin(cookies);
+        boolean actual = defaultAuthenticationService.isAdmin(cookies);
         //then
         assertTrue(actual);
     }
@@ -38,7 +37,7 @@ class AuthenticationServiceTest {
     @DisplayName("Return true if user role is admin or user")
     void isUserOrAdmin() {
         //when
-        boolean actual = authenticationService.isUserOrAdmin(cookies);
+        boolean actual = defaultAuthenticationService.isUserOrAdmin(cookies);
         //then
         assertTrue(actual);
     }
@@ -47,7 +46,7 @@ class AuthenticationServiceTest {
     @DisplayName("Returns a cookie with role admin or user")
     void getValidCookie() {
         //when
-        Cookie actual = authenticationService.getValidCookie(cookies);
+        Cookie actual = defaultAuthenticationService.getValidCookie(cookies);
         //then
         assertNotNull(actual);
         assertEquals("a2102", actual.getValue());

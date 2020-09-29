@@ -1,7 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.service.AuthenticationService;
-import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.service.impl.DefaultProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,9 +21,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class SearchProductServletTest {
     @Mock
-    private ProductService productService;
+    private DefaultProductService productService;
     @Mock
-    private AuthenticationService authenticationService;
+    private DefaultAuthenticationService defaultAuthenticationService;
     @InjectMocks
     private SearchProductServlet searchProductServlet;
     @Mock
@@ -37,12 +37,12 @@ class SearchProductServletTest {
     @DisplayName("Processed the request and and send response page with message or products")
     void doGetTest() throws IOException {
         //prepare
-        when(authenticationService.isUserOrAdmin(any())).thenReturn(true);
+        when(defaultAuthenticationService.isUserOrAdmin(any())).thenReturn(true);
         when(response.getWriter()).thenReturn(writer);
         //when
         searchProductServlet.doGet(request, response);
         //then
-        verify(authenticationService).isUserOrAdmin(any());
+        verify(defaultAuthenticationService).isUserOrAdmin(any());
         verify(request).getParameter("enteredName");
         verify(productService).findByName(any());
         verify(response).setContentType("text/html;charset=utf-8");
@@ -53,12 +53,12 @@ class SearchProductServletTest {
     @DisplayName("Processed the request and and send response page with login form")
     void doGetIfUserUnauthorizedTest() throws IOException {
         //prepare
-        when(authenticationService.isUserOrAdmin(any())).thenReturn(false);
+        when(defaultAuthenticationService.isUserOrAdmin(any())).thenReturn(false);
         when(response.getWriter()).thenReturn(writer);
         //when
         searchProductServlet.doGet(request, response);
         //then
-        verify(authenticationService).isUserOrAdmin(any());
+        verify(defaultAuthenticationService).isUserOrAdmin(any());
         verify(response).setContentType("text/html;charset=utf-8");
         verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();

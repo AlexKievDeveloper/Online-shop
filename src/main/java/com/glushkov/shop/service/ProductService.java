@@ -1,39 +1,20 @@
 package com.glushkov.shop.service;
 
-import com.glushkov.shop.dao.ProductDao;
 import com.glushkov.shop.entity.Product;
 
 import java.util.List;
 
-public class ProductService {
+public interface ProductService {
 
-    private final ProductDao productDao;
+    Product findById(int id);
 
-    public ProductService(ProductDao productDao) {
-        this.productDao = productDao;
-    }
+    List<Product> findByName(String name);
 
-    public Product findById(int id) {
-        return productDao.findById(id);
-    }
+    List<Product> findAll();
 
-    public List<Product> findByName(String name) {
-        return productDao.findByName(name);
-    }
+    void save(Product product);
 
-    public List<Product> findAll() {
-        return productDao.findAll();
-    }
+    void update(Product product);
 
-    public void save(Product product) {
-        productDao.save(product);
-    }
-
-    public void update(Product product) {
-        productDao.update(product);
-    }
-
-    public void delete(int id) {
-        productDao.delete(id);
-    }
+    void delete(int id);
 }

@@ -1,7 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.ServiceLocator;
-import com.glushkov.shop.service.ProductService;
+import com.glushkov.shop.service.impl.DefaultProductService;
 import lombok.val;
 
 import javax.servlet.http.HttpServlet;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DeleteProductServlet extends HttpServlet {
-    private ProductService productService = ServiceLocator.getService("productService");
+    private DefaultProductService productService = ServiceLocator.getService("productService");
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
