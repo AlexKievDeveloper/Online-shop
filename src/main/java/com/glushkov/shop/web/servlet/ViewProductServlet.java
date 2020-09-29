@@ -36,9 +36,11 @@ public class ViewProductServlet extends HttpServlet {
             putProductFieldsIntoParameterMap(product, productMap);
 
             if (tokensRoleMap.get(validCookie.getValue()).equals(Role.ADMIN)) {
+                productMap.put("role", "ADMIN");
                 PageGenerator.instance().process("admin-view", productMap, response.getWriter());
             } else if (tokensRoleMap.get(validCookie.getValue()).equals(Role.USER)) {
-                PageGenerator.instance().process("view", productMap, response.getWriter());
+                productMap.put("role", "USER");
+                PageGenerator.instance().process("admin-view", productMap, response.getWriter());
             }
         } else {
             val parameters = new HashMap<String, Object>();
