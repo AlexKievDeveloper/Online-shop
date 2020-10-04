@@ -1,6 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.security.SecurityService;
+import com.glushkov.shop.security.Session;
 import com.glushkov.shop.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,24 +47,26 @@ class RegistrationServletTest {
         verify(request).getParameter("message");
         verify(response).getWriter();
     }
-/*
+
     @Test
     @DisplayName("")
     void doPostTest() throws IOException {
         //prepare
-
-
-        when(securityService.login("Alex", "1111")).thenReturn();
-        when(response)
+        Session session = Session.builder()
+                .token("1111")
+                .build();
+        when(securityService.login("Alex", "1111")).thenReturn(session);
+        when(request.getParameter("password")).thenReturn("1111");
+        when(request.getParameter("login")).thenReturn("Alex");
         //when
         registrationServlet.doPost(request, response);
         //then
         verify(request).getParameter("login");
-        verify(userService).isLoginExist("login");
+        verify(userService).isLoginExist("Alex");
         verify(request).getParameter("password");
         verify(userService).save(any());
         verify(securityService).login("Alex", "1111");
         verify(response).addCookie(any());
         verify(response).sendRedirect("/");
-    }*/
+    }
 }
