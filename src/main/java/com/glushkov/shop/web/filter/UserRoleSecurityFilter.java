@@ -14,7 +14,7 @@ import java.util.EnumSet;
 
 public class UserRoleSecurityFilter implements Filter {
     private SecurityService securityService = ServiceLocator.getService("securityService");
-/*USE SHA-256*/
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -44,7 +44,7 @@ public class UserRoleSecurityFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig arg0) throws ServletException {
+    public void init(FilterConfig arg0) {
 
     }
 

@@ -27,7 +27,7 @@ public class DefaultSecurityService implements SecurityService {
             Session session = Session.builder()
                     .user(user)
                     .token(UUID.randomUUID().toString())
-                    .expireDate(LocalDateTime.now().plusHours(1))/*!!!!*/
+                    .expireDate(LocalDateTime.now().plusHours(1))
                     .cart(new ArrayList<>())
                     .build();
             sessionList.add(session);
