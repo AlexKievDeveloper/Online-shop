@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="view-position-admin(id, name, img, price, role)">
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="view-position(id, name, img, price, role)">
     <div class="view-block">
         <div class="view-block__name position__name">
             <p th:text="${name}">Name</p>
@@ -9,8 +9,10 @@
             <img class="position__image" th:src="${img}" alt="No photo"/>
         </div>
         <div class="view-block__button">
-            <a class="position__button-view" th:href="@{${id}}"
-               th:text="${'Buy for ' + price + '$'}">Price</a>
+            <form class="" action="/cart" method="post">
+                <button class="position__button-view" th:text="${'Buy for ' + price + '$'}">Price</button>
+                <input type="hidden" name="id" th:value="${id}">
+            </form>
         </div>
         <div class="view-block__buttons" th:if="${role}==ADMIN">
             <a class="far fa-edit position__button-view" th:href="${'/edit/'+id}"> Edit</a>
@@ -24,3 +26,4 @@
         </div>
     </div>
 </th:block>
+<!--href="" --><!--th:href="@{${id}}-->

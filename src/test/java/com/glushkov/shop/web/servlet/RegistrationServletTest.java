@@ -1,0 +1,70 @@
+package com.glushkov.shop.web.servlet;
+
+import com.glushkov.shop.security.SecurityService;
+import com.glushkov.shop.service.UserService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith({MockitoExtension.class})
+class RegistrationServletTest {
+    @Mock
+    private SecurityService securityService;
+    @Mock
+    private UserService userService;
+    @InjectMocks
+    private RegistrationServlet registrationServlet;
+    @Mock
+    private HttpServletRequest request;
+    @Mock
+    private HttpServletResponse response;
+    @Mock
+    private PrintWriter printWriter;
+
+    @Test
+    @DisplayName("Returns page with registration form")
+    void doGetTest() throws IOException {
+        //prepare
+        when(response.getWriter()).thenReturn(printWriter);
+        when(request.getParameter("message")).thenReturn("hello");
+        //when
+        registrationServlet.doGet(request, response);
+        //then
+        verify(response).setContentType("text/html;charset=utf-8");
+        verify(request).getParameter("message");
+        verify(response).getWriter();
+    }
+/*
+    @Test
+    @DisplayName("")
+    void doPostTest() throws IOException {
+        //prepare
+
+
+        when(securityService.login("Alex", "1111")).thenReturn();
+        when(response)
+        //when
+        registrationServlet.doPost(request, response);
+        //then
+        verify(request).getParameter("login");
+        verify(userService).isLoginExist("login");
+        verify(request).getParameter("password");
+        verify(userService).save(any());
+        verify(securityService).login("Alex", "1111");
+        verify(response).addCookie(any());
+        verify(response).sendRedirect("/");
+    }*/
+}

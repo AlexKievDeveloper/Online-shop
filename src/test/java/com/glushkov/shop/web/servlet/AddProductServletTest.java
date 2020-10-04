@@ -1,6 +1,5 @@
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.service.impl.DefaultAuthenticationService;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,8 +19,6 @@ import static org.mockito.Mockito.*;
 class AddProductServletTest {
     @Mock
     private DefaultProductService productService;
-    @Mock
-    private DefaultAuthenticationService defaultAuthenticationService;
     @InjectMocks
     private AddProductServlet addProductServlet;
     @Mock
@@ -35,28 +32,11 @@ class AddProductServletTest {
     @DisplayName("Processes the request and sends a response page with added form")
     void doGetTest() throws IOException {
         //prepare
-        when(defaultAuthenticationService.isAdmin(any())).thenReturn(true);
         when(response.getWriter()).thenReturn(printWriter);
         //when
         addProductServlet.doGet(request, response);
         //then
         verify(response).setContentType("text/html;charset=utf-8");
-        verify(defaultAuthenticationService).isAdmin(any());
-        verify(response).getWriter();
-    }
-
-    @Test
-    @DisplayName("Processes the request and sends a response page with a login form")
-    void doGetIfUserNotAuthorizedTest() throws IOException {
-        //prepare
-        when(defaultAuthenticationService.isAdmin(any())).thenReturn(false);
-        when(response.getWriter()).thenReturn(printWriter);
-        //when
-        addProductServlet.doGet(request, response);
-        //then
-        verify(defaultAuthenticationService).isAdmin(any());
-        verify(response).setContentType("text/html;charset=utf-8");
-        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();
     }
 

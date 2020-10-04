@@ -1,6 +1,6 @@
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -22,8 +24,6 @@ import static org.mockito.Mockito.when;
 class SearchProductServletTest {
     @Mock
     private DefaultProductService productService;
-    @Mock
-    private DefaultAuthenticationService defaultAuthenticationService;
     @InjectMocks
     private SearchProductServlet searchProductServlet;
     @Mock
@@ -32,35 +32,23 @@ class SearchProductServletTest {
     private HttpServletResponse response;
     @Mock
     private PrintWriter writer;
+    @Mock
+    private Product product;
 
     @Test
-    @DisplayName("Processed the request and and send response page with message or products")
+    @DisplayName("Processed the request and send response page with message or products")
     void doGetTest() throws IOException {
         //prepare
-        when(defaultAuthenticationService.isUserOrAdmin(any())).thenReturn(true);
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+        when(productService.findByName(any())).thenReturn(productList);
         when(response.getWriter()).thenReturn(writer);
         //when
         searchProductServlet.doGet(request, response);
         //then
-        verify(defaultAuthenticationService).isUserOrAdmin(any());
         verify(request).getParameter("enteredName");
         verify(productService).findByName(any());
         verify(response).setContentType("text/html;charset=utf-8");
-        verify(response).getWriter();
-    }
-
-    @Test
-    @DisplayName("Processed the request and and send response page with login form")
-    void doGetIfUserUnauthorizedTest() throws IOException {
-        //prepare
-        when(defaultAuthenticationService.isUserOrAdmin(any())).thenReturn(false);
-        when(response.getWriter()).thenReturn(writer);
-        //when
-        searchProductServlet.doGet(request, response);
-        //then
-        verify(defaultAuthenticationService).isUserOrAdmin(any());
-        verify(response).setContentType("text/html;charset=utf-8");
-        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         verify(response).getWriter();
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/header.html :: head(title='Stylo-Registration')}"></div>
+<div class="login-body">
+    <div class="section">
+        <div class="login-form__message">
+            <p th:text="${message}"></p>
+        </div>
+        <form class="login-form" action="/registration" method="post">
+
+            <div class="login-form__credentials">
+                <h1 class="registration-form__header">Registration</h1>
+                <label for="login"><b>Username</b></label>
+                <input class="login-form__input" id="login" type="text" placeholder="Enter Username" name="login"
+                       required>
+
+                <label for="password"><b>Password</b></label>
+
+                <input class="login-form__input" id="password" type="password" placeholder="Enter Password"
+                       name="password" required>
+
+                <button class="login-form__button" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="~{/fragments/footer.html :: foot}"></div>
+</body>
+</html>

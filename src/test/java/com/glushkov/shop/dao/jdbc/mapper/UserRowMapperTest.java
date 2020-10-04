@@ -29,6 +29,7 @@ class UserRowMapperTest {
         when(mockResultSet.getString("login")).thenReturn("User");
         when(mockResultSet.getString("password")).thenReturn("1111");
         when(mockResultSet.getString("role")).thenReturn("USER");
+        when(mockResultSet.getString("sole")).thenReturn("sole");
         //when
         val actual = userRowMapper.mapRow(mockResultSet);
         //then
@@ -37,5 +38,6 @@ class UserRowMapperTest {
         assertEquals("User", actual.getLogin());
         assertEquals("1111", actual.getPassword());
         assertEquals(Role.USER, actual.getRole());
+        assertEquals("sole", mockResultSet.getString("sole"));
     }
 }

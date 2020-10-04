@@ -2,6 +2,27 @@ a {
     color: white;
 }
 
+table, th, td {
+    border: 2px solid black;
+    text-align: center;
+}
+
+table {
+    border-spacing: 5px;
+    width: 100%;
+    font-size: 25px;
+    color: black;
+}
+
+th, td {
+    padding: 15px;
+}
+
+th {
+    font-weight: bold;
+    color: white;
+}
+
 .wrapper {
     min-height: 100%;
 }
@@ -105,6 +126,13 @@ a {
     font-weight: bold;
     border: 1px solid white;
     border-radius: 10px;
+}
+
+.menu__bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-right: 25px;
 }
 
 /*HOME-BODY*/
@@ -584,3 +612,31 @@ a {
     border-radius: 10px;
     margin: 5px;
 }
+
+/*Registration*/
+.registration-form__header{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+/*Cart*/
+.cart-body{
+    background: #33cccc;
+}
+
+.cart-body__header {
+    text-align: center;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 46px;
+}
+
+.table__third-row {
+    color: white;
+}
+
+
+
+
+

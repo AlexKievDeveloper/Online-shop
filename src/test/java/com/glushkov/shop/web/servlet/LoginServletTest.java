@@ -1,8 +1,7 @@
 package com.glushkov.shop.web.servlet;
 
-import com.glushkov.shop.entity.Role;
-import com.glushkov.shop.entity.User;
-import com.glushkov.shop.service.impl.DefaultUserService;
+import com.glushkov.shop.security.SecurityService;
+import com.glushkov.shop.security.Session;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith({MockitoExtension.class})
 class LoginServletTest {
     @Mock
-    private DefaultUserService defaultUserService;
+    private SecurityService securityService;
     @InjectMocks
     private LoginServlet loginServlet;
     @Mock
@@ -29,6 +28,8 @@ class LoginServletTest {
     private HttpServletResponse response;
     @Mock
     private PrintWriter printWriter;
+    @Mock
+    private Session session;
 
     @Test
     @DisplayName("Processes the request and sends a page with login form")
@@ -44,40 +45,34 @@ class LoginServletTest {
     }
 
     @Test
-    @DisplayName("Redirect to home page if user == null")
-    void doPostIfUserIsExistTest() throws IOException {
+    @DisplayName("Redirect to home page if session != null")
+    void doPostIfSessionExistTest() throws IOException {
         //prepare
-        User user = User.builder().id(1).login("Alex").password("1111111").role(Role.ADMIN).build();
         when(request.getParameter("login")).thenReturn("Alex");
         when(request.getParameter("password")).thenReturn("1111111");
-        when(defaultUserService.findUser("Alex", "1111111")).thenReturn(user);
+        when(securityService.login("Alex", "1111111")).thenReturn(session);
         //when
         loginServlet.doPost(request, response);
         //then
         verify(request).getParameter("login");
         verify(request).getParameter("password");
         verify(response).addCookie(any());
-        verify(defaultUserService).findUser(anyString(), anyString());
         verify(response).sendRedirect("/");
     }
 
     @Test
-    @DisplayName("Redirect to home page if user == null")
-    void doPostIfUserIsNullTest() throws IOException {
+    @DisplayName("Redirect to login page if session == null")
+    void doPostIfSessionNotExistTest() throws IOException {
         //prepare
         when(request.getParameter("login")).thenReturn("Alex");
         when(request.getParameter("password")).thenReturn("1111");
-        when(defaultUserService.findUser(anyString(), anyString())).thenReturn(null);
-        when(response.getWriter()).thenReturn(printWriter);
+        when(securityService.login("Alex", "1111")).thenReturn(null);
         //when
         loginServlet.doPost(request, response);
         //then
         verify(request).getParameter("login");
         verify(request).getParameter("password");
-        verify(response).addCookie(any());
-        verify(defaultUserService).findUser(anyString(), anyString());
-        verify(response).setContentType("text/html;charset=utf-8");
-        verify(response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        verify(response).getWriter();
+        verify(securityService).login("Alex", "1111");
+        verify(response).sendRedirect("/login?message=Access denied. Please login and try again.");
     }
 }

@@ -13,7 +13,7 @@ public class DeleteProductServlet extends HttpServlet {
     private DefaultProductService productService = ServiceLocator.getService("productService");
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         val id = Integer.parseInt(request.getParameter("id"));
         productService.delete(id);
         response.sendRedirect("/");

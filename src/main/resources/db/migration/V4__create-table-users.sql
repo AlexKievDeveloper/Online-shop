@@ -1,4 +1,3 @@
-create type role as enum ('GUEST', 'USER', 'ADMIN');
 create table users
 (
     id       serial       not null
@@ -6,5 +5,6 @@ create table users
             primary key,
     login    varchar(40)  not null,
     password varchar(200) not null,
-    role     role         not null
+    role     varchar(40)  not null,
+    sole     varchar(200) not null
 );

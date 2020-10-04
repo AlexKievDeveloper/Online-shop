@@ -15,4 +15,18 @@ public class DefaultUserService implements UserService {
     public User findUser(String login, String password){
         return userDao.findUser(login,password);
     }
+
+    @Override
+    public User findUserByLogin(String login) {
+        return userDao.findUserByLogin(login);
+    }
+
+    public void save(User user) {
+        userDao.save(user);
+    }
+
+    @Override
+    public boolean isLoginExist(String login) {
+        return userDao.isLoginExist(login);
+    }
 }

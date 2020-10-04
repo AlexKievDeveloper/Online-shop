@@ -1,7 +1,7 @@
 package com.glushkov.shop.entity;
 
-public enum Role {//TODO разобраться как в идеале это должно работать?
-    ADMIN("ADMIN"),USER("USER"),GUEST("GUEST");
+public enum Role {
+    ADMIN("ADMIN"), USER("USER"), GUEST("GUEST");
 
     private final String role;
 

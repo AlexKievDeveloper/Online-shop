@@ -2,7 +2,7 @@ package com.glushkov.shop;
 
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
 import com.glushkov.shop.dao.jdbc.JdbcUserDao;
-import com.glushkov.shop.service.impl.DefaultAuthenticationService;
+import com.glushkov.shop.security.impl.DefaultSecurityService;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import com.glushkov.shop.service.impl.DefaultUserService;
 import com.glushkov.shop.util.PropertyReader;
@@ -26,13 +26,14 @@ public class ServiceLocator {
 
         val jdbcProductDao = new JdbcProductDao(pgSimpleDataSource);
         val productService = new DefaultProductService(jdbcProductDao);
+        register("productService", productService);
+
         val jdbcUserDao = new JdbcUserDao(pgSimpleDataSource);
         val userService = new DefaultUserService(jdbcUserDao);
-        val authenticationService = new DefaultAuthenticationService();
-
-        register("productService", productService);
         register("userService", userService);
-        register("authenticationService", authenticationService);
+
+        val securityService = new DefaultSecurityService();
+        register("securityService", securityService);
     }
 
     public static void register(String serviceName, Object service) {

@@ -14,6 +14,7 @@ public class UserRowMapper {
                 .login(resultSet.getString("login"))
                 .password(resultSet.getString("password"))
                 .role(Role.valueOf(resultSet.getString("role")))
+                .sole(resultSet.getString("sole"))
                 .build();
     }
 }

@@ -38,7 +38,7 @@ class JdbcUserDaoITest {
         flyway.clean();
     }
 
-    @Test
+    @Test //TODO
     @DisplayName("Returns a user from db")
     void findUserTest() {
         //when
@@ -58,5 +58,40 @@ class JdbcUserDaoITest {
         User actual = jdbcUserDao.findUser("Alex1", "11111111");
         //then
         assertNull(actual);
+    }
+
+    @Test
+    @DisplayName("Returns null when the user is not in the db")
+    void saveTest() {
+        //prepare
+        User user = User.builder()
+                .login("Dima")
+                .password("1234")
+                .role(Role.USER)
+                .sole("12vgsdg1vs4t3")
+                .build();
+        //when
+        jdbcUserDao.save(user);
+        //then
+        assertTrue(jdbcUserDao.isLoginExist("Dima"));
+    }
+
+
+    @Test
+    @DisplayName("Returns true if login exist and false if not")
+    void isLoginExistTest() {
+        //when
+        boolean actual = jdbcUserDao.isLoginExist("Alex");
+        //then
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("Returns true if login exist and false if not")
+    void isLoginExistFalseExpectedTest() {
+        //when
+        boolean actual = jdbcUserDao.isLoginExist("AlexX");
+        //then
+        assertFalse(actual);
     }
 }
