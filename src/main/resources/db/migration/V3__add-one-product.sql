@@ -1,1 +1,0 @@
-INSERT INTO products(name, price, description, image) VALUES ('Catty-Kitty', 10000, 'description', 'https://i.postimg.cc/mgVY1BDf/imgonline-com-ua-Resize-3-Mz-LDww-Qs-Zoz-H.jpg');

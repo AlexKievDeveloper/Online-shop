@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 @Slf4j
 public class JdbcUserDao implements UserDao {
-    private static final String FIND_USER = "SELECT id, login, password, role, sole FROM users WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, role, sole FROM users WHERE login = ?";
     private static final String SAVE = "INSERT INTO users(login, password, role, sole) VALUES (?, ?, ?, ?);";
     private static final String IS_EXIST = "SELECT EXISTS(select 1 from users where login=?)";
@@ -21,36 +20,6 @@ public class JdbcUserDao implements UserDao {
 
     public JdbcUserDao(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
-
-    @Override
-    public User findUser(String login, String password) {
-
-        try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(FIND_USER)) {
-
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                if (!resultSet.next()) {
-                    log.info("No user found for login: {} and password: {}", login, password);
-                    return null;
-                }
-
-                val user = USER_ROW_MAPPER.mapRow(resultSet);
-
-                if (resultSet.next()) {
-                    log.error("More than one found for login: {}", login);
-                    throw new RuntimeException("More than one user found for login: ".concat(login));
-                }
-                return user;
-            }
-        } catch (SQLException e) {
-            log.error("Exception while getting user from DB: {}", login, e);
-            throw new RuntimeException("Exception while getting user from DB: ".concat(login), e);
-        }
     }
 
     @Override

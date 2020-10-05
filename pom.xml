@@ -27,7 +27,6 @@
         <h2.version>1.4.200</h2.version>
         <mockito.version>3.5.10</mockito.version>
         <stefanbirkner.version>1.1.0</stefanbirkner.version>
-
     </properties>
 
     <build>
@@ -60,7 +59,9 @@
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals><goal>copy</goal></goals>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
@@ -145,9 +146,9 @@
         </dependency>
         <!--Apache commons (for sha1)-->
         <dependency>
-        <groupId>commons-codec</groupId>
-        <artifactId>commons-codec</artifactId>
-        <version>${commons-codec.version}</version>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
         </dependency>
         <!--Tests-->
         <dependency>

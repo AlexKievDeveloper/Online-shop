@@ -2,8 +2,8 @@ package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.security.SecurityService;
+import com.glushkov.shop.security.Session;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +14,8 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if ("user-token".equals(cookie.getName())){
-                securityService.logout(cookie.getValue());
-            }
-        }
+        Session session = (Session) request.getAttribute("session");
+        securityService.logout(session.getToken());
         response.sendRedirect("/login");
     }
 }

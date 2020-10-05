@@ -42,7 +42,6 @@ class JdbcProductDaoITest {
     void findByIdTest() {
         //when
         val actualProduct = jdbcProductDao.findById(1);
-
         //then
         assertEquals(1, actualProduct.getId());
         assertEquals("Victory-1765", actualProduct.getName());
@@ -56,7 +55,6 @@ class JdbcProductDaoITest {
     void findByNameTest() {
         //when
         val actualList = jdbcProductDao.findByName("Victory-1765");
-
         //then
         assertFalse(actualList.isEmpty());
         assertEquals(5, actualList.size());
@@ -74,7 +72,6 @@ class JdbcProductDaoITest {
     void findAllTest() {
         //when
         val actualList = jdbcProductDao.findAll();
-
         //then
         assertFalse(actualList.isEmpty());
         assertEquals(5, actualList.size());
@@ -97,11 +94,9 @@ class JdbcProductDaoITest {
                 .price(299.99)
                 .description("description")
                 .image("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg").build();
-
         //when
         jdbcProductDao.save(product);
         val expectedList = jdbcProductDao.findAll();
-
         //then
         assertFalse(jdbcProductDao.findAll().isEmpty());
         assertEquals(1, expectedList.get(0).getId());
@@ -125,7 +120,6 @@ class JdbcProductDaoITest {
         //when
         jdbcProductDao.update(product);
         val actualProduct = jdbcProductDao.findById(5);
-
         //then
         assertEquals(5, actualProduct.getId());
         assertEquals("Gettysburg-1863", actualProduct.getName());
@@ -139,10 +133,8 @@ class JdbcProductDaoITest {
     void deleteTest() {
         //prepare
         assertEquals(5, jdbcProductDao.findAll().size());
-
         //when
         jdbcProductDao.delete(5);
-
         //then
         assertEquals(4, jdbcProductDao.findAll().size());
     }

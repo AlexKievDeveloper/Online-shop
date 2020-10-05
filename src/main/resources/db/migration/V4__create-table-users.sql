@@ -8,3 +8,10 @@ create table users
     role     varchar(40)  not null,
     sole     varchar(200) not null
 );
+
+create index "user-login"
+    on users (login);
+
+
+
+

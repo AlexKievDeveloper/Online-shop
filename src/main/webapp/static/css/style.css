@@ -128,7 +128,7 @@ th {
     border-radius: 10px;
 }
 
-.menu__bottom{
+.menu__bottom {
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -614,13 +614,13 @@ th {
 }
 
 /*Registration*/
-.registration-form__header{
+.registration-form__header {
     font-size: 30px;
     margin-bottom: 20px;
 }
 
 /*Cart*/
-.cart-body{
+.cart-body {
     background: #33cccc;
 }
 

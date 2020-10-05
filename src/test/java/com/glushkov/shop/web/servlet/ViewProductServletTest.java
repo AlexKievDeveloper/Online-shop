@@ -3,7 +3,6 @@ package com.glushkov.shop.web.servlet;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.entity.Role;
 import com.glushkov.shop.entity.User;
-import com.glushkov.shop.security.SecurityService;
 import com.glushkov.shop.security.Session;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import lombok.val;
@@ -14,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,8 +23,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ViewProductServletTest {
-    @Mock
-    private SecurityService securityService;
     @Mock
     private DefaultProductService productService;
     @InjectMocks
@@ -39,32 +35,28 @@ class ViewProductServletTest {
     private HttpServletResponse response;
     @Mock
     private PrintWriter writer;
+    @Mock
+    User user;
+    @Mock
+    Session session;
 
     @Test
     @DisplayName("Processed the request and send response with product page")
     void doGetTest() throws IOException {
         //prepare
-        User user = User.builder()
-                .role(Role.USER)
-                .build();
-
-        Session session = Session.builder()
-                .user(user)
-                .build();
-
-        Cookie[] cookies = {new Cookie("user-token", "a2102")};
-        when(request.getCookies()).thenReturn(cookies);
+        when(request.getAttribute("session")).thenReturn(session);
+        when(user.getRole()).thenReturn(Role.ADMIN);
+        when(session.getUser()).thenReturn(user);
         when(request.getPathInfo()).thenReturn("/1");
         when(productService.findById(1)).thenReturn(product);
-        when(securityService.getSession(any())).thenReturn(session);
         when(response.getWriter()).thenReturn(writer);
         //when
         viewProductServlet.doGet(request, response);
         //then
-        verify(request).getCookies();
-        verify(securityService).getSession(any());
-        verify(response).setContentType("text/html;charset=utf-8");
+        verify(request).getAttribute("session");
+        verify(session).getUser();
         verify(productService).findById(1);
+        verify(response).setContentType("text/html;charset=utf-8");
         verify(request).getPathInfo();
         verify(response).getWriter();
     }

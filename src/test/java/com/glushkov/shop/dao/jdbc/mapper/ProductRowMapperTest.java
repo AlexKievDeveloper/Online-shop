@@ -28,12 +28,9 @@ public class ProductRowMapperTest {
         when(mockResultSet.getDouble("price")).thenReturn(299.99);
         when(mockResultSet.getString("description")).thenReturn("description");
         when(mockResultSet.getString("image")).thenReturn("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg");
-
         val productRowMapper = new ProductRowMapper();
-
         //when
         val actual = productRowMapper.mapRow(mockResultSet);
-
         //then
         assertNotNull(actual);
         assertEquals(1, actual.getId());

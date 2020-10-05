@@ -33,6 +33,8 @@ class RegistrationServletTest {
     private HttpServletResponse response;
     @Mock
     private PrintWriter printWriter;
+    @Mock
+    private Session session;
 
     @Test
     @DisplayName("Returns page with registration form")
@@ -49,12 +51,10 @@ class RegistrationServletTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Saving user to DB")
     void doPostTest() throws IOException {
         //prepare
-        Session session = Session.builder()
-                .token("1111")
-                .build();
+        when(session.getToken()).thenReturn("1111");
         when(securityService.login("Alex", "1111")).thenReturn(session);
         when(request.getParameter("password")).thenReturn("1111");
         when(request.getParameter("login")).thenReturn("Alex");

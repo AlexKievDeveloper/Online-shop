@@ -2,7 +2,8 @@ package com.glushkov.shop;
 
 import com.glushkov.shop.dao.jdbc.JdbcProductDao;
 import com.glushkov.shop.dao.jdbc.JdbcUserDao;
-import com.glushkov.shop.security.impl.DefaultSecurityService;
+import com.glushkov.shop.security.DefaultSecurityService;
+import com.glushkov.shop.service.impl.DefaultCartService;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import com.glushkov.shop.service.impl.DefaultUserService;
 import com.glushkov.shop.util.PropertyReader;
@@ -14,9 +15,10 @@ import java.util.Map;
 
 public class ServiceLocator {
     private static final Map<String, Object> SERVICES = new HashMap<>();
+    private static final PropertyReader propertyReader;
 
     static {
-        val propertyReader = new PropertyReader();
+        propertyReader = new PropertyReader();
         val properties = propertyReader.getProperties();
 
         val pgSimpleDataSource = new PGSimpleDataSource();
@@ -32,15 +34,22 @@ public class ServiceLocator {
         val userService = new DefaultUserService(jdbcUserDao);
         register("userService", userService);
 
-        val securityService = new DefaultSecurityService();
+        val securityService = new DefaultSecurityService(userService);
         register("securityService", securityService);
+
+        val cartService = new DefaultCartService();
+        register("cartService", cartService);
     }
 
-    public static void register(String serviceName, Object service) {
+    private static void register(String serviceName, Object service) {
         SERVICES.put(serviceName, service);
     }
 
     public static <T> T getService(String serviceName) {
         return (T) SERVICES.get(serviceName);
+    }
+
+    public static PropertyReader getPropertyReader() {
+        return propertyReader;
     }
 }

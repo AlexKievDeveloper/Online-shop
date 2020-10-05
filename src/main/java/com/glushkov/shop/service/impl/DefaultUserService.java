@@ -12,10 +12,6 @@ public class DefaultUserService implements UserService {
         this.userDao = userDao;
     }
 
-    public User findUser(String login, String password){
-        return userDao.findUser(login,password);
-    }
-
     @Override
     public User findUserByLogin(String login) {
         return userDao.findUserByLogin(login);

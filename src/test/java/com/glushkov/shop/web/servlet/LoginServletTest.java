@@ -35,7 +35,6 @@ class LoginServletTest {
     @DisplayName("Processes the request and sends a page with login form")
     void doGetTest() throws IOException {
         //prepare
-        LoginServlet loginServlet = new LoginServlet();
         when(response.getWriter()).thenReturn(printWriter);
         //when
         loginServlet.doGet(request, response);

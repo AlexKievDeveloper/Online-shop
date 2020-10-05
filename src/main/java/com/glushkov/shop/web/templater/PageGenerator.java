@@ -1,6 +1,6 @@
 package com.glushkov.shop.web.templater;
 
-import com.glushkov.shop.util.PropertyReader;
+import com.glushkov.shop.ServiceLocator;
 import lombok.val;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -34,7 +34,7 @@ public class PageGenerator {
         }
         isConfigured = true;
         val templateResolver = new ServletContextTemplateResolver(servletContext);
-        val propertyReader = new PropertyReader();
+        val propertyReader = ServiceLocator.getPropertyReader();
 
         Properties properties = propertyReader.getProperties();
         templateResolver.setPrefix(properties.getProperty("thymeleaf.prefix"));

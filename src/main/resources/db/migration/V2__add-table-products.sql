@@ -8,3 +8,9 @@ create table if not exists products
     description varchar(40)      not null,
     image       varchar(200)     not null
 );
+
+create index "product-id"
+    on products (id);
+
+create index "product-name"
+    on products (name);

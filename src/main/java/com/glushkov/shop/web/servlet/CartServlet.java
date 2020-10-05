@@ -2,62 +2,48 @@ package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Product;
-import com.glushkov.shop.security.SecurityService;
-import com.glushkov.shop.service.impl.DefaultProductService;
+import com.glushkov.shop.security.Session;
+import com.glushkov.shop.service.CartService;
+import com.glushkov.shop.service.ProductService;
 import com.glushkov.shop.web.templater.PageGenerator;
 import lombok.val;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.glushkov.shop.web.WebConstants.CONTENT_TYPE;
 
 public class CartServlet extends HttpServlet {
-    private SecurityService securityService = ServiceLocator.getService("securityService");
-    private DefaultProductService productService = ServiceLocator.getService("productService");
+    private ProductService productService = ServiceLocator.getService("productService");
+    private CartService cartService = ServiceLocator.getService("cartService");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie[] cookies = request.getCookies();
-        List<Product> purchaseList;
+
+        List<Product> purchaseList = ((Session) request.getAttribute("session")).getCart();
         val map = new HashMap<String, Object>();
-
-        for (Cookie cookie : cookies) {
-            if ("user-token".equals(cookie.getName())) {
-                purchaseList = securityService.getSession(cookie.getValue()).getCart();
-
-                if (!purchaseList.isEmpty()) {
-                    double totalCost = 0;
-                    for (Product product : purchaseList) {
-                        totalCost = totalCost + product.getPrice();
-                    }
-
-                    map.put("total_cost", totalCost);
-                    map.put("purchases", purchaseList);
-                }
-            }
-        }
-
+        map.put("total_cost", cartService.getTotalCost(purchaseList));
+        map.put("purchases", purchaseList);
         response.setContentType(CONTENT_TYPE);
         PageGenerator.instance().process("cart", map, response.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Product product = productService.findById(id);
+        val id = Integer.parseInt(request.getParameter("id"));
+        val product = productService.findById(id);
 
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if ("user-token".equals(cookie.getName())) {
-                securityService.getSession(cookie.getValue()).getCart().add(product);
-            }
-        }
+        val cart = new ArrayList<Product>();
+        cart.add(product);
+
+        val session = ((Session) request.getAttribute("session"));
+        session.setCart(cart);
+
         response.sendRedirect("/");
     }
 }

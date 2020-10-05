@@ -11,7 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JdbcUserDaoITest {
     private JdbcUserDao jdbcUserDao;
@@ -38,28 +39,6 @@ class JdbcUserDaoITest {
         flyway.clean();
     }
 
-    @Test //TODO
-    @DisplayName("Returns a user from db")
-    void findUserTest() {
-        //when
-        User actual = jdbcUserDao.findUser("Alex", "11111111");
-        //then
-        assertNotNull(actual);
-        assertEquals(1, actual.getId());
-        assertEquals("Alex", actual.getLogin());
-        assertEquals("11111111", actual.getPassword());
-        assertEquals(Role.ADMIN, actual.getRole());
-    }
-
-    @Test
-    @DisplayName("Returns null when the user is not in the db")
-    void findUserExpectedNullTest() {
-        //when
-        User actual = jdbcUserDao.findUser("Alex1", "11111111");
-        //then
-        assertNull(actual);
-    }
-
     @Test
     @DisplayName("Returns null when the user is not in the db")
     void saveTest() {
@@ -75,7 +54,6 @@ class JdbcUserDaoITest {
         //then
         assertTrue(jdbcUserDao.isLoginExist("Dima"));
     }
-
 
     @Test
     @DisplayName("Returns true if login exist and false if not")

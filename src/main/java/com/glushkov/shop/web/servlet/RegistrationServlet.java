@@ -6,6 +6,7 @@ import com.glushkov.shop.entity.User;
 import com.glushkov.shop.security.SecurityService;
 import com.glushkov.shop.security.Session;
 import com.glushkov.shop.service.UserService;
+import com.glushkov.shop.util.PropertyReader;
 import com.glushkov.shop.web.templater.PageGenerator;
 import lombok.val;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -23,6 +24,7 @@ import static com.glushkov.shop.web.WebConstants.CONTENT_TYPE;
 public class RegistrationServlet extends HttpServlet {
     private UserService userService = ServiceLocator.getService("userService");
     private SecurityService securityService = ServiceLocator.getService("securityService");
+    private PropertyReader propertyReader = ServiceLocator.getPropertyReader();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,8 +53,9 @@ public class RegistrationServlet extends HttpServlet {
             userService.save(user);
 
             Session session = securityService.login(login, password);
+            int sessionMaxAge = Integer.parseInt(propertyReader.getProperties().getProperty("session.max-age"));
             Cookie cookie = new Cookie("user-token", session.getToken());
-            cookie.setMaxAge(60 * 60);
+            cookie.setMaxAge(sessionMaxAge);
             response.addCookie(cookie);
             response.sendRedirect("/");
         } else {
