@@ -1,3 +1,4 @@
+create schema IF NOT EXISTS public;
 create table if not exists products
 (
     id          serial           not null
