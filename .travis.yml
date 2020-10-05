@@ -1,13 +1,13 @@
 language: java
-sudo: false
 dist: xenial
 jdk: "-openjdk14"
 os: linux
 deploy:
+  skip_cleanup: true
   provider: heroku
   strategy: api
   edge: true
-  api_key: 075f7565-7313-4fc5-93d9-5035a832aee6
+  api_key: e12b951b-da08-4b24-94f6-c2d772016f20
   app: stylo-shop
   on:
     branch: master
