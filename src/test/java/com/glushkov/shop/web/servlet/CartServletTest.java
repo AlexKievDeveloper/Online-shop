@@ -66,7 +66,6 @@ class CartServletTest {
         verify(request).getAttribute("session");
         verify(request).getParameter("id");
         verify(productService).findById(1);
-        verify(session).setCart(any());
         verify(response).sendRedirect("/");
     }
 }

@@ -38,11 +38,14 @@ public class CartServlet extends HttpServlet {
         val id = Integer.parseInt(request.getParameter("id"));
         val product = productService.findById(id);
 
-        val cart = new ArrayList<Product>();
-        cart.add(product);
-
         val session = ((Session) request.getAttribute("session"));
-        session.setCart(cart);
+        if (session.getCart() == null) {
+            val cart = new ArrayList<Product>();
+            cart.add(product);
+            session.setCart(cart);
+        } else {
+            session.getCart().add(product);
+        }
 
         response.sendRedirect("/");
     }

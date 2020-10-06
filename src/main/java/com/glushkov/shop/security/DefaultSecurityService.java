@@ -7,12 +7,12 @@ import com.glushkov.shop.util.PropertyReader;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class DefaultSecurityService implements SecurityService {
-    private List<Session> sessionList = new ArrayList<>(); /*TODO Есть мысль что это нужно синхронизировать!*/
+public class DefaultSecurityService implements SecurityService, Runnable {
+    private List<Session> sessionList = new CopyOnWriteArrayList<>();
     private PropertyReader propertyReader = ServiceLocator.getPropertyReader();
     private UserService userService;
 
@@ -23,18 +23,20 @@ public class DefaultSecurityService implements SecurityService {
     @Override
     public Session login(String login, String password) {
         User user = userService.findUserByLogin(login);
-        String sole = user.getSole();
-        String hashPassword = DigestUtils.sha256Hex(sole.concat(password));
-        long sessionMaxAge = Long.parseLong(propertyReader.getProperties().getProperty("session.max-age"));
+        if (user != null) {
+            String sole = user.getSole();
+            String hashPassword = DigestUtils.sha256Hex(sole.concat(password));
+            long sessionMaxAge = Long.parseLong(propertyReader.getProperties().getProperty("session.max-age"));
 
-        if (user.getPassword().equals(hashPassword)) {
-            Session session = Session.builder()
-                    .user(user)
-                    .token(UUID.randomUUID().toString())
-                    .expireDate(LocalDateTime.now().plusSeconds(sessionMaxAge))
-                    .build();
-            sessionList.add(session);
-            return session;
+            if (user.getPassword().equals(hashPassword)) {
+                Session session = Session.builder()
+                        .user(user)
+                        .token(UUID.randomUUID().toString())
+                        .expireDate(LocalDateTime.now().plusSeconds(sessionMaxAge))
+                        .build();
+                sessionList.add(session);
+                return session;
+            }
         }
         return null;
     }
@@ -58,7 +60,13 @@ public class DefaultSecurityService implements SecurityService {
         return null;
     }
 
+    @Override
+    public void run() {
+        sessionList.removeIf(session -> session.getExpireDate().isBefore(LocalDateTime.now()));
+    }
+
     public void setSessionList(List<Session> sessionList) {
         this.sessionList = sessionList;
     }
 }
+
