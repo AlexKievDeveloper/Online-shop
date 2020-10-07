@@ -27,8 +27,13 @@ public class CartServlet extends HttpServlet {
 
         List<Product> purchaseList = ((Session) request.getAttribute("session")).getCart();
         val map = new HashMap<String, Object>();
-        map.put("total_cost", cartService.getTotalCost(purchaseList));
-        map.put("purchases", purchaseList);
+        if (purchaseList != null) {
+            map.put("total_cost", cartService.getTotalCost(purchaseList));
+
+            map.put("purchases", purchaseList);
+        } else {
+            map.put("message", "Sorry, your cart is still empty");
+        }
         response.setContentType(CONTENT_TYPE);
         PageGenerator.instance().process("cart", map, response.getWriter());
     }
@@ -46,7 +51,6 @@ public class CartServlet extends HttpServlet {
         } else {
             session.getCart().add(product);
         }
-
         response.sendRedirect("/");
     }
 }

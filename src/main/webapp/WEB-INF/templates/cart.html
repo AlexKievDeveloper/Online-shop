@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/header.html :: head(title='Stylo-Cart')}"></div>
+
 <div class="cart-body">
     <div class="section">
-
-        <div class="cart-body__header">
-            <h2>Purchases list</h2>
+        <div th:if="${purchases}!=null">
+            <div class="cart-body__header">
+                <h2>Purchases list</h2>
+            </div>
+            <table class="cart-body__table table">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+                <tr th:each="prod : ${purchases}">
+                    <td th:text="${prod.id}">id</td>
+                    <td th:text="${prod.name}">name</td>
+                    <td th:text="${prod.price}">price</td>
+                </tr>
+                <tr class="table__third-row">
+                    <td></td>
+                    <td>Total cost:</td>
+                    <td th:text="${total_cost}">Total-cost</td>
+                </tr>
+            </table>
         </div>
-        <table class="cart-body__table table">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-            </tr>
-            <tr th:each="prod : ${purchases}">
-                <td th:text="${prod.id}">id</td>
-                <td th:text="${prod.name}">name</td>
-                <td th:text="${prod.price}">price</td>
-            </tr>
-            <tr class="table__third-row">
-                <td></td>
-                <td>Total cost:</td>
-                <td th:text="${total_cost}">Total-cost</td>
-            </tr>
-        </table>
+        <div th:if="${message}!=null">
+            <h1 class="error-form__text" th:text="${message}">Message</h1>
+        </div>
     </div>
 </div>
 <div th:replace="~{/fragments/footer.html :: foot}"></div>
