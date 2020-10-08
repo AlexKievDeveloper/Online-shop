@@ -46,13 +46,4 @@ public abstract class AbstractSecurityFilter implements Filter {
     }
 
     abstract Collection<Role> getRequairedRoles();
-
-    @Override
-    public void init(FilterConfig arg0) {
-
-    }
-
-    @Override
-    public void destroy() {
-    }
 }

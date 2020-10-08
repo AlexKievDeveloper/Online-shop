@@ -120,6 +120,7 @@
         <filter-name>UserRoleSecurityFilter</filter-name>
         <url-pattern>/home</url-pattern>
         <url-pattern></url-pattern>
+        <url-pattern>/</url-pattern>
         <url-pattern>/search</url-pattern>
         <url-pattern>/view/*</url-pattern>
         <url-pattern>/logout</url-pattern>

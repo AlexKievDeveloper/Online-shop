@@ -14,8 +14,8 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <flyway.version>6.5.5</flyway.version>
-        <maven.dependency.plugin>2.4</maven.dependency.plugin>
-        <jetty.version>9.4.31.v20200723</jetty.version>
+        <maven.dependency.plugin>2.8</maven.dependency.plugin>
+        <webapp-runner.version>9.0.30.0</webapp-runner.version>
         <jacoco.version>0.8.5</jacoco.version>
         <maven.surefire.plugin>3.0.0-M5</maven.surefire.plugin>
         <postgres.version>42.2.14</postgres.version>
@@ -55,6 +55,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.plugin}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -66,7 +67,7 @@
                                 <artifactItem>
                                     <groupId>com.heroku</groupId>
                                     <artifactId>webapp-runner</artifactId>
-                                    <version>9.0.30.0</version>
+                                    <version>${webapp-runner.version}</version>
                                     <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
@@ -137,7 +138,7 @@
             <artifactId>thymeleaf</artifactId>
             <version>${thymeleaf.version}</version>
         </dependency>
-        <!--Apache commons (for sha1)-->
+        <!--Apache commons (for sha256)-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
