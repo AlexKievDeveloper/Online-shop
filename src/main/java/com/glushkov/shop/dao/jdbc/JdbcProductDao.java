@@ -9,7 +9,9 @@ import lombok.val;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class JdbcProductDao implements ProductDao {
@@ -83,7 +85,7 @@ public class JdbcProductDao implements ProductDao {
             val productList = new ArrayList<Product>();
             while (resultSet.next()) {
                 productList.add(PRODUCT_ROW_MAPPER.mapRow(resultSet));
-            }
+            } 
             return productList;
         } catch (SQLException e) {
             log.error("Error while connection to DB, method findAll()", e);

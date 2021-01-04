@@ -23,7 +23,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User findUserByLogin(String login) {
+    public User findUserByLogin(String login) {//TODO test!
 
         try (val connection = dataSource.getConnection();
              val preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {

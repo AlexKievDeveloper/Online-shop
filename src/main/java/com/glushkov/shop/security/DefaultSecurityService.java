@@ -24,7 +24,7 @@ public class DefaultSecurityService implements SecurityService, Runnable {
     public Session login(String login, String password) {
         User user = userService.findUserByLogin(login);
         if (user != null) {
-            String sole = user.getSole();
+            String sole = user.getSole();//TODO salt
             String hashPassword = DigestUtils.sha256Hex(sole.concat(password));
             long sessionMaxAge = Long.parseLong(propertyReader.getProperties().getProperty("session.max-age"));
 
@@ -65,7 +65,7 @@ public class DefaultSecurityService implements SecurityService, Runnable {
         sessionList.removeIf(session -> session.getExpireDate().isBefore(LocalDateTime.now()));
     }
 
-    public void setSessionList(List<Session> sessionList) {
+    void setSessionList(List<Session> sessionList) {
         this.sessionList = sessionList;
     }
 }

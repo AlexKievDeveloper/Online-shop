@@ -42,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
         if (!isLoginExist) {
             val password = request.getParameter("password");
             val sole = UUID.randomUUID().toString();
-
+            /*String shaPassword = securityService.hash(sole, password);*/
             val user = User.builder()
                     .login(login)
                     .password(DigestUtils.sha256Hex(sole.concat(password)))
