@@ -1,4 +1,5 @@
-package com.glushkov.shop.dao.jdbc;
+
+/*package com.glushkov.shop.dao.jdbc;
 
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.util.PropertyReader;
@@ -139,3 +140,4 @@ class JdbcProductDaoITest {
         assertEquals(4, jdbcProductDao.findAll().size());
     }
 }
+*/

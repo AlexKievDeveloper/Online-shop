@@ -3,17 +3,19 @@ package com.glushkov.shop.dao.jdbc;
 import com.glushkov.shop.dao.ProductDao;
 import com.glushkov.shop.dao.jdbc.mapper.ProductRowMapper;
 import com.glushkov.shop.entity.Product;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
+@Repository
+@RequiredArgsConstructor
 public class JdbcProductDao implements ProductDao {
 
     private static final String FIND_BY_ID = "SELECT id, name, price, description, image FROM products WHERE id = ?";
@@ -25,10 +27,6 @@ public class JdbcProductDao implements ProductDao {
     private static final ProductRowMapper PRODUCT_ROW_MAPPER = new ProductRowMapper();
 
     private final DataSource dataSource;
-
-    public JdbcProductDao(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Override
     public Product findById(int id) {
@@ -85,7 +83,7 @@ public class JdbcProductDao implements ProductDao {
             val productList = new ArrayList<Product>();
             while (resultSet.next()) {
                 productList.add(PRODUCT_ROW_MAPPER.mapRow(resultSet));
-            } 
+            }
             return productList;
         } catch (SQLException e) {
             log.error("Error while connection to DB, method findAll()", e);

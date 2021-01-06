@@ -1,4 +1,5 @@
-package com.glushkov.shop.web.servlet;
+
+/*package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.service.impl.DefaultProductService;
 import org.junit.jupiter.api.DisplayName;
@@ -57,3 +58,4 @@ class AddProductServletTest {
         verify(response).sendRedirect("/");
     }
 }
+*/

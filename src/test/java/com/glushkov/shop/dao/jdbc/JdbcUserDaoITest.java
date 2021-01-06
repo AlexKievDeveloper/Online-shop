@@ -1,4 +1,5 @@
-package com.glushkov.shop.dao.jdbc;
+
+/*package com.glushkov.shop.dao.jdbc;
 
 import com.glushkov.shop.entity.Role;
 import com.glushkov.shop.entity.User;
@@ -72,4 +73,4 @@ class JdbcUserDaoITest {
         //then
         assertFalse(actual);
     }
-}
+}*/

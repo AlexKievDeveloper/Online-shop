@@ -1,4 +1,5 @@
-package com.glushkov.shop.web.servlet;
+
+/*package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.entity.Role;
@@ -84,3 +85,4 @@ class ViewProductServletTest {
         verify(parameters).put("image", product.getImage());
     }
 }
+*/

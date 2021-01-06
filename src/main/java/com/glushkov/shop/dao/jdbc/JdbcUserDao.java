@@ -3,14 +3,18 @@ package com.glushkov.shop.dao.jdbc;
 import com.glushkov.shop.dao.UserDao;
 import com.glushkov.shop.dao.jdbc.mapper.UserRowMapper;
 import com.glushkov.shop.entity.User;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Slf4j
+@Repository
+@RequiredArgsConstructor
 public class JdbcUserDao implements UserDao {
     private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, role, sole FROM users WHERE login = ?";
     private static final String SAVE = "INSERT INTO users(login, password, role, sole) VALUES (?, ?, ?, ?);";
@@ -18,20 +22,16 @@ public class JdbcUserDao implements UserDao {
     private static final UserRowMapper USER_ROW_MAPPER = new UserRowMapper();
     private final DataSource dataSource;
 
-    public JdbcUserDao(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
     @Override
     public User findUserByLogin(String login) {//TODO test!
-
+        log.info("UserDao find user by login");
         try (val connection = dataSource.getConnection();
              val preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
 
             preparedStatement.setString(1, login);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
+                log.info("UserDao got result set for find user by login");
                 if (!resultSet.next()) {
                     log.info("No user found for login: {}", login);
                     return null;

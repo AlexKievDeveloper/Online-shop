@@ -1,4 +1,5 @@
-package com.glushkov.shop.web.servlet;
+
+/*package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.security.SecurityService;
 import com.glushkov.shop.security.Session;
@@ -74,4 +75,4 @@ class LoginServletTest {
         verify(securityService).login("Alex", "1111");
         verify(response).sendRedirect("/login?message=Access denied. Please login and try again.");
     }
-}
+}*/

@@ -3,14 +3,15 @@ package com.glushkov.shop.service.impl;
 import com.glushkov.shop.dao.UserDao;
 import com.glushkov.shop.entity.User;
 import com.glushkov.shop.service.UserService;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class DefaultUserService implements UserService {
 
     private final UserDao userDao;
-
-    public DefaultUserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     @Override
     public User findUserByLogin(String login) {

@@ -1,4 +1,5 @@
-package com.glushkov.shop.web.servlet;
+
+/*package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.security.Session;
@@ -67,4 +68,4 @@ class CartServletTest {
         verify(productService).findById(1);
         verify(response).sendRedirect("/");
     }
-}
+}*/

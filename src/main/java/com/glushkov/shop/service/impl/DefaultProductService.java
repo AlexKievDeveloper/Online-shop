@@ -3,16 +3,15 @@ package com.glushkov.shop.service.impl;
 import com.glushkov.shop.dao.ProductDao;
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.ProductService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public class DefaultProductService implements ProductService {
 
     private final ProductDao productDao;
-
-    public DefaultProductService(ProductDao productDao) {
-        this.productDao = productDao;
-    }
 
     public Product findById(int id) {
         return productDao.findById(id);

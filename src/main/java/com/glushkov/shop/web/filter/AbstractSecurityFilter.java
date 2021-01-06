@@ -1,9 +1,11 @@
 package com.glushkov.shop.web.filter;
 
-import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.Role;
-import com.glushkov.shop.security.SecurityService;
+import com.glushkov.shop.security.DefaultSecurityService;
 import com.glushkov.shop.security.Session;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -12,8 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
+@Slf4j
+@NoArgsConstructor
+//Происходит вызов конструктора без параметров, игнорируется вызов all args constructor и не инжектится сервис
+@AllArgsConstructor
 public abstract class AbstractSecurityFilter implements Filter {
-    private SecurityService securityService = ServiceLocator.getService("securityService");
+    private DefaultSecurityService securityService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
@@ -27,9 +33,11 @@ public abstract class AbstractSecurityFilter implements Filter {
             for (Cookie cookie : cookies) {
                 if ("user-token".equals(cookie.getName())) {
                     String token = cookie.getValue();
+                    log.info("Token: {}", token);
+                    log.info("Security service: {}", securityService);
                     Session session = securityService.getSession(token);
                     if (session != null) {
-                        if (getRequairedRoles().contains(session.getUser().getRole())) {
+                        if (getRequiredRoles().contains(session.getUser().getRole())) {
                             isAuth = true;
                             request.setAttribute("session", session);
                         }
@@ -45,5 +53,24 @@ public abstract class AbstractSecurityFilter implements Filter {
         }
     }
 
-    abstract Collection<Role> getRequairedRoles();
+    abstract Collection<Role> getRequiredRoles();
 }
+
+
+
+
+
+
+
+
+
+
+/*    @Autowired
+    public AbstractSecurityFilter() {
+        setSecurityService(DefaultSecurityService securityService);
+    }
+
+    @Autowired
+    public final void setSecurityService(DefaultSecurityService securityService) {
+        this.securityService = securityService;
+    }*/

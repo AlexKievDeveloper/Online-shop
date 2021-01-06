@@ -1,32 +1,34 @@
 package com.glushkov.shop.security;
 
-import com.glushkov.shop.ServiceLocator;
 import com.glushkov.shop.entity.User;
 import com.glushkov.shop.service.UserService;
-import com.glushkov.shop.util.PropertyReader;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
-
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class DefaultSecurityService implements SecurityService, Runnable {
     private List<Session> sessionList = new CopyOnWriteArrayList<>();
-    private PropertyReader propertyReader = ServiceLocator.getPropertyReader();
-    private UserService userService;
-
-    public DefaultSecurityService(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
+    @Value("${session.max-age}")
+    private long sessionMaxAge;
 
     @Override
     public Session login(String login, String password) {
+        log.info("Post request for login");
         User user = userService.findUserByLogin(login);
         if (user != null) {
-            String sole = user.getSole();//TODO salt
-            String hashPassword = DigestUtils.sha256Hex(sole.concat(password));
-            long sessionMaxAge = Long.parseLong(propertyReader.getProperties().getProperty("session.max-age"));
+            log.info("User is not null");
+            String salt = user.getSole();
+            String hashPassword = DigestUtils.sha256Hex(salt.concat(password));
 
             if (user.getPassword().equals(hashPassword)) {
                 Session session = Session.builder()
@@ -35,9 +37,12 @@ public class DefaultSecurityService implements SecurityService, Runnable {
                         .expireDate(LocalDateTime.now().plusSeconds(sessionMaxAge))
                         .build();
                 sessionList.add(session);
+                log.info("Password is correct");
+                log.info("Session: {}", session);
                 return session;
             }
         }
+        log.info("Login or password is not correct");
         return null;
     }
 

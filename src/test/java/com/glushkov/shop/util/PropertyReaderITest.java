@@ -1,4 +1,5 @@
-package com.glushkov.shop.util;
+
+/*package com.glushkov.shop.util;
 
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
@@ -156,3 +157,4 @@ class PropertyReaderITest {
 }
 
 
+*/

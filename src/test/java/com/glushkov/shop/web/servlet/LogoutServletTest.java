@@ -1,3 +1,4 @@
+/*
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.security.SecurityService;
@@ -42,4 +43,4 @@ class LogoutServletTest {
         verify(securityService).logout(any());
         verify(response).sendRedirect("/login");
     }
-}
+}*/

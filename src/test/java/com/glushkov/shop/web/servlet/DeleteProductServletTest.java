@@ -1,3 +1,4 @@
+/*
 package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.service.impl.DefaultProductService;
@@ -39,3 +40,4 @@ class DeleteProductServletTest {
         verify(response).sendRedirect("/");
     }
 }
+*/

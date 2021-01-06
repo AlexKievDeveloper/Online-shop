@@ -1,4 +1,5 @@
-package com.glushkov.shop.web.servlet;
+
+/*package com.glushkov.shop.web.servlet;
 
 import com.glushkov.shop.entity.Product;
 import com.glushkov.shop.service.impl.DefaultProductService;
@@ -91,3 +92,4 @@ class EditProductServletTest {
         verify(parameters).put("image", product.getImage());
     }
 }
+*/
