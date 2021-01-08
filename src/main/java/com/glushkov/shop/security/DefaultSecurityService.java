@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -38,7 +39,6 @@ public class DefaultSecurityService implements SecurityService, Runnable {
                         .build();
                 sessionList.add(session);
                 log.info("Password is correct");
-                log.info("Session: {}", session);
                 return session;
             }
         }

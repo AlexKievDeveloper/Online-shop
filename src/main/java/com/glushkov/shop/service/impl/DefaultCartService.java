@@ -5,6 +5,7 @@ import com.glushkov.shop.service.CartService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class DefaultCartService implements CartService {
 

@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @Configuration
 @ComponentScan(value = "com.glushkov.shop", excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
@@ -21,9 +22,9 @@ public class RootApplicationContext {
     private DefaultSecurityService defaultSecurityService;
 
     @Bean
-    protected DataSource dataSource(@Value("${db.url}") String url,
-                                    @Value("${db.user}") String userName,
-                                    @Value("${db.password}") String password) {
+    protected DataSource dataSource(@Value("${jdbc.url}") String url,
+                                    @Value("${jdbc.user}") String userName,
+                                    @Value("${jdbc.password}") String password) {
 
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl(url);
@@ -34,7 +35,6 @@ public class RootApplicationContext {
 
     @Bean
     protected ScheduledExecutorService getExecutorService() {
-        log.info("Security service in root context: {}", defaultSecurityService);
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(defaultSecurityService, 0, 10, TimeUnit.MINUTES);
         return executorService;
@@ -42,20 +42,3 @@ public class RootApplicationContext {
 
 }
 
-
-
-/*    @Bean
-        protected UserDao userDao(DataSource dataSource) {
-            return new JdbcUserDao(dataSource);
-        }
-
-        @Bean
-        protected UserService userService(UserDao userDao) {
-            return new DefaultUserService(userDao);
-        }
-
-        @Bean
-        protected DefaultSecurityService securityService(UserService userService) {
-            return new DefaultSecurityService(userService);
-        }
-    */

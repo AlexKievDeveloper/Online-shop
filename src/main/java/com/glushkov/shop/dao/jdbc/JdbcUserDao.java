@@ -16,6 +16,7 @@ import java.sql.SQLException;
 @Repository
 @RequiredArgsConstructor
 public class JdbcUserDao implements UserDao {
+
     private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, role, sole FROM users WHERE login = ?";
     private static final String SAVE = "INSERT INTO users(login, password, role, sole) VALUES (?, ?, ?, ?);";
     private static final String IS_EXIST = "SELECT EXISTS(select 1 from users where login=?)";

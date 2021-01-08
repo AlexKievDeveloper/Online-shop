@@ -46,7 +46,7 @@ public class ProductController {
     @GetMapping("/view/*")
     protected String getProductPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         val role = ((Session) request.getAttribute("session")).getUser().getRole();
-        val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(1)));
+        val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(6)));
         putProductFieldsIntoModel(product, model);
 
         if (role != null) {
@@ -107,13 +107,6 @@ public class ProductController {
         productService.delete(id);
         response.sendRedirect("/home");
     }
-
-
-
-
-
-
-
 
     void putProductFieldsIntoModel(Product product, Model model) {
         model.addAttribute("id", product.getId());

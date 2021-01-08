@@ -1,32 +1,24 @@
+package com.glushkov.shop.dao.jdbc;
 
-/*package com.glushkov.shop.dao.jdbc;
-
+import com.glushkov.shop.RootApplicationContext;
 import com.glushkov.shop.entity.Product;
-import com.glushkov.shop.util.PropertyReader;
 import lombok.val;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringJUnitWebConfig(value = {TestConfiguration.class, RootApplicationContext.class})
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JdbcProductDaoITest {
-    private final JdbcProductDao jdbcProductDao;
-    private final Flyway flyway;
+    @Autowired
+    private JdbcProductDao jdbcProductDao;
 
-    JdbcProductDaoITest() {
-        val propertyReader = new PropertyReader("/application-test.properties");
-        val properties = propertyReader.getProperties();
-
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl(properties.getProperty("jdbc.default-url"));
-
-        flyway = Flyway.configure().dataSource(dataSource).locations("db/migration/products").load();
-        jdbcProductDao = new JdbcProductDao(dataSource);
-    }
+    @Autowired
+    private Flyway flyway;
 
     @BeforeEach
     void init() {
@@ -140,4 +132,3 @@ class JdbcProductDaoITest {
         assertEquals(4, jdbcProductDao.findAll().size());
     }
 }
-*/

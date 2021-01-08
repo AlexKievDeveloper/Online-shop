@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
     private final DefaultProductService productService;
-    private final CartService cartService ;
+    private final CartService cartService;
 
     @GetMapping
     protected String getCartPage(Model model, HttpServletRequest request) {

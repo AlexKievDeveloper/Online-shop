@@ -1,11 +1,10 @@
 package com.glushkov.shop.web.filter;
 
 import com.glushkov.shop.entity.Role;
-import com.glushkov.shop.security.DefaultSecurityService;
+import com.glushkov.shop.security.SecurityService;
 import com.glushkov.shop.security.Session;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -15,15 +14,15 @@ import java.io.IOException;
 import java.util.Collection;
 
 @Slf4j
-@NoArgsConstructor
-//Происходит вызов конструктора без параметров, игнорируется вызов all args constructor и не инжектится сервис
-@AllArgsConstructor
 public abstract class AbstractSecurityFilter implements Filter {
-    private DefaultSecurityService securityService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
+
+        WebApplicationContext webApplicationContext = (WebApplicationContext) request.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        SecurityService securityService = (SecurityService) webApplicationContext.getBean("defaultSecurityService");
+
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         Cookie[] cookies = httpServletRequest.getCookies();
@@ -55,22 +54,3 @@ public abstract class AbstractSecurityFilter implements Filter {
 
     abstract Collection<Role> getRequiredRoles();
 }
-
-
-
-
-
-
-
-
-
-
-/*    @Autowired
-    public AbstractSecurityFilter() {
-        setSecurityService(DefaultSecurityService securityService);
-    }
-
-    @Autowired
-    public final void setSecurityService(DefaultSecurityService securityService) {
-        this.securityService = securityService;
-    }*/
