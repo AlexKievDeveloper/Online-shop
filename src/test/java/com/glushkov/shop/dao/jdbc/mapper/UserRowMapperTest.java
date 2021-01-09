@@ -31,13 +31,13 @@ class UserRowMapperTest {
         when(mockResultSet.getString("role")).thenReturn("USER");
         when(mockResultSet.getString("sole")).thenReturn("sole");
         //when
-        val actual = userRowMapper.mapRow(mockResultSet);
+        val actualUser = userRowMapper.mapRow(mockResultSet);
         //then
-        assertNotNull(actual);
-        assertEquals(1, actual.getId());
-        assertEquals("User", actual.getLogin());
-        assertEquals("1111", actual.getPassword());
-        assertEquals(Role.USER, actual.getRole());
+        assertNotNull(actualUser);
+        assertEquals(1, actualUser.getId());
+        assertEquals("User", actualUser.getLogin());
+        assertEquals("1111", actualUser.getPassword());
+        assertEquals(Role.USER, actualUser.getRole());
         assertEquals("sole", mockResultSet.getString("sole"));
     }
 }

@@ -6,16 +6,10 @@ import com.glushkov.shop.service.CartService;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +22,9 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    protected String getCartPage(Model model, HttpServletRequest request) {
+    protected String getCartPage(Model model, @RequestAttribute Session session) {
 
-        List<Product> purchaseList = ((Session) request.getAttribute("session")).getCart();
+        List<Product> purchaseList = session.getCart();
 
         if (purchaseList != null) {
             model.addAttribute("total_cost", cartService.getTotalCost(purchaseList));
@@ -43,11 +37,10 @@ public class CartController {
     }
 
     @PostMapping
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        val id = Integer.parseInt(request.getParameter("id"));
-        val product = productService.findById(id);
+    protected String doPost(@RequestParam Integer id, @RequestAttribute Session session) {
 
-        val session = ((Session) request.getAttribute("session"));
+        Product product = productService.findById(id);
+
         if (session.getCart() == null) {
             List<Product> cart = new ArrayList<>();
             cart.add(product);
@@ -55,6 +48,6 @@ public class CartController {
         } else {
             session.getCart().add(product);
         }
-        response.sendRedirect("/home");
+        return "redirect:/home";
     }
 }

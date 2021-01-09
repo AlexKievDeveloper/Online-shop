@@ -25,8 +25,8 @@ class DefaultCartServiceTest {
         productList.add(firstProduct);
         productList.add(secondProduct);
         //when
-        double actual = defaultCartService.getTotalCost(productList);
+        double actualTotalCost = defaultCartService.getTotalCost(productList);
         //then
-        assertEquals(400, actual);
+        assertEquals(400, actualTotalCost);
     }
 }

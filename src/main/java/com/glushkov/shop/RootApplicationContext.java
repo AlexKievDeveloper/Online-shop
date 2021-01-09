@@ -39,6 +39,5 @@ public class RootApplicationContext {
         executorService.scheduleAtFixedRate(defaultSecurityService, 0, 10, TimeUnit.MINUTES);
         return executorService;
     }
-
 }
 

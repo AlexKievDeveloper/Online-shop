@@ -30,13 +30,13 @@ public class ProductRowMapperTest {
         when(mockResultSet.getString("image")).thenReturn("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg");
         val productRowMapper = new ProductRowMapper();
         //when
-        val actual = productRowMapper.mapRow(mockResultSet);
+        val actualProduct = productRowMapper.mapRow(mockResultSet);
         //then
-        assertNotNull(actual);
-        assertEquals(1, actual.getId());
-        assertEquals("Victory-1765", actual.getName());
-        assertEquals(299.99, actual.getPrice());
-        assertEquals("description", actual.getDescription());
-        assertEquals("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg", actual.getImage());
+        assertNotNull(actualProduct);
+        assertEquals(1, actualProduct.getId());
+        assertEquals("Victory-1765", actualProduct.getName());
+        assertEquals(299.99, actualProduct.getPrice());
+        assertEquals("description", actualProduct.getDescription());
+        assertEquals("https://i.postimg.cc/J0993gLN/victory-pen-300.jpg", actualProduct.getImage());
     }
 }

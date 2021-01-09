@@ -1,20 +1,15 @@
 package com.glushkov.shop.web.controller;
 
 import com.glushkov.shop.entity.Product;
+import com.glushkov.shop.entity.Role;
 import com.glushkov.shop.security.Session;
 import com.glushkov.shop.service.impl.DefaultProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -36,34 +31,31 @@ public class ProductController {
         return "add-product.html";
     }
 
-    @GetMapping("/edit/*")
-    protected String getEditPage(Model model, HttpServletRequest request) {
-        val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(1)));
+    @GetMapping("/edit/{id}")
+    protected String getEditPage(Model model, @PathVariable Integer id) {
+        Product product = productService.findById(id);
         putProductFieldsIntoModel(product, model);
         return "edit.html";
     }
 
-    @GetMapping("/view/*")
-    protected String getProductPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        val role = ((Session) request.getAttribute("session")).getUser().getRole();
-        val product = productService.findById(Integer.parseInt(request.getPathInfo().substring(6)));
-        putProductFieldsIntoModel(product, model);
+    @GetMapping("/view/{id}")
+    protected String getProductPage(Model model, @RequestAttribute Session session, @PathVariable Integer id) {
+        Role role = session.getUser().getRole();
 
         if (role != null) {
+            Product product = productService.findById(id);
+            putProductFieldsIntoModel(product, model);
             model.addAttribute("role", role.getUserRole());
             return "view.html";
         } else {
-            response.sendRedirect("/login?message=Access denied. Please login and try again.");
-            model.addAttribute("message", "Access denied. Please login and try again.");
-            return "login.html";
+            return "redirect:/login?message=Access denied. Please login and try again.";
         }
     }
 
     @GetMapping("/search")
-    protected String search(Model model, HttpServletRequest request) {
+    protected String search(Model model, @RequestParam String enteredName) {
 
-        val enteredName = request.getParameter("enteredName");
-        val usersList = productService.findByName(enteredName);
+        List<Product> usersList = productService.findByName(enteredName);
 
         if (usersList.isEmpty()) {
             model.addAttribute("message", "Sorry, no products were found for your request: " + enteredName);
@@ -75,37 +67,36 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    protected void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        val product = Product.builder()
-                .name(request.getParameter("name"))
+    protected String add(@RequestParam String name, @RequestParam String image, @RequestParam Double price) {
+        Product product = Product.builder()
+                .name(name)
                 .description("description")
-                .image(request.getParameter("image"))
-                .price(Double.parseDouble(request.getParameter("price")))
+                .image(image)
+                .price(price)
                 .build();
 
         productService.save(product);
-        response.sendRedirect("/home");
+        return "redirect:/home";
     }
 
-    @PostMapping("/edit/*")
-    protected void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        val product = Product.builder()
-                .id(Integer.parseInt(request.getParameter("id")))
-                .name(request.getParameter("name"))
+    @PostMapping("/edit")
+    protected String edit(@RequestParam Integer id, @RequestParam String name, @RequestParam String image, @RequestParam Double price) {
+        Product product = Product.builder()
+                .id(id)
+                .name(name)
                 .description("description")
-                .image(request.getParameter("image"))
-                .price(Double.parseDouble(request.getParameter("price")))
+                .image(image)
+                .price(price)
                 .build();
 
         productService.update(product);
-        response.sendRedirect("/home");
+        return "redirect:/home";
     }
 
-    @DeleteMapping("/delete")
-    protected void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        val id = Integer.parseInt(request.getParameter("id"));
+    @PostMapping("/delete")
+    protected String delete(@RequestParam Integer id) {
         productService.delete(id);
-        response.sendRedirect("/home");
+        return "redirect:/home";
     }
 
     void putProductFieldsIntoModel(Product product, Model model) {

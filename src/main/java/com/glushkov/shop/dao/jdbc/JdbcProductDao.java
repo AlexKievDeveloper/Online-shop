@@ -6,6 +6,7 @@ import com.glushkov.shop.entity.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -17,21 +18,26 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class JdbcProductDao implements ProductDao {
+    @Autowired
+    private String findById;
+    @Autowired
+    private String findByName;
+    @Autowired
+    private String findAll;
+    @Autowired
+    private String save;
+    @Autowired
+    private String update;
+    @Autowired
+    private String delete;
 
-    private static final String FIND_BY_ID = "SELECT id, name, price, description, image FROM products WHERE id = ?";
-    private static final String FIND_BY_NAME = "SELECT id, name, price, description, image FROM products WHERE name ILIKE '%'||?||'%';";
-    private static final String FIND_ALL = "SELECT id, name, price, description, image FROM products;";
-    private static final String SAVE = "INSERT INTO products(name, price, description, image) VALUES (?, ?, ?, ?);";
-    private static final String UPDATE = "UPDATE products SET name = ?, price = ?, description = ? , image = ? WHERE id = ?;";
-    private static final String DELETE = "DELETE FROM products WHERE id = ?;";
     private static final ProductRowMapper PRODUCT_ROW_MAPPER = new ProductRowMapper();
-
     private final DataSource dataSource;
 
     @Override
     public Product findById(int id) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+             val preparedStatement = connection.prepareStatement(findById)) {
 
             preparedStatement.setInt(1, id);
 
@@ -57,7 +63,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public List<Product> findByName(String name) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(FIND_BY_NAME)) {
+             val preparedStatement = connection.prepareStatement(findByName)) {
             preparedStatement.setString(1, name);
 
             try (val resultSet = preparedStatement.executeQuery()) {
@@ -78,7 +84,7 @@ public class JdbcProductDao implements ProductDao {
     public List<Product> findAll() {
         try (val connection = dataSource.getConnection();
              val statement = connection.createStatement();
-             val resultSet = statement.executeQuery(FIND_ALL)) {
+             val resultSet = statement.executeQuery(findAll)) {
 
             val productList = new ArrayList<Product>();
             while (resultSet.next()) {
@@ -94,7 +100,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public void save(Product product) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(SAVE)) {
+             val preparedStatement = connection.prepareStatement(save)) {
 
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
@@ -110,7 +116,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public void update(Product product) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(UPDATE)) {
+             val preparedStatement = connection.prepareStatement(update)) {
 
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
@@ -128,7 +134,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public void delete(int productId) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(DELETE)) {
+             val preparedStatement = connection.prepareStatement(delete)) {
 
             preparedStatement.setInt(1, productId);
             preparedStatement.execute();

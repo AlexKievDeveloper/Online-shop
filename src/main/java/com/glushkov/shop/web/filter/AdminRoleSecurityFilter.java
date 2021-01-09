@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 
 @Component
-@WebFilter(urlPatterns = {"/add", "/edit", "/delete"})
+@WebFilter(urlPatterns = {"/add", "/edit", "/edit/*", "/delete"})
 public class AdminRoleSecurityFilter extends AbstractSecurityFilter {
 
     @Override

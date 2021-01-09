@@ -1,15 +1,18 @@
-create table PRODUCTS
+create table if not exists products
 (
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR(40)  not null,
-    price       DOUBLE       not null,
-    description VARCHAR(40)  not null,
-    image       VARCHAR(200) not null
+    id          serial           not null
+        constraint products_pk
+            primary key,
+    name        varchar(40)      not null,
+    price       double precision not null,
+    description varchar(40)      not null,
+    image       varchar(200)     not null
 );
 
-create unique index PRODUCTS_ID_UINDEX
-    on PRODUCTS (id);
-create index PRODUCTS_NAME_UINDEX
-    on PRODUCTS (name);
+create index "product-id"
+    on products (id);
+
+create index "product-name"
+    on products (name);
 
 

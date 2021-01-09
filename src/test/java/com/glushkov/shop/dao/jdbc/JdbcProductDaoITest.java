@@ -4,7 +4,6 @@ import com.glushkov.shop.RootApplicationContext;
 import com.glushkov.shop.entity.Product;
 import lombok.val;
 import org.flywaydb.core.Flyway;
-import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;

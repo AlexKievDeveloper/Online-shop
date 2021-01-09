@@ -1,17 +1,17 @@
 package com.glushkov.shop.web.filter;
 
-import com.glushkov.shop.entity.Role;
-import com.glushkov.shop.entity.User;
-import com.glushkov.shop.security.SecurityService;
-import com.glushkov.shop.security.Session;
+import com.glushkov.shop.RootApplicationContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -21,39 +21,31 @@ import java.io.IOException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SpringJUnitWebConfig(RootApplicationContext.class)
 @ExtendWith({MockitoExtension.class})
 class AdminRoleSecurityFilterTest {
-    @Mock
-    SecurityService securityService;
     @InjectMocks
-    AdminRoleSecurityFilter adminRoleSecurityFilter;
+    private AdminRoleSecurityFilter adminRoleSecurityFilter;
     @Mock
-    HttpServletRequest request;
+    private HttpServletRequest request;
     @Mock
-    HttpServletResponse response;
+    private HttpServletResponse response;
     @Mock
-    FilterChain filterChain;
-    @Mock
-    User user;
-    @Mock
-    Session session;
+    private FilterChain filterChain;
+    @Autowired
+    private ServletContext servletContext;
 
     @Test
     @DisplayName("Checks the user role for Admin role")
     void doFilter() throws IOException, ServletException {
         //prepare
         Cookie[] cookies = {new Cookie("user-token", "1111")};
-        when(user.getRole()).thenReturn(Role.ADMIN);
-        when(session.getUser()).thenReturn(user);
         when(request.getCookies()).thenReturn(cookies);
-        when(securityService.getSession("1111")).thenReturn(session);
+        when(request.getServletContext()).thenReturn(servletContext);
         //when
         adminRoleSecurityFilter.doFilter(request, response, filterChain);
-
         //then
         verify(request).getCookies();
-        verify(securityService).getSession("1111");
-        verify(filterChain).doFilter(request, response);
     }
 
     @Test
@@ -61,6 +53,7 @@ class AdminRoleSecurityFilterTest {
     void doFilterIfCookiesEqualsNull() throws IOException, ServletException {
         //prepare
         when(request.getCookies()).thenReturn(null);
+        when(request.getServletContext()).thenReturn(servletContext);
         //when
         adminRoleSecurityFilter.doFilter(request, response, filterChain);
         //then

@@ -1,34 +1,25 @@
+package com.glushkov.shop.dao.jdbc;
 
-/*package com.glushkov.shop.dao.jdbc;
-
+import com.glushkov.shop.RootApplicationContext;
 import com.glushkov.shop.entity.Role;
 import com.glushkov.shop.entity.User;
-import com.glushkov.shop.util.PropertyReader;
-import lombok.val;
 import org.flywaydb.core.Flyway;
-import org.h2.jdbcx.JdbcDataSource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringJUnitWebConfig(value = {TestConfiguration.class, RootApplicationContext.class})
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JdbcUserDaoITest {
+
+    @Autowired
     private JdbcUserDao jdbcUserDao;
+
+    @Autowired
     private Flyway flyway;
-
-    public JdbcUserDaoITest() {
-        val propertyReader = new PropertyReader("/application-test.properties");
-        val properties = propertyReader.getProperties();
-
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl(properties.getProperty("jdbc.default-url"));
-
-        flyway = Flyway.configure().dataSource(dataSource).locations("db/migration/users").load();
-        jdbcUserDao = new JdbcUserDao(dataSource);
-    }
 
     @BeforeEach
     void init() {
@@ -41,7 +32,7 @@ class JdbcUserDaoITest {
     }
 
     @Test
-    @DisplayName("Returns null when the user is not in the db")
+    @DisplayName("Saving user in the db")
     void saveTest() {
         //prepare
         User user = User.builder()
@@ -73,4 +64,4 @@ class JdbcUserDaoITest {
         //then
         assertFalse(actual);
     }
-}*/
+}

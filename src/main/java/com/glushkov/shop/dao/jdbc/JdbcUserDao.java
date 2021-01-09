@@ -6,6 +6,7 @@ import com.glushkov.shop.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -17,9 +18,13 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class JdbcUserDao implements UserDao {
 
-    private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, role, sole FROM users WHERE login = ?";
-    private static final String SAVE = "INSERT INTO users(login, password, role, sole) VALUES (?, ?, ?, ?);";
-    private static final String IS_EXIST = "SELECT EXISTS(select 1 from users where login=?)";
+    @Autowired
+    private String findUserByLogin;
+    @Autowired
+    private String saveUser;
+    @Autowired
+    private String isExist;
+
     private static final UserRowMapper USER_ROW_MAPPER = new UserRowMapper();
     private final DataSource dataSource;
 
@@ -27,7 +32,7 @@ public class JdbcUserDao implements UserDao {
     public User findUserByLogin(String login) {//TODO test!
         log.info("UserDao find user by login");
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
+             val preparedStatement = connection.prepareStatement(findUserByLogin)) {
 
             preparedStatement.setString(1, login);
 
@@ -54,7 +59,7 @@ public class JdbcUserDao implements UserDao {
 
     public void save(User user) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(SAVE)) {
+             val preparedStatement = connection.prepareStatement(saveUser)) {
 
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
@@ -69,7 +74,7 @@ public class JdbcUserDao implements UserDao {
 
     public boolean isLoginExist(String login) {
         try (val connection = dataSource.getConnection();
-             val preparedStatement = connection.prepareStatement(IS_EXIST)) {
+             val preparedStatement = connection.prepareStatement(isExist)) {
             preparedStatement.setString(1, login);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
