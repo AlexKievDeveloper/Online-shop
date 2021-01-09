@@ -10,7 +10,7 @@ deploy:
   api_key: e12b951b-da08-4b24-94f6-c2d772016f20
   app: stylo-shop
   on:
-    branch: master
+    all_branches: true
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 notifications:
